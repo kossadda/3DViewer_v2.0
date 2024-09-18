@@ -58,7 +58,7 @@ $(OBJ_DIR)/tests/modules/%.o: $(TESTS_DIR)/modules/%.cc $(TESTS_H)
 
 #=================================== TARGETS ===================================
 test: $(OBJ_DIR)/tests/modules $(TESTS_O) $(MODEL_LIB)
-	$(CXX) $(MAIN_TEST) $(MODEL_LIB) $(LDFLAGS) -o $@
+	$(CXX) $(MAIN_TEST) $(TESTS_O) $(MODEL_LIB) $(LDFLAGS) -o $@
 	./$@
 
 gcov_report: $(REPORT_DIR) $(OBJ_DIR)/tests/modules $(TESTS_O) $(MODEL_GCOVR_LIB)
