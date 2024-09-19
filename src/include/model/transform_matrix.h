@@ -12,11 +12,14 @@
 #ifndef SRC_INCLUDE_MODEL_TRANSFORM_MATRIX_H_
 #define SRC_INCLUDE_MODEL_TRANSFORM_MATRIX_H_
 
+#include "include/model/3d_point.h"
+
 namespace s21 {
 class TransformMatrix {
  public:
   TransformMatrix() noexcept;
-  TransformMatrix operator*(const TransformMatrix &other) const;
+  TransformMatrix operator*(const TransformMatrix &other) const noexcept;
+  Point3D TransformPoint(const Point3D &other) const noexcept;
 
  private:
   static constexpr int kSize = 4;

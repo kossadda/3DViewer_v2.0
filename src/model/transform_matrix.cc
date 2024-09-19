@@ -9,7 +9,7 @@
  *
  */
 
-#include "../include/model/transform_matrix.h"
+#include "include/model/transform_matrix.h"
 
 namespace s21 {
 TransformMatrix::TransformMatrix() noexcept {
@@ -20,7 +20,8 @@ TransformMatrix::TransformMatrix() noexcept {
   }
 }
 
-TransformMatrix TransformMatrix::operator*(const TransformMatrix &other) const {
+TransformMatrix TransformMatrix::operator*(
+    const TransformMatrix &other) const noexcept {
   TransformMatrix res;
 
   for (int i = 0; i < kSize; ++i) {
@@ -32,6 +33,19 @@ TransformMatrix TransformMatrix::operator*(const TransformMatrix &other) const {
       }
     }
   }
+
+  return res;
+}
+
+Point3D TransformMatrix::TransformPoint(const Point3D &other) const noexcept {
+  Point3D res;
+
+  res.x =
+      m_[0][0] * other.x + m_[0][1] * other.y + m_[0][2] * other.z + m_[0][3];
+  res.y =
+      m_[1][0] * other.x + m_[1][1] * other.y + m_[1][2] * other.z + m_[1][3];
+  res.z =
+      m_[2][0] * other.x + m_[2][1] * other.y + m_[2][2] * other.z + m_[2][3];
 
   return res;
 }

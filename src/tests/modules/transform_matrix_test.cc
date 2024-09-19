@@ -266,4 +266,50 @@ TEST(TransformMatrixTest, MultiplyWithNegativeValues) {
     }
   }
 }
+
+TEST(TransformMatrixTest, TransformPoint) {
+  TransformMatrix matrix;
+
+  matrix.m_[0][0] = 1.0;
+  matrix.m_[1][1] = 1.0;
+  matrix.m_[2][2] = 1.0;
+  matrix.m_[3][3] = 1.0;
+
+  Point3D point(1.0, 2.0, 3.0);
+
+  Point3D result = matrix.TransformPoint(point);
+
+  EXPECT_EQ(result.x, 1.0);
+  EXPECT_EQ(result.y, 2.0);
+  EXPECT_EQ(result.z, 3.0);
+}
+
+TEST(TransformMatrixTest, TransformPointRandom1) {
+  TransformMatrix matrix;
+
+  matrix.m_[0][0] = 2.0f;
+  matrix.m_[0][1] = 3.0f;
+  matrix.m_[0][2] = 4.0f;
+  matrix.m_[0][3] = 0.0f;
+  matrix.m_[1][0] = 5.0f;
+  matrix.m_[1][1] = 6.0f;
+  matrix.m_[1][2] = 1.0f;
+  matrix.m_[1][3] = 0.0f;
+  matrix.m_[2][0] = 2.0f;
+  matrix.m_[2][1] = 3.0f;
+  matrix.m_[2][2] = 1.0f;
+  matrix.m_[2][3] = 0.0f;
+  matrix.m_[3][0] = 0.0f;
+  matrix.m_[3][1] = 0.0f;
+  matrix.m_[3][2] = 0.0f;
+  matrix.m_[3][3] = 1.0f;
+
+  Point3D point(5.0, 14.0, 4.0);
+
+  Point3D result = matrix.TransformPoint(point);
+
+  EXPECT_EQ(result.x, 68.0);
+  EXPECT_EQ(result.y, 113.0);
+  EXPECT_EQ(result.z, 56.0);
+}
 }  // namespace s21
