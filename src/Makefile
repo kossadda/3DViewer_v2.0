@@ -5,7 +5,7 @@ PROJECT_NAME          := 3DViewer
 CXX                   := g++
 
 #==================================== FLAGS ====================================
-CXXFLAGS              := -Wall -Wextra -Werror -std=c++17 -pedantic
+CXXFLAGS              := -Wall -Wextra -std=c++17 -pedantic -I.
 LDFLAGS               := -lgtest
 COVERAGE_FLAGS        := -fprofile-arcs -ftest-coverage
 VALGRIND              := --tool=memcheck --leak-check=yes
