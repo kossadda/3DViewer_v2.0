@@ -21,9 +21,7 @@ class TransformMatrix {
   TransformMatrix operator*(const TransformMatrix &other) const noexcept;
   Point3D TransformPoint(const Point3D &other) const noexcept;
 
- private:
   static constexpr int kSize = 4;
-
   float m_[kSize][kSize];
 };
 }  // namespace s21
