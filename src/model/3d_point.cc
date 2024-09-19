@@ -9,7 +9,7 @@
  *
  */
 
-#include "../include/model/3d_point.h"
+#include "include/model/3d_point.h"
 
 namespace s21 {
 Point3D::Point3D(float x, float y, float z) : x{x}, y{y}, z{z} {}
