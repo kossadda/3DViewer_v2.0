@@ -35,4 +35,11 @@ TEST(Point3DTest, InitializationWithZero) {
   EXPECT_FLOAT_EQ(point.y, 0.0f);
   EXPECT_FLOAT_EQ(point.z, 0.0f);
 }
+
+TEST(Point3DTest, InitializationDefault) {
+  Point3D point;
+  EXPECT_FLOAT_EQ(point.x, 0.0f);
+  EXPECT_FLOAT_EQ(point.y, 0.0f);
+  EXPECT_FLOAT_EQ(point.z, 0.0f);
+}
 }  // namespace s21

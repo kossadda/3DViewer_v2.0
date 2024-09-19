@@ -14,8 +14,10 @@
 
 namespace s21 {
 struct Point3D {
-  float x, y, z;
   Point3D(float x, float y, float z);
+  Point3D() = default;
+
+  float x{}, y{}, z{};
 };
 }  // namespace s21
 
