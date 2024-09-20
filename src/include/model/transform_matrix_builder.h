@@ -16,6 +16,7 @@
 
 namespace s21 {
 class TransformMatrixBuilder {
+ public:
   static TransformMatrix CreateRotationMatrix(float x, float y,
                                               float z) noexcept;
   static TransformMatrix CreateMoveMatrix(float x, float y, float z) noexcept;

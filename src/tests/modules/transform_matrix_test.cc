@@ -9,10 +9,12 @@
  *
  */
 #define private public
-#define protected public
 #include "../../include/model/transform_matrix.h"
+
+#include "../../include/model/transform_matrix_builder.h"
 #undef private
-#undef protected
+
+#include <cmath>
 
 #include "../include/main.test.h"
 
@@ -311,5 +313,46 @@ TEST(TransformMatrixTest, TransformPointRandom1) {
   EXPECT_EQ(result.x, 68.0);
   EXPECT_EQ(result.y, 113.0);
   EXPECT_EQ(result.z, 56.0);
+}
+
+TEST(TransformMatrixTest, MoveMatrixTest) {
+  TransformMatrix move_matrix =
+      TransformMatrixBuilder::CreateMoveMatrix(1.0f, 2.0f, 3.0f);
+
+  EXPECT_FLOAT_EQ(move_matrix.m_[0][3], 1.0f);
+  EXPECT_FLOAT_EQ(move_matrix.m_[1][3], 2.0f);
+  EXPECT_FLOAT_EQ(move_matrix.m_[2][3], 3.0f);
+}
+
+TEST(TransformMatrixTest, ScaleMatrixTest) {
+  TransformMatrix scale_matrix =
+      TransformMatrixBuilder::CreateScaleMatrix(2.0f, 3.0f, 4.0f);
+
+  EXPECT_FLOAT_EQ(scale_matrix.m_[0][0], 2.0f);
+  EXPECT_FLOAT_EQ(scale_matrix.m_[1][1], 3.0f);
+  EXPECT_FLOAT_EQ(scale_matrix.m_[2][2], 4.0f);
+}
+
+TEST(TransformMatrixTest, RotationMatrixTest) {
+  float angle = M_PI / 2;
+  TransformMatrix rot_matrix =
+      TransformMatrixBuilder::CreateRotationMatrix(0.0f, 0.0f, angle);
+
+  EXPECT_NEAR(rot_matrix.m_[0][0], 0.0f, 1e-5);
+  EXPECT_NEAR(rot_matrix.m_[0][1], -1.0f, 1e-5);
+  EXPECT_NEAR(rot_matrix.m_[1][0], 1.0f, 1e-5);
+  EXPECT_NEAR(rot_matrix.m_[1][1], 0.0f, 1e-5);
+}
+
+TEST(TransformMatrixTest, TransformPointTest) {
+  TransformMatrix move_matrix =
+      TransformMatrixBuilder::CreateMoveMatrix(1.0f, 2.0f, 3.0f);
+  Point3D point = {1.0f, 1.0f, 1.0f};
+
+  Point3D result = move_matrix.TransformPoint(point);
+
+  EXPECT_FLOAT_EQ(result.x, 2.0f);
+  EXPECT_FLOAT_EQ(result.y, 3.0f);
+  EXPECT_FLOAT_EQ(result.z, 4.0f);
 }
 }  // namespace s21
