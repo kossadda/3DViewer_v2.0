@@ -50,4 +50,9 @@ Point3D TransformMatrix::TransformPoint(const Point3D &other) const noexcept {
   return res;
 }
 
+void TransformMatrix::set_element(const int row, const int col,
+                                  float value) noexcept {
+  m_[row][col] = value;
+}
+
 }  // namespace s21
