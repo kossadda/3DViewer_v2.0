@@ -12,6 +12,8 @@
 #include "include/model/vertex.h"
 
 namespace s21 {
+Vertex::Vertex(const Point3D &point) noexcept : position_{point} {}
+
 void Vertex::Transform(const TransformMatrix &matrix) {
   position_ = matrix.TransformPoint(position_);
 }
