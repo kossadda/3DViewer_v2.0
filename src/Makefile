@@ -10,15 +10,16 @@ LDFLAGS               := -lgtest
 COVERAGE_FLAGS        := -fprofile-arcs -ftest-coverage
 VALGRIND              := --tool=memcheck --leak-check=yes
 
-
 #============================== LIBRARY BUILDING ===============================
 MODEL_LIB             := model.a
 MODEL_GCOVR_LIB       := model_gcovr.a
+CONTROLLER_LIB        := controller.a
 
 #=============================== DIRECTORY NAMES ===============================
 BIN_DIR               := ../bin
 INCLUDE_DIR           := ./include
 MODEL_DIR             := ./model
+CONTROLLER_DIR        := ./controller
 OBJ_DIR               := ./obj
 OBJ_DIR_COV           := ./obj_cov
 TESTS_DIR             := ./tests
@@ -39,6 +40,11 @@ MODEL_H               := $(shell find $(INCLUDE_DIR)/model -type f -name "*.h")
 MODEL_O               := $(MODEL_CC:$(MODEL_DIR)/%.cc=$(OBJ_DIR)/model/%.o)
 MODEL_O_COV           := $(MODEL_CC:$(MODEL_DIR)/%.cc=$(OBJ_DIR_COV)/model/%.o)
 
+#================================= CONTROLLER ==================================
+CONTROLLER_CC         := $(shell find $(CONTROLLER_DIR) -type f -name "*.cc")
+CONTROLLER_H          := $(shell find $(INCLUDE_DIR)/controller -type f -name "*.h")
+CONTROLLER_O          := $(CONTROLLER_CC:$(CONTROLLER_DIR)/%.cc=$(OBJ_DIR)/controller/%.o)
+
 #==================================== TESTS ====================================
 TESTS_CC              := $(shell find $(TESTS_DIR)/modules -type f -name "*.cc")
 TESTS_H               := $(shell find $(TESTS_DIR) -type f -name "*.h")
@@ -48,6 +54,9 @@ ALL_FILES             := $(shell find . -type f \( -name "*.h" -o -name "*.cc" \
 
 #============================== OBJECTIVE TARGETS ==============================
 $(OBJ_DIR)/model/%.o: $(MODEL_DIR)/%.cc $(MODEL_H)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(OBJ_DIR)/controller/%.o: $(CONTROLLER_DIR)/%.cc $(CONTROLLER_H)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR_COV)/model/%.o: $(MODEL_DIR)/%.cc $(MODEL_H)
@@ -87,6 +96,10 @@ $(MODEL_LIB): $(OBJ_DIR)/model $(MODEL_O)
 	ar rcs $@ $(MODEL_O)
 	ranlib $@
 
+$(CONTROLLER_LIB): $(OBJ_DIR)/controller $(CONTROLLER_O)
+	ar rcs $@ $(CONTROLLER_O)
+	ranlib $@
+
 $(MODEL_GCOVR_LIB): $(OBJ_DIR_COV)/model $(MODEL_O_COV)
 	ar rcs $@ $(MODEL_O_COV)
 	ranlib $@
@@ -104,6 +117,9 @@ $(BIN_DIR):
 
 $(OBJ_DIR)/model:
 	mkdir -p $(OBJ_DIR)/model
+
+$(OBJ_DIR)/controller:
+	mkdir -p $(OBJ_DIR)/controller
 
 $(OBJ_DIR_COV)/model:
 	mkdir -p $(OBJ_DIR_COV)/model
