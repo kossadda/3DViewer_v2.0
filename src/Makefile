@@ -90,6 +90,7 @@ clean:
 	rm -f $(MODEL_GCOVR_LIB)
 	rm -f test
 	rm -rf $(REPORT_DIR)
+	rm -rf $(CONTROLLER_LIB)
 
 #=========================== STATIC LIBRARY BUILDING ===========================
 $(MODEL_LIB): $(OBJ_DIR)/model $(MODEL_O)
