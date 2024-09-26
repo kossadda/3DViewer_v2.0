@@ -12,16 +12,20 @@
 #ifndef SRC_INCLUDE_MODEL_FILE_READER_H_
 #define SRC_INCLUDE_MODEL_FILE_READER_H_
 
+#include <istream>
 #include <string>
+#include <vector>
 
 #include "include/model/base_file_reader.h"
 
 namespace s21 {
 class FileReader : public BaseFileReader {
  public:
- private:
   Scene ReadScene(const std::string& path,
                   const NormalizationParameters& params) override;
+
+ private:
+  std::vector<Vertex> ReadVertices(std::istream& file);
 };
 }  // namespace s21
 
