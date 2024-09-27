@@ -157,3 +157,104 @@ TEST(FileReaderTest, ReadVerticesFromFile_0) {
 
   file.close();
 }
+
+TEST(FileReaderTest, ReadVerticesFromEmptyFile) {
+  s21::FileReader file_reader;
+
+  std::ifstream file("tests/data/empty.obj");
+  EXPECT_TRUE(file.is_open());
+
+  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+
+  file.close();
+}
+
+TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_0) {
+  s21::FileReader file_reader;
+
+  std::ofstream temp_file("tests/data/invalid.obj");
+  temp_file << "v 0.287325 0.183571";
+  temp_file.close();
+
+  std::ifstream file("tests/data/invalid.obj");
+  ASSERT_TRUE(file.is_open());
+
+  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+
+  file.close();
+}
+
+TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_1) {
+  s21::FileReader file_reader;
+
+  std::ofstream temp_file("tests/data/invalid.obj");
+  temp_file << "v 0.183571a 0.287325 0.287325";
+  temp_file.close();
+
+  std::ifstream file("tests/data/invalid.obj");
+  ASSERT_TRUE(file.is_open());
+
+  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+
+  file.close();
+}
+
+TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_2) {
+  s21::FileReader file_reader;
+
+  std::ofstream temp_file("tests/data/invalid.obj");
+  temp_file << "v 0.183571 0.287325w 0.287325";
+  temp_file.close();
+
+  std::ifstream file("tests/data/invalid.obj");
+  ASSERT_TRUE(file.is_open());
+
+  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+
+  file.close();
+}
+
+TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_3) {
+  s21::FileReader file_reader;
+
+  std::ofstream temp_file("tests/data/invalid.obj");
+  temp_file << "v 0.183571 0.287325 0.287325ewq";
+  temp_file.close();
+
+  std::ifstream file("tests/data/invalid.obj");
+  ASSERT_TRUE(file.is_open());
+
+  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+
+  file.close();
+}
+
+TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_4) {
+  s21::FileReader file_reader;
+
+  std::ofstream temp_file("tests/data/invalid.obj");
+  temp_file << "v 0.183571";
+  temp_file.close();
+
+  std::ifstream file("tests/data/invalid.obj");
+  ASSERT_TRUE(file.is_open());
+
+  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+
+  file.close();
+}
+
+TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_5) {
+  s21::FileReader file_reader;
+
+  std::ofstream temp_file("tests/data/invalid.obj");
+  temp_file << "v ";
+  temp_file.close();
+
+  std::ifstream file("tests/data/invalid.obj");
+  ASSERT_TRUE(file.is_open());
+
+  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+
+  file.close();
+}
