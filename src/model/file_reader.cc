@@ -23,29 +23,24 @@ Scene FileReader::ReadScene(const std::string& path,
   return s;
 }
 
+// @todo Подумать над целесообразностью выбрасываемого исключения
 std::vector<Vertex> FileReader::ReadVertices(std::istream& file) {
   std::vector<Vertex> vertices;
   std::string line;
 
   while (std::getline(file, line)) {
-    if (line.empty() || line[0] != 'v' || line[1] != ' ') {
-      continue;
+    if (line.substr(0, 2) == "v ") {
+      std::stringstream ss(line.substr(2));
+      float x, y, z;
+
+      if (ss >> x >> y >> z) {
+        vertices.emplace_back(Point3D{x, y, z});
+      }
     }
+  }
 
-    std::stringstream ss(line.substr(2));
-
-    float x, y, z;
-
-    if (ss >> x >> y >> z) {
-      vertices.emplace_back(Point3D{x, y, z});
-    } else {
-      throw std::runtime_error("Error: invalid vertex format in string: " +
-                               line);
-    }
-
-    if (vertices.empty()) {
-      throw std::runtime_error("Error: failed to read vertices");
-    }
+  if (vertices.empty()) {
+    throw std::runtime_error("Error: failed to read vertices");
   }
 
   return vertices;

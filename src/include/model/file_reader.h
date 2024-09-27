@@ -26,6 +26,7 @@ class FileReader : public BaseFileReader {
 
  private:
   std::vector<Vertex> ReadVertices(std::istream& file);
+  std::vector<Point3D> ReadNormals(std::istream& file);
 };
 }  // namespace s21
 
