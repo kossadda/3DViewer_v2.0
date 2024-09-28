@@ -18,12 +18,20 @@
 namespace s21 {
 Scene FileReader::ReadScene(const std::string& path,
                             const NormalizationParameters& params) {
-  Scene s;
+  std::vector<std::string> lines = ReadFileLines(path);
+  std::vector<Vertex> vertices = ParseVertices(lines, params);
+  std::vector<Edge> edges = ParseEdges(lines, params);
+  Figure figure(vertices, edges);
+  Scene scene;
+  scene.AddFigure(figure);
 
-  return s;
+  return scene;
 }
 
-// @todo Подумать над целесообразностью выбрасываемого исключения
+/// @todo Подумать над целесообразностью выбрасываемого исключения
+/// @todo Заменить stringstream на istringstream
+/// @note Так как в методе реализовано чтение из файла, то логичнее использовать
+/// поток ввода, нежели ввода-вывода
 std::vector<Vertex> FileReader::ReadVertices(std::istream& file) {
   std::vector<Vertex> vertices;
   std::string line;
