@@ -18,4 +18,7 @@ void Vertex::Transform(const TransformMatrix &matrix) {
   position_ = matrix.TransformPoint(position_);
 }
 
+Vertex::Vertex(const float x, const float y, const float z)
+    : position_{x, y, z} {}
+
 }  // namespace s21

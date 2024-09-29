@@ -19,6 +19,7 @@ namespace s21 {
 class Vertex : public SceneObject {
  public:
   Vertex() = default;
+  Vertex(const float x, const float y, const float z);
   explicit Vertex(const Point3D &point) noexcept;
   inline Point3D position() const noexcept { return position_; }
   inline void set_position(const Point3D &point) noexcept { position_ = point; }
