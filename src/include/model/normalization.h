@@ -15,7 +15,8 @@
 namespace s21 {
 struct NormalizationParameters {
   NormalizationParameters() noexcept = default;
-  NormalizationParameters(const float min, const float max);
+  NormalizationParameters(const float min, const float max, const float dx_step,
+                          const float dy_step);
 
   float min_{};
   float max_{};
