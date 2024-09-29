@@ -13,12 +13,13 @@
 
 #include <fstream>
 #include <iostream>
+#include <istream>
 #include <sstream>
 
 namespace s21 {
 Scene FileReader::ReadScene(const std::string& path,
                             const NormalizationParameters& params) {
-  std::vector<std::string> lines = ReadFileLines(path);
+  std::vector<std::string> lines = ReadLines(path);
   std::vector<Vertex> vertices = ParseVertices(lines, params);
   std::vector<Edge> edges = ParseEdges(lines, params);
   Figure figure(vertices, edges);
@@ -26,6 +27,28 @@ Scene FileReader::ReadScene(const std::string& path,
   scene.AddFigure(figure);
 
   return scene;
+}
+
+/// @todo Решить как обрабатывать ошибки. Стоит ли выбрасывать исключения?
+std::vector<std::string> FileReader::ReadLines(const std::string& path) {
+  std::ifstream file(path);
+
+  if (!file.is_open()) {
+    return {};
+  }
+
+  std::vector<std::string> lines;
+  std::string line;
+
+  while (std::getline(file, line)) {
+    if (line[0] == 'v' || line[0] == 'f') {
+      lines.emplace_back(line);
+    }
+  }
+
+  file.close();
+
+  return lines;
 }
 
 /// @todo Подумать над целесообразностью выбрасываемого исключения

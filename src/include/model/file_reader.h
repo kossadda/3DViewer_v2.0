@@ -12,7 +12,6 @@
 #ifndef SRC_INCLUDE_MODEL_FILE_READER_H_
 #define SRC_INCLUDE_MODEL_FILE_READER_H_
 
-#include <istream>
 #include <string>
 #include <vector>
 
@@ -25,8 +24,7 @@ class FileReader : public BaseFileReader {
                   const NormalizationParameters& params) override;
 
  private:
-  std::vector<Vertex> ReadVertices(std::istream& file);
-  std::vector<Point3D> ReadNormals(std::istream& file);
+  std::vector<std::string> ReadLines(const std::string& path);
 };
 }  // namespace s21
 
