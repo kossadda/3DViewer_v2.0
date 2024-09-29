@@ -25,6 +25,10 @@ class FileReader : public BaseFileReader {
 
  private:
   std::vector<std::string> ReadLines(const std::string& path);
+  std::vector<Vertex> ParseVertices(const std::vector<std::string>& lines,
+                                    const NormalizationParameters& params);
+  float Normalize(float value, const NormalizationParameters& params,
+                  const bool is_x_axis);
 };
 }  // namespace s21
 

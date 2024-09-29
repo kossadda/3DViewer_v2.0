@@ -51,29 +51,33 @@ std::vector<std::string> FileReader::ReadLines(const std::string& path) {
   return lines;
 }
 
-/// @todo Подумать над целесообразностью выбрасываемого исключения
-/// @todo Заменить stringstream на istringstream
-/// @note Так как в методе реализовано чтение из файла, то логичнее использовать
-/// поток ввода, нежели ввода-вывода
-std::vector<Vertex> FileReader::ReadVertices(std::istream& file) {
+std::vector<Vertex> FileReader::ParseVertices(
+    const std::vector<std::string>& lines,
+    const NormalizationParameters& params) {
   std::vector<Vertex> vertices;
-  std::string line;
 
-  while (std::getline(file, line)) {
+  for (auto line : lines) {
     if (line.substr(0, 2) == "v ") {
-      std::stringstream ss(line.substr(2));
+      std::istringstream iss(line.substr(2));
       float x, y, z;
 
-      if (ss >> x >> y >> z) {
-        vertices.emplace_back(Point3D{x, y, z});
+      if (iss >> x >> y >> z) {
+        x = Normalize(x, params, true);
+        y = Normalize(y, params, false);
+
+        vertices.emplace_back(Vertex(x, y, z));
       }
     }
   }
 
-  if (vertices.empty()) {
-    throw std::runtime_error("Error: failed to read vertices");
-  }
-
   return vertices;
 }
+
+float FileReader::Normalize(float value, const NormalizationParameters& params,
+                            const bool is_x_axis) {
+  float step = (is_x_axis) ? params.dx_step_ : params.dy_step_;
+
+  return ((value - params.min_) / (params.max_ - params.min_)) * step;
+}
+
 }  // namespace s21
