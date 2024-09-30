@@ -17,8 +17,8 @@
 namespace s21 {
 
 TEST(FigureTest, Constructor) {
-  Vertex v_1({1.f, 2.f, 3.f});
-  Vertex v_2({4.f, 5.f, 6.f});
+  Vertex v_1{1.f, 2.f, 3.f};
+  Vertex v_2{4.f, 5.f, 6.f};
 
   Edge edge(v_1, v_2);
 
@@ -35,8 +35,8 @@ TEST(FigureTest, Constructor) {
 }
 
 TEST(FigureTest, TransformTest) {
-  Vertex v_1({1.f, 2.f, 3.f});
-  Vertex v_2({4.f, 5.f, 6.f});
+  Vertex v_1{1.f, 2.f, 3.f};
+  Vertex v_2{4.f, 5.f, 6.f};
 
   Edge edge(v_1, v_2);
   std::vector<Vertex> vertices = {v_1, v_2};
