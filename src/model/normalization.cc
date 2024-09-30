@@ -12,10 +12,8 @@
 #include "include/model/normalization.h"
 
 namespace s21 {
-NormalizationParameters::NormalizationParameters(const float min,
-                                                 const float max,
-                                                 const float dx_step,
+NormalizationParameters::NormalizationParameters(const float dx_step,
                                                  const float dy_step)
-    : min_{min}, max_{max}, dx_step_{dx_step}, dy_step_{dy_step} {}
+    : dx_step_{dx_step}, dy_step_{dy_step} {}
 
 }  // namespace s21

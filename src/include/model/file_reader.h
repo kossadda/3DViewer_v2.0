@@ -27,6 +27,8 @@ class FileReader : public BaseFileReader {
   std::vector<std::string> ReadLines(const std::string& path);
   std::vector<Vertex> ParseVertices(const std::vector<std::string>& lines,
                                     const NormalizationParameters& params);
+  std::vector<Edge> ParseEdges(const std::vector<std::string>& lines,
+                               const std::vector<Vertex> vertices);
   float Normalize(float value, const NormalizationParameters& params,
                   const bool is_x_axis);
 };

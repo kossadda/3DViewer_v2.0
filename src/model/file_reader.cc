@@ -21,7 +21,7 @@ Scene FileReader::ReadScene(const std::string& path,
                             const NormalizationParameters& params) {
   std::vector<std::string> lines = ReadLines(path);
   std::vector<Vertex> vertices = ParseVertices(lines, params);
-  std::vector<Edge> edges = ParseEdges(lines, params);
+  std::vector<Edge> edges = ParseEdges(lines, vertices);
   Figure figure(vertices, edges);
   Scene scene;
   scene.AddFigure(figure);
@@ -34,6 +34,7 @@ std::vector<std::string> FileReader::ReadLines(const std::string& path) {
   std::ifstream file(path);
 
   if (!file.is_open()) {
+    std::cerr << "Error: Unable to open file " << path << std::endl;
     return {};
   }
 
@@ -71,6 +72,35 @@ std::vector<Vertex> FileReader::ParseVertices(
   }
 
   return vertices;
+}
+
+std::vector<Edge> FileReader::ParseEdges(const std::vector<std::string>& lines,
+                                         const std::vector<Vertex> vertices) {
+  std::vector<Edge> edges;
+
+  for (auto line : lines) {
+    if (line.substr(0, 2) == "f ") {
+      std::istringstream iss(line.substr(2));
+      std::vector<int> indices;
+      int index;
+
+      while (iss >> index) {
+        indices.emplace_back(index - 1);
+      }
+
+      if (indices.size() >= 2) {
+        for (size_t i = 0; i < indices.size(); ++i) {
+          const Vertex& begin = vertices[indices[i]];
+          const Vertex& end = vertices[indices[(i + 1) % indices.size()]];
+
+          Edge edge{begin, end};
+          edges.emplace_back(edge);
+        }
+      }
+    }
+  }
+
+  return edges;
 }
 
 float FileReader::Normalize(float value, const NormalizationParameters& params,
