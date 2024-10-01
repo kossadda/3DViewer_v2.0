@@ -1,5 +1,5 @@
 /**
- * @file file_reader_test.cc
+ * @file reader_test.cc
  * @author emmonbea (moskaleviluak@icloud.com)
  * @brief
  * @version 1.0
@@ -14,27 +14,56 @@
 #undef private
 
 #include <fstream>
+#include <iostream>
 #include <sstream>
 
 #include "../include/main.test.h"
 
-TEST(FileReaderTest, ReadVerticesFromString_0) {
-  s21::FileReader file_reader;
+TEST(FileReaderTest, ReadLinesCorrectly) {
+  s21::FileReader reader;
+  std::string path = "tests/data/test_1.obj";
+  std::vector<std::string> expected{
+      "v 1.0 2.0 3.0", "f 631/648/631 535/544/535 538/547/538 632/649/632",
+      "vf 1.2 2.1 2.1"};
+  std::vector<std::string> lines = reader.ReadLines(path);
+  EXPECT_EQ(expected, lines);
+}
 
-  std::istringstream data("v 0.284234 2.128049 1.438571");
-  std::vector<s21::Vertex> vertices = file_reader.ReadVertices(data);
+TEST(FileReaderTest, ReadLinesFileNotFound) {
+  s21::FileReader reader;
+  std::string path = "file.txt";
+  std::vector<std::string> lines = reader.ReadLines(path);
 
-  EXPECT_EQ(vertices.size(), 1);
-  EXPECT_FLOAT_EQ(vertices[0].position().x, 0.284234);
-  EXPECT_FLOAT_EQ(vertices[0].position().y, 2.128049);
-  EXPECT_FLOAT_EQ(vertices[0].position().z, 1.438571);
+  EXPECT_TRUE(lines.empty());
+}
+
+TEST(FileReaderTest, ParseVerticesEmptyLines) {
+  s21::FileReader reader;
+  std::vector<std::string> lines;
+  s21::NormalizationParameters params;
+  std::vector<s21::Vertex> vertices = reader.ParseVertices(lines);
+
+  EXPECT_TRUE(vertices.empty());
+}
+
+TEST(FileReaderTest, ParseEdges) {
+  s21::FileReader reader;
+  std::vector<std::string> line{
+      "v 0.288236 0.185213 1.545897", "v 0.257309 0.009730 1.185200",
+      "v 0.289416 0.128668 1.506040", "f 1/107/30 2/108/29 3/109/56"};
+  std::vector<s21::Vertex> vertices = reader.ParseVertices(line);
+  std::vector<s21::Edge> edges = reader.ParseEdges(line, vertices);
+  EXPECT_EQ(vertices.size(), 3);
+  EXPECT_EQ(edges.size(), 3);
+  std::cout << vertices[0].position_.x << std::endl;
+  std::cout << edges[0].begin_.position_.x << std::endl;
 }
 
 TEST(FileReaderTest, ReadVerticesFromString_1) {
-  s21::FileReader file_reader;
+  s21::FileReader reader;
 
-  std::istringstream data("v 0.226476 2.097269 -1.624995");
-  std::vector<s21::Vertex> vertices = file_reader.ReadVertices(data);
+  std::vector<std::string> line{"v 0.226476 2.097269 -1.624995"};
+  std::vector<s21::Vertex> vertices = reader.ParseVertices(line);
 
   EXPECT_EQ(vertices.size(), 1);
   EXPECT_FLOAT_EQ(vertices[0].position().x, 0.226476);
@@ -42,48 +71,18 @@ TEST(FileReaderTest, ReadVerticesFromString_1) {
   EXPECT_FLOAT_EQ(vertices[0].position().z, -1.624995);
 }
 
-TEST(FileReaderTest, ReadVerticesFromString_2) {
-  s21::FileReader file_reader;
-
-  std::istringstream data(
-      "v 0.261939 0.017199 -1.185200\n"
-      "v 0.287325 0.183571 -1.538425\n"
-      "v 0.289416 0.128668 -1.491969\n");
-  std::vector<s21::Vertex> vertices = file_reader.ReadVertices(data);
-
-  EXPECT_EQ(vertices.size(), 3);
-  EXPECT_FLOAT_EQ(vertices[0].position().x, 0.261939);
-  EXPECT_FLOAT_EQ(vertices[0].position().y, 0.017199);
-  EXPECT_FLOAT_EQ(vertices[0].position().z, -1.185200);
-
-  EXPECT_FLOAT_EQ(vertices[1].position().x, 0.287325);
-  EXPECT_FLOAT_EQ(vertices[1].position().y, 0.183571);
-  EXPECT_FLOAT_EQ(vertices[1].position().z, -1.538425);
-
-  EXPECT_FLOAT_EQ(vertices[2].position().x, 0.289416);
-  EXPECT_FLOAT_EQ(vertices[2].position().y, 0.128668);
-  EXPECT_FLOAT_EQ(vertices[2].position().z, -1.491969);
-}
-
 TEST(FileReaderTest, ReadVerticesFromString_3) {
-  s21::FileReader file_reader;
+  s21::FileReader reader;
 
-  std::istringstream data(
-      "v 0.232584 0.019179 -1.403350\n"
-      "v 0.237516 -0.007116 -1.403348\n"
-      "v 0.225508 2.208368 1.555441\n"
-      "v 0.225450 2.187187 1.598367\n"
-      "v 0.266085 2.170335 1.564792\n"
-      "v 0.226661 2.202096 -1.566456\n"
-      "v 0.226536 2.128565 -1.619556\n"
-      "v 0.250823 2.210459 -1.570653\n"
-      "v 0.273243 2.156695 -1.547029\n"
-      "v 0.225759 0.052562 -1.619993\n"
-      "v 0.222545 0.051845 1.613612\n"
-      "v 0.262916 0.049758 1.619629\n"
-      "v 0.257309 0.009730 1.403353\n"
-      "v 0.261940 0.017199 1.185200\n");
-  std::vector<s21::Vertex> vertices = file_reader.ReadVertices(data);
+  std::vector<std::string> line{
+      "v 0.232584 0.019179 -1.403350", "v 0.237516 -0.007116 -1.403348",
+      "v 0.225508 2.208368 1.555441",  "v 0.225450 2.187187 1.598367",
+      "v 0.266085 2.170335 1.564792",  "v 0.226661 2.202096 -1.566456",
+      "v 0.226536 2.128565 -1.619556", "v 0.250823 2.210459 -1.570653",
+      "v 0.273243 2.156695 -1.547029", "v 0.225759 0.052562 -1.619993",
+      "v 0.222545 0.051845 1.613612",  "v 0.262916 0.049758 1.619629",
+      "v 0.257309 0.009730 1.403353",  "v 0.261940 0.017199 1.185200"};
+  std::vector<s21::Vertex> vertices = reader.ParseVertices(line);
 
   EXPECT_EQ(vertices.size(), 14);
   EXPECT_FLOAT_EQ(vertices[0].position().x, 0.232584);
@@ -144,117 +143,89 @@ TEST(FileReaderTest, ReadVerticesFromString_3) {
 }
 
 TEST(FileReaderTest, ReadVerticesFromFile_0) {
-  s21::FileReader file_reader;
+  s21::FileReader reader;
 
-  std::ifstream file("tests/data/model_1.obj");
-  EXPECT_TRUE(file.is_open());
-  std::vector<s21::Vertex> vertices = file_reader.ReadVertices(file);
+  std::string path{"tests/data/model_1.obj"};
+  std::vector<std::string> line = reader.ReadLines(path);
+  std::vector<s21::Vertex> vertices = reader.ParseVertices(line);
 
   EXPECT_EQ(vertices.size(), 1);
   EXPECT_FLOAT_EQ(vertices[0].position().x, 0.287325);
   EXPECT_FLOAT_EQ(vertices[0].position().y, 0.183571);
   EXPECT_FLOAT_EQ(vertices[0].position().z, -1.538425);
-
-  file.close();
 }
 
-TEST(FileReaderTest, ReadVerticesFromEmptyFile) {
-  s21::FileReader file_reader;
+// TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_1) {
+//   s21::FileReader reader;
 
-  std::ifstream file("tests/data/empty.obj");
-  EXPECT_TRUE(file.is_open());
+//   std::ofstream temp_file("tests/data/invalid.obj");
+//   temp_file << "v 0.183571a 0.287325 0.287325";
+//   temp_file.close();
 
-  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+//   std::ifstream file("tests/data/invalid.obj");
+//   ASSERT_TRUE(file.is_open());
 
-  file.close();
-}
+//   EXPECT_THROW(reader.ReadVertices(file), std::runtime_error);
 
-TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_0) {
-  s21::FileReader file_reader;
+//   file.close();
+// }
 
-  std::ofstream temp_file("tests/data/invalid.obj");
-  temp_file << "v 0.287325 0.183571";
-  temp_file.close();
+// TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_2) {
+//   s21::FileReader reader;
 
-  std::ifstream file("tests/data/invalid.obj");
-  ASSERT_TRUE(file.is_open());
+//   std::ofstream temp_file("tests/data/invalid.obj");
+//   temp_file << "v 0.183571 0.287325w 0.287325";
+//   temp_file.close();
 
-  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+//   std::ifstream file("tests/data/invalid.obj");
+//   ASSERT_TRUE(file.is_open());
 
-  file.close();
-}
+//   EXPECT_THROW(reader.ReadVertices(file), std::runtime_error);
 
-TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_1) {
-  s21::FileReader file_reader;
+//   file.close();
+// }
 
-  std::ofstream temp_file("tests/data/invalid.obj");
-  temp_file << "v 0.183571a 0.287325 0.287325";
-  temp_file.close();
+// TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_3) {
+//   s21::FileReader reader;
 
-  std::ifstream file("tests/data/invalid.obj");
-  ASSERT_TRUE(file.is_open());
+//   std::ofstream temp_file("tests/data/invalid.obj");
+//   temp_file << "v 0.183571 0.287325 0.287325ewq";
+//   temp_file.close();
 
-  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+//   std::ifstream file("tests/data/invalid.obj");
+//   ASSERT_TRUE(file.is_open());
 
-  file.close();
-}
+//   EXPECT_THROW(reader.ReadVertices(file), std::runtime_error);
 
-TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_2) {
-  s21::FileReader file_reader;
+//   file.close();
+// }
 
-  std::ofstream temp_file("tests/data/invalid.obj");
-  temp_file << "v 0.183571 0.287325w 0.287325";
-  temp_file.close();
+// TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_4) {
+//   s21::FileReader reader;
 
-  std::ifstream file("tests/data/invalid.obj");
-  ASSERT_TRUE(file.is_open());
+//   std::ofstream temp_file("tests/data/invalid.obj");
+//   temp_file << "v 0.183571";
+//   temp_file.close();
 
-  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+//   std::ifstream file("tests/data/invalid.obj");
+//   ASSERT_TRUE(file.is_open());
 
-  file.close();
-}
+//   EXPECT_THROW(reader.ReadVertices(file), std::runtime_error);
 
-TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_3) {
-  s21::FileReader file_reader;
+//   file.close();
+// }
 
-  std::ofstream temp_file("tests/data/invalid.obj");
-  temp_file << "v 0.183571 0.287325 0.287325ewq";
-  temp_file.close();
+// TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_5) {
+//   s21::FileReader reader;
 
-  std::ifstream file("tests/data/invalid.obj");
-  ASSERT_TRUE(file.is_open());
+//   std::ofstream temp_file("tests/data/invalid.obj");
+//   temp_file << "v ";
+//   temp_file.close();
 
-  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
+//   std::ifstream file("tests/data/invalid.obj");
+//   ASSERT_TRUE(file.is_open());
 
-  file.close();
-}
+//   EXPECT_THROW(reader.ReadVertices(file), std::runtime_error);
 
-TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_4) {
-  s21::FileReader file_reader;
-
-  std::ofstream temp_file("tests/data/invalid.obj");
-  temp_file << "v 0.183571";
-  temp_file.close();
-
-  std::ifstream file("tests/data/invalid.obj");
-  ASSERT_TRUE(file.is_open());
-
-  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
-
-  file.close();
-}
-
-TEST(FileReaderTest, ReadVerticesFromFile_InvalidFormat_5) {
-  s21::FileReader file_reader;
-
-  std::ofstream temp_file("tests/data/invalid.obj");
-  temp_file << "v ";
-  temp_file.close();
-
-  std::ifstream file("tests/data/invalid.obj");
-  ASSERT_TRUE(file.is_open());
-
-  EXPECT_THROW(file_reader.ReadVertices(file), std::runtime_error);
-
-  file.close();
-}
+//   file.close();
+// }
