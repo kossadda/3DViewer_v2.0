@@ -24,11 +24,13 @@ class FileReader : public BaseFileReader {
                   const NormalizationParameters& params) override;
 
  private:
-  std::vector<std::string> ReadLines(const std::string& path);
-  std::vector<Vertex> ParseVertices(const std::vector<std::string>& lines,
-                                    const NormalizationParameters& params);
-  std::vector<Edge> ParseEdges(const std::vector<std::string>& lines,
-                               const std::vector<Vertex> vertices);
+  Vertex& ParseVertex(const std::string& line) noexcept;
+  std::vector<int>& ParseFace(const std::string& line) noexcept;
+  // std::vector<std::string> ReadLines(const std::string& path);
+  // std::vector<Vertex> ParseVertices(const std::vector<std::string>& lines);
+  // std::vector<Edge> ParseEdges(const std::vector<std::string>& lines,
+  //                              const std::vector<Vertex> vertices);
+
   float Normalize(float value, const NormalizationParameters& params,
                   const bool is_x_axis);
 };
