@@ -27,6 +27,9 @@ set(VIEW
   ${VIEW_DIR}/path_reader.cc
   ${VIEW_DIR}/object_scene.cc
   ${VIEW_DIR}/slider.cc
+  ${VIEW_DIR}/figure_data.cc
+  ${VIEW_DIR}/afinne_data.cc
+  ${VIEW_DIR}/scene_setting.cc
 )
 
 set(CONTROLLER
@@ -38,6 +41,9 @@ set(HEADERS
   ${INCLUDE_DIR}/view/path_reader.h
   ${INCLUDE_DIR}/view/object_scene.h
   ${INCLUDE_DIR}/view/slider.h
+  ${INCLUDE_DIR}/view/figure_data.h
+  ${INCLUDE_DIR}/view/afinne_data.h
+  ${INCLUDE_DIR}/view/scene_setting.h
 )
 
 set(MAIN

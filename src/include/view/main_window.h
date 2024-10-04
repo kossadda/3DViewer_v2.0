@@ -16,6 +16,9 @@
 
 #include "include/view/object_scene.h"
 #include "include/view/path_reader.h"
+#include "include/view/afinne_data.h"
+#include "include/view/figure_data.h"
+#include "include/view/scene_setting.h"
 
 class MainWindow : public QWidget {
  public:
@@ -28,6 +31,12 @@ class MainWindow : public QWidget {
 
   PathReader *path_;
   ObjectScene *scene_;
+  AfinneData *rotate_;
+  AfinneData *scale_;
+  AfinneData *translate_;
+  FigureData *vertex_;
+  FigureData *lines_;
+  SceneSetting *setting_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_MAIN_WINDOW_H_

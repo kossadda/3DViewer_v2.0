@@ -19,11 +19,23 @@ MainWindow::MainWindow() : QWidget{} {
 MainWindow::~MainWindow() {
   delete path_;
   delete scene_;
+  delete rotate_;
+  delete scale_;
+  delete translate_;
+  delete vertex_;
+  delete lines_;
+  delete setting_;
 }
 
 void MainWindow::allocateMemory() {
   path_ = new PathReader;
   scene_ = new ObjectScene;
+  rotate_ = new AfinneData;
+  scale_ = new AfinneData;
+  translate_ = new AfinneData;
+  vertex_ = new FigureData;
+  lines_ = new FigureData;
+  setting_ = new SceneSetting;
 }
 
 void MainWindow::initView() {}

@@ -1,5 +1,5 @@
 /**
- * @file figure_data.h
+ * @file scene_setting.h
  * @author kossadda (https://github.com/kossadda)
  * @brief 
  * @version 1.0
@@ -9,19 +9,21 @@
  * 
  */
 
-#ifndef SRC_INCLUDE_VIEW_FIGURE_DATA_H_
-#define SRC_INCLUDE_VIEW_FIGURE_DATA_H_
+#ifndef SRC_INCLUDE_VIEW_SCENE_SETTING_H_
+#define SRC_INCLUDE_VIEW_SCENE_SETTING_H_
 
 #include <QWidget>
 
-class FigureData : QWidget {
+class SceneSetting : QWidget {
  public:
-  FigureData();
-  ~FigureData();
+  SceneSetting();
+  ~SceneSetting();
 
  private:
   void allocateMemory();
   void initView();
 };
 
-#endif  // SRC_INCLUDE_VIEW_FIGURE_DATA_H_
+
+#endif  // SRC_INCLUDE_VIEW_SCENE_SETTING_H_
+
