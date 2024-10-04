@@ -1,12 +1,12 @@
 /**
  * @file path_reader.h
  * @author kossadda (https://github.com/kossadda)
- * @brief 
+ * @brief
  * @version 1.0
  * @date 2024-10-04
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
 #include <QWidget>
