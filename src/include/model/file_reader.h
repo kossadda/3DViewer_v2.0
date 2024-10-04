@@ -25,7 +25,7 @@ class FileReader : public BaseFileReader {
 
  private:
   Vertex ParseVertex(const std::string& line) noexcept;
-  std::vector<int>& ParseFace(const std::string& line) noexcept;
+  std::vector<int> ParseFace(const std::string& line) noexcept;
   // std::vector<std::string> ReadLines(const std::string& path);
   // std::vector<Vertex> ParseVertices(const std::vector<std::string>& lines);
   // std::vector<Edge> ParseEdges(const std::vector<std::string>& lines,

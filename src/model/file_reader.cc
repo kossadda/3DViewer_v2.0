@@ -47,12 +47,20 @@ Scene FileReader::ReadScene(const std::string& path,
 
 Vertex FileReader::ParseVertex(const std::string& line) noexcept {
   std::istringstream iss{line};
-  std::string prefix;
   float x, y, z;
+  iss.ignore(2);
 
-  iss >> prefix >> x >> y >> z;
+  if (iss >> x >> y >> z) {
+    return Vertex{x, y, z};
+  }
 
-  return Vertex{x, y, z};
+  return Vertex{};
+}
+
+std::vector<int> FileReader::ParseFace(const std::string& line) noexcept {
+  std::istringstream iss{line};
+
+  // return indices;
 }
 
 /// @todo Решить как обрабатывать ошибки. Стоит ли выбрасывать исключения?
