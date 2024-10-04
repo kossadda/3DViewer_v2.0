@@ -15,7 +15,7 @@
 #include <QOpenGLWidget>
 #include <QWidget>
 
-class ObjectScene : QWidget {
+class ObjectScene : public QWidget {
  public:
   ObjectScene();
   ~ObjectScene();

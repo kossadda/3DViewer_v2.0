@@ -14,7 +14,7 @@
 
 #include <QWidget>
 
-class SceneSetting : QWidget {
+class SceneSetting : public QWidget {
  public:
   SceneSetting();
   ~SceneSetting();

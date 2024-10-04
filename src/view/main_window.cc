@@ -30,12 +30,25 @@ MainWindow::~MainWindow() {
 void MainWindow::allocateMemory() {
   path_ = new PathReader;
   scene_ = new ObjectScene;
-  rotate_ = new AfinneData;
-  scale_ = new AfinneData;
-  translate_ = new AfinneData;
+  rotate_ = new AfinneData{{"X", "Y", "Z"}, -360, 360};
+  scale_ = new AfinneData{{""}, -99, 600};
+  translate_ = new AfinneData{{"X", "Y", "Z"}, -100, 100};
   vertex_ = new FigureData;
   lines_ = new FigureData;
   setting_ = new SceneSetting;
 }
 
-void MainWindow::initView() {}
+void MainWindow::initView() {
+  QGridLayout *grid{new QGridLayout};
+  setLayout(grid);
+  setFixedSize(800, 600);
+
+  grid->addWidget(path_);
+  grid->addWidget(scene_);
+  grid->addWidget(rotate_);
+  grid->addWidget(scale_);
+  grid->addWidget(translate_);
+  grid->addWidget(vertex_);
+  grid->addWidget(lines_);
+  grid->addWidget(setting_);
+}

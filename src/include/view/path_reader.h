@@ -14,7 +14,7 @@
 #ifndef SRC_INCLUDE_VIEW_PATH_READER_H_
 #define SRC_INCLUDE_VIEW_PATH_READER_H_
 
-class PathReader : QWidget {
+class PathReader : public QWidget {
  public:
   PathReader();
   ~PathReader();

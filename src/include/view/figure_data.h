@@ -14,7 +14,7 @@
 
 #include <QWidget>
 
-class FigureData : QWidget {
+class FigureData : public QWidget {
  public:
   FigureData();
   ~FigureData();

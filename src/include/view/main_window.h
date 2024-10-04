@@ -13,6 +13,7 @@
 #define SRC_INCLUDE_VIEW_MAIN_WINDOW_H_
 
 #include <QWidget>
+#include <QGridLayout>
 
 #include "include/view/object_scene.h"
 #include "include/view/path_reader.h"

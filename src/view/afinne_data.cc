@@ -11,13 +11,25 @@
 
 #include "include/view/afinne_data.h"
 
-AfinneData::AfinneData() : QWidget{} {
-  allocateMemory();
+AfinneData::AfinneData(const QStringList &names, int min, int max) : QWidget{} {
+  allocateMemory(names, min, max);
   initView();
 }
 
 AfinneData::~AfinneData() {}
 
-void AfinneData::allocateMemory() {}
+void AfinneData::allocateMemory(const QStringList &names, int min, int max) {
+  grid_ = new QGridLayout;
+  for(auto i : names) {
+    sliders_.push_back(new Slider{i, min, max});
+  }
+}
 
-void AfinneData::initView() {}
+void AfinneData::initView() {
+  setLayout(grid_);
+  setFixedSize(250, 140);
+
+  for(auto i : sliders_) {
+    grid_->addWidget(i);
+  }
+}
