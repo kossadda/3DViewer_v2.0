@@ -18,10 +18,12 @@ MainWindow::MainWindow() : QWidget{} {
 
 MainWindow::~MainWindow() {
   delete path_;
+  delete scene_;
 }
 
 void MainWindow::allocateMemory() {
   path_ = new PathReader;
+  scene_ = new ObjectScene;
 }
 
 void MainWindow::initView() {}

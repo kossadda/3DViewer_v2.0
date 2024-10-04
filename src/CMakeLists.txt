@@ -25,6 +25,7 @@ set(MODEL
 set(VIEW
   ${VIEW_DIR}/main_window.cc
   ${VIEW_DIR}/path_reader.cc
+  ${VIEW_DIR}/object_scene.cc
 )
 
 set(CONTROLLER
@@ -34,6 +35,7 @@ set(CONTROLLER
 set(HEADERS
   ${INCLUDE_DIR}/view/main_window.h
   ${INCLUDE_DIR}/view/path_reader.h
+  ${INCLUDE_DIR}/view/object_scene.h
 )
 
 set(MAIN

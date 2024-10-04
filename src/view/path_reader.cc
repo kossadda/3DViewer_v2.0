@@ -14,3 +14,7 @@
 PathReader::PathReader() : QWidget{} {}
 
 PathReader::~PathReader() {}
+
+void PathReader::allocateMemory() {}
+
+void PathReader::initView() {}

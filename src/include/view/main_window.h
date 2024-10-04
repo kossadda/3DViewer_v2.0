@@ -15,6 +15,7 @@
 #include <QWidget>
 
 #include "include/view/path_reader.h"
+#include "include/view/object_scene.h"
 
 class MainWindow : public QWidget {
  public:
@@ -26,6 +27,7 @@ class MainWindow : public QWidget {
   void initView();
 
   PathReader *path_;
+  ObjectScene *scene_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_MAIN_WINDOW_H

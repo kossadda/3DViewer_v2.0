@@ -20,7 +20,8 @@ class PathReader : QWidget {
   ~PathReader();
 
  private:
-
+  void allocateMemory();
+  void initView();
 };
 
 #endif  // SRC_INCLUDE_VIEW_PATH_READER_H_
