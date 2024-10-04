@@ -59,8 +59,19 @@ Vertex FileReader::ParseVertex(const std::string& line) noexcept {
 
 std::vector<int> FileReader::ParseFace(const std::string& line) noexcept {
   std::istringstream iss{line};
+  std::vector<int> vertex_indices;
 
-  // return indices;
+  iss.ignore(2);
+
+  std::string vertex_info;
+  while (iss >> vertex_info) {
+    size_t delimiter_pos = vertex_info.find('/');
+    std::string tmp = vertex_info.substr(0, delimiter_pos);
+
+    vertex_indices.emplace_back(std::stoi(tmp));
+  }
+
+  return vertex_indices;
 }
 
 /// @todo Решить как обрабатывать ошибки. Стоит ли выбрасывать исключения?
