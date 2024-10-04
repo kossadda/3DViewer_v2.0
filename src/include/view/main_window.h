@@ -14,13 +14,18 @@
 
 #include <QWidget>
 
+#include "include/view/path_reader.h"
+
 class MainWindow : public QWidget {
  public:
   MainWindow();
   ~MainWindow();
 
  private:
+  void allocateMemory();
+  void initView();
 
+  PathReader *path_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_MAIN_WINDOW_H

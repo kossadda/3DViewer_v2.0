@@ -16,6 +16,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS OpenGLWidgets)
 set(MODEL_DIR ${CMAKE_SOURCE_DIR}/model)
 set(VIEW_DIR ${CMAKE_SOURCE_DIR}/view)
 set(CONTROLLER_DIR ${CMAKE_SOURCE_DIR}/controller)
+set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(MODEL
 
@@ -23,6 +24,7 @@ set(MODEL
 
 set(VIEW
   ${VIEW_DIR}/main_window.cc
+  ${VIEW_DIR}/path_reader.cc
 )
 
 set(CONTROLLER
@@ -30,7 +32,8 @@ set(CONTROLLER
 )
 
 set(HEADERS
-
+  ${INCLUDE_DIR}/view/main_window.h
+  ${INCLUDE_DIR}/view/path_reader.h
 )
 
 set(MAIN

@@ -67,6 +67,7 @@ $(OBJ_DIR)/tests/modules/%.o: $(TESTS_DIR)/modules/%.cc $(TESTS_H)
 
 #=================================== TARGETS ===================================
 all: install run
+val: install valgrind_run
 
 install:
 	mkdir -p $(BIN_DIR)
@@ -103,6 +104,9 @@ clean:
 
 run:
 	./$(BIN_DIR)/viewer
+
+valgrind_run:
+	valgrind --leak-check=full ./$(BIN_DIR)/viewer
 
 #=========================== STATIC LIBRARY BUILDING ===========================
 $(MODEL_LIB): $(OBJ_DIR)/model $(MODEL_O)

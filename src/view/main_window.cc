@@ -11,6 +11,17 @@
 
 #include "include/view/main_window.h"
 
-MainWindow::MainWindow() : QWidget{} {}
+MainWindow::MainWindow() : QWidget{} {
+  allocateMemory();
+  initView();
+}
 
-MainWindow::~MainWindow() {}
+MainWindow::~MainWindow() {
+  delete path_;
+}
+
+void MainWindow::allocateMemory() {
+  path_ = new PathReader;
+}
+
+void MainWindow::initView() {}
