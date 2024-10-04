@@ -25,7 +25,6 @@ Scene FileReader::ReadScene(const std::string& path,
   std::ifstream file{path};
   std::string line;
   std::vector<Vertex> vertices;
-  std::vector<Edge> edges;
 
   if (!file.is_open()) {
     std::cerr << "Error: Unable to open file " << path << std::endl;
@@ -33,10 +32,14 @@ Scene FileReader::ReadScene(const std::string& path,
   }
 
   while (std::getline(file, line)) {
-    if (line.compare(0, 2, "v ")) {
+    if (line.compare(0, 2, "v ") == 0) {
       vertices.emplace_back(ParseVertex(line));
-    } else if (line.compare(0, 2, "f ")) {
+    } else if (line.compare(0, 2, "f ") == 0) {
       std::vector<int> vertex_indices = ParseFace(line);
+      std::vector<Edge> edges =
+          CreateEdgesFromIndices(vertex_indices, vertices);
+      Figure figure{vertices, edges};
+      scene.AddFigure(figure);
     }
   }
 
@@ -74,78 +77,19 @@ std::vector<int> FileReader::ParseFace(const std::string& line) noexcept {
   return vertex_indices;
 }
 
-/// @todo Решить как обрабатывать ошибки. Стоит ли выбрасывать исключения?
-// std::vector<std::string> FileReader::ReadLines(const std::string& path) {
-//   std::ifstream file(path);
+std::vector<Edge> FileReader::CreateEdgesFromIndices(
+    const std::vector<int>& vertex_indices,
+    const std::vector<Vertex>& vertices) {
+  std::vector<Edge> edges;
 
-//   if (!file.is_open()) {
-//     std::cerr << "Error: Unable to open file " << path << std::endl;
-//     return {};
-//   }
+  for (size_t i = 0; i < vertex_indices.size(); ++i) {
+    int current_index = vertex_indices[i] - 1;
+    int next_index = vertex_indices[(i + 1) % vertex_indices.size()] - 1;
+    edges.emplace_back(Edge{vertices[current_index], vertices[next_index]});
+  }
 
-//   std::vector<std::string> lines;
-//   std::string line;
-
-//   while (std::getline(file, line)) {
-//     if (line[0] == 'v' || line[0] == 'f') {
-//       lines.emplace_back(line);
-//     }
-//   }
-
-//   file.close();
-
-//   return lines;
-// }
-
-/// @todo Может имеет смысл удалять из lines вершины?
-// std::vector<Vertex> FileReader::ParseVertices(
-//     const std::vector<std::string>& lines) {
-//   std::vector<Vertex> vertices;
-
-//   for (auto line : lines) {
-//     if (line.substr(0, 2) == "v ") {
-//       std::istringstream iss(line.substr(2));
-//       float x, y, z;
-
-//       if (iss >> x >> y >> z) {
-//         vertices.emplace_back(Vertex(x, y, z));
-//       }
-//     }
-//   }
-
-//   return vertices;
-// }
-
-// std::vector<Edge> FileReader::ParseEdges(const std::vector<std::string>&
-// lines,
-//                                          const std::vector<Vertex> vertices)
-//                                          {
-//   std::vector<Edge> edges;
-
-//   for (auto line : lines) {
-//     if (line.substr(0, 2) == "f ") {
-//       std::istringstream iss(line.substr(2));
-//       std::vector<int> indices;
-//       int index;
-
-//       while (iss >> index) {
-//         indices.emplace_back(index - 1);
-//       }
-
-//       if (indices.size() >= 2) {
-//         for (size_t i = 0; i < indices.size(); ++i) {
-//           const Vertex& begin = vertices[indices[i]];
-//           const Vertex& end = vertices[indices[(i + 1) % indices.size()]];
-
-//           Edge edge{begin, end};
-//           edges.emplace_back(edge);
-//         }
-//       }
-//     }
-//   }
-
-//   return edges;
-// }
+  return edges;
+}
 
 float FileReader::Normalize(float value, const NormalizationParameters& params,
                             const bool is_x_axis) {

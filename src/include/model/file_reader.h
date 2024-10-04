@@ -26,10 +26,9 @@ class FileReader : public BaseFileReader {
  private:
   Vertex ParseVertex(const std::string& line) noexcept;
   std::vector<int> ParseFace(const std::string& line) noexcept;
-  // std::vector<std::string> ReadLines(const std::string& path);
-  // std::vector<Vertex> ParseVertices(const std::vector<std::string>& lines);
-  // std::vector<Edge> ParseEdges(const std::vector<std::string>& lines,
-  //                              const std::vector<Vertex> vertices);
+  std::vector<Edge> CreateEdgesFromIndices(
+      const std::vector<int>& vertex_indices,
+      const std::vector<Vertex>& vertices);
 
   float Normalize(float value, const NormalizationParameters& params,
                   const bool is_x_axis);
