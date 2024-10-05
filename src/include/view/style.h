@@ -16,10 +16,12 @@
 
 class Style {
  public:
+  static const QString kWindowTranparentStyle;
   static const QString kWindowStyle;
   static const QString kFrameStyle;
   static const QString kSliderStyle;
   static const QString kLabelStyle;
+  static const QString kSpinBoxStyle;
 };
 
 #endif  // SRC_INCLUDE_VIEW_STYLE_H_

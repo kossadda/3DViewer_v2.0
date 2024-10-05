@@ -11,16 +11,17 @@
 
 #include "include/view/afinne_data.h"
 
-AfinneData::AfinneData(const QStringList &names, int min, int max)
-    : BaseWidget{} {
-  allocateMemory(names, min, max);
+AfinneData::AfinneData(QLabel *title, const QStringList &sliders, int min,
+                       int max)
+    : BaseWidget{title} {
+  allocateMemory(sliders, min, max);
   initView();
 }
 
 AfinneData::~AfinneData() {}
 
-void AfinneData::allocateMemory(const QStringList &names, int min, int max) {
-  for (auto i : names) {
+void AfinneData::allocateMemory(const QStringList &sliders, int min, int max) {
+  for (auto i : sliders) {
     sliders_.push_back(new Slider{i, min, max});
   }
 }

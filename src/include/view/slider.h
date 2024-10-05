@@ -24,6 +24,9 @@ class Slider : public QWidget {
   Slider(const QString &name, int min, int max);
   ~Slider();
 
+ private slots:
+  void onValueChanged(int value);
+
  private:
   void allocateMemory(const QString &name);
   void initView(int min, int max);
@@ -32,7 +35,6 @@ class Slider : public QWidget {
   QSlider *slider_;
   QSpinBox *box_;
   QLabel *label_;
-  std::size_t value_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_SLIDER_H_

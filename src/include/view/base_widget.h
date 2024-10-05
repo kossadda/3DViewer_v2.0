@@ -14,17 +14,18 @@
 
 #include <QFrame>
 #include <QGridLayout>
+#include <QLabel>
 #include <QWidget>
 
 #include "include/view/style.h"
 
 class BaseWidget : public QWidget {
  public:
-  BaseWidget();
+  explicit BaseWidget(QLabel *title = nullptr);
 
  private:
   virtual void allocateMemory();
-  virtual void initView();
+  virtual void initView(QLabel *title);
 
   QFrame *frame_;
 

@@ -14,6 +14,9 @@
 const QString Style::kWindowStyle =
     "QWidget {background: rgba(10, 10, 10, 0.7);}";
 
+const QString Style::kWindowTranparentStyle =
+    "QWidget {background: rgba(0, 0, 0, 0.0);}";
+
 const QString Style::kFrameStyle =
     "QFrame {background: rgba(45, 45, 45, 0.5);"
     "border-radius: 10px;"
@@ -51,3 +54,7 @@ const QString Style::kLabelStyle =
     "color: rgb(130, 180, 240);"
     "border: none;"
     "font-size: 12px;";
+
+const QString Style::kSpinBoxStyle =
+    "background-color: rgba(15, 15, 15, 0.5);"
+    "color: rgb(255, 255, 255)";

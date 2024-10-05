@@ -11,9 +11,9 @@
 
 #include "include/view/base_widget.h"
 
-BaseWidget::BaseWidget() : QWidget{} {
+BaseWidget::BaseWidget(QLabel *title) : QWidget{} {
   allocateMemory();
-  initView();
+  initView(title);
 }
 
 void BaseWidget::allocateMemory() {
@@ -21,12 +21,18 @@ void BaseWidget::allocateMemory() {
   frame_ = new QFrame;
 }
 
-void BaseWidget::initView() {
+void BaseWidget::initView(QLabel *title) {
   QGridLayout *main_grid{new QGridLayout};
   setLayout(main_grid);
-  // setFixedSize(300, 180);
 
   main_grid->addWidget(frame_);
   frame_->setLayout(grid_);
+  if (title) {
+    grid_->addWidget(title, 0, 0, Qt::AlignCenter);
+    QString new_label_style{Style::kLabelStyle};
+    title->setStyleSheet(new_label_style.replace("12px", "15px"));
+  }
+
+  setStyleSheet(Style::kWindowStyle);
   frame_->setStyleSheet(Style::kFrameStyle);
 }

@@ -37,7 +37,16 @@ void Slider::initView(int min, int max) {
   box_->setMinimum(min);
   box_->setMaximum(max);
 
-  setStyleSheet(Style::kWindowStyle);
+  setStyleSheet(Style::kWindowTranparentStyle);
   label_->setStyleSheet(Style::kLabelStyle);
   slider_->setStyleSheet(Style::kSliderStyle);
+  box_->setStyleSheet(Style::kSpinBoxStyle);
+
+  connect(box_, &QSpinBox::valueChanged, this, &Slider::onValueChanged);
+  connect(slider_, &QSlider::valueChanged, this, &Slider::onValueChanged);
+}
+
+void Slider::onValueChanged(int value) {
+  slider_->setValue(value);
+  box_->setValue(value);
 }
