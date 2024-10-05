@@ -18,6 +18,11 @@ void Vertex::Transform(const TransformMatrix &matrix) {
   position_ = matrix.TransformPoint(position_);
 }
 
+bool Vertex::operator==(const Vertex &other) const noexcept {
+  return position_.x == other.position_.x && position_.y == other.position_.y &&
+         position_.z == other.position_.z;
+}
+
 Vertex::Vertex(const float x, const float y, const float z)
     : position_{x, y, z} {}
 
