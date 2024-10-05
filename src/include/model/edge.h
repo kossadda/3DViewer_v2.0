@@ -17,13 +17,13 @@
 namespace s21 {
 class Edge {
  public:
-  Edge(const Vertex &begin, const Vertex &end) noexcept;
-  inline const Vertex &begin() const noexcept { return begin_; }
-  inline const Vertex &end() const noexcept { return end_; }
+  Edge(const Vertex& begin, const Vertex& end) noexcept;
+  inline const Vertex& begin() const noexcept { return begin_; }
+  inline const Vertex& end() const noexcept { return end_; }
 
  private:
-  const Vertex &begin_;
-  const Vertex &end_;
+  const Vertex begin_;
+  const Vertex end_;
 };
 }  // namespace s21
 
