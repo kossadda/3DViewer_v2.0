@@ -12,12 +12,13 @@
 #ifndef SRC_INCLUDE_VIEW_PATH_READER_H_
 #define SRC_INCLUDE_VIEW_PATH_READER_H_
 
+#include <QPushButton>
+
 #include "include/view/base_widget.h"
 
 class PathReader : public BaseWidget {
  public:
   PathReader();
-  ~PathReader();
 
  private:
   void allocateMemory();

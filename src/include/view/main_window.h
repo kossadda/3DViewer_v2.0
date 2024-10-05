@@ -25,7 +25,6 @@
 class MainWindow : public QWidget {
  public:
   MainWindow();
-  ~MainWindow();
 
  private:
   void allocateMemory();

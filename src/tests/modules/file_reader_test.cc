@@ -54,7 +54,8 @@ TEST(FileReaderTest, ParseFaceCorrect) {
 //   s21::FileReader reader;
 //   std::vector<std::string> lines{
 //       "v 0.288236 0.185213 1.545897", "v 0.257309 0.009730 1.185200",
-//       "v 0.289416 0.128668 1.506040", "f 245/48/1 244/23/1 284/24/1 179/49/1"};
+//       "v 0.289416 0.128668 1.506040", "f 245/48/1 244/23/1 284/24/1
+//       179/49/1"};
 
 //   std::vector<s21::Vertex> vertices;
 
@@ -106,16 +107,21 @@ TEST(FileReaderTest, ReadScene) {
   EXPECT_FLOAT_EQ(figure.vertices()[2].position().z, 1.506040f);
 
   // Проверка корректности рёбер
-  EXPECT_EQ(figure.edges()[0].begin().position(), figure.vertices()[0].position());
-  EXPECT_EQ(figure.edges()[0].end().position(), figure.vertices()[1].position());
+  EXPECT_EQ(figure.edges()[0].begin().position(),
+            figure.vertices()[0].position());
+  EXPECT_EQ(figure.edges()[0].end().position(),
+            figure.vertices()[1].position());
 
-  EXPECT_EQ(figure.edges()[1].begin().position(), figure.vertices()[1].position());
-  EXPECT_EQ(figure.edges()[1].end().position(), figure.vertices()[2].position());
+  EXPECT_EQ(figure.edges()[1].begin().position(),
+            figure.vertices()[1].position());
+  EXPECT_EQ(figure.edges()[1].end().position(),
+            figure.vertices()[2].position());
 
-  EXPECT_EQ(figure.edges()[2].begin().position(), figure.vertices()[2].position());
-  EXPECT_EQ(figure.edges()[2].end().position(), figure.vertices()[0].position());
+  EXPECT_EQ(figure.edges()[2].begin().position(),
+            figure.vertices()[2].position());
+  EXPECT_EQ(figure.edges()[2].end().position(),
+            figure.vertices()[0].position());
 }
-
 
 // TEST(FileReaderTest, ReadLinesCorrectly) {
 //   s21::FileReader reader;

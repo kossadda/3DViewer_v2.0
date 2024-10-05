@@ -24,9 +24,11 @@ void BaseWidget::allocateMemory() {
 void BaseWidget::initView(QLabel *title) {
   QGridLayout *main_grid{new QGridLayout};
   setLayout(main_grid);
+  main_grid->setContentsMargins(1, 1, 1, 1);
 
   main_grid->addWidget(frame_);
   frame_->setLayout(grid_);
+
   if (title) {
     grid_->addWidget(title, 0, 0, Qt::AlignCenter);
     QString new_label_style{Style::kLabelStyle};

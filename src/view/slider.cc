@@ -16,8 +16,6 @@ Slider::Slider(const QString &name, int min, int max) : QWidget{} {
   initView(min, max);
 }
 
-Slider::~Slider() {}
-
 void Slider::allocateMemory(const QString &name) {
   grid_ = new QGridLayout;
   label_ = new QLabel{name};

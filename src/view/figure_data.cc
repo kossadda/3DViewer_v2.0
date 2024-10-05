@@ -16,8 +16,6 @@ FigureData::FigureData() : BaseWidget{} {
   initView();
 }
 
-FigureData::~FigureData() {}
-
 void FigureData::allocateMemory() {}
 
 void FigureData::initView() {}

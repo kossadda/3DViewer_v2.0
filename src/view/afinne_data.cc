@@ -18,8 +18,6 @@ AfinneData::AfinneData(QLabel *title, const QStringList &sliders, int min,
   initView();
 }
 
-AfinneData::~AfinneData() {}
-
 void AfinneData::allocateMemory(const QStringList &sliders, int min, int max) {
   for (auto i : sliders) {
     sliders_.push_back(new Slider{i, min, max});

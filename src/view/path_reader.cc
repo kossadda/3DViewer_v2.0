@@ -16,8 +16,6 @@ PathReader::PathReader() : BaseWidget{} {
   initView();
 }
 
-PathReader::~PathReader() {}
-
 void PathReader::allocateMemory() {}
 
 void PathReader::initView() {}

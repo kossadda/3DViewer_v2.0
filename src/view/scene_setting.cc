@@ -16,8 +16,6 @@ SceneSetting::SceneSetting() : BaseWidget{} {
   initView();
 }
 
-SceneSetting::~SceneSetting() {}
-
 void SceneSetting::allocateMemory() {}
 
 void SceneSetting::initView() {}

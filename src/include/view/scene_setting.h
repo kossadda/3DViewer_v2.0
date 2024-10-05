@@ -17,7 +17,6 @@
 class SceneSetting : public BaseWidget {
  public:
   SceneSetting();
-  ~SceneSetting();
 
  private:
   void allocateMemory();

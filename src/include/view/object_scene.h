@@ -19,7 +19,6 @@
 class ObjectScene : public BaseWidget {
  public:
   ObjectScene();
-  ~ObjectScene();
 
  private:
   void allocateMemory();
