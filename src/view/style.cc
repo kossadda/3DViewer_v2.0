@@ -64,3 +64,23 @@ const QString Style::kLabelStyle =
 const QString Style::kSpinBoxStyle =
     "background-color: rgba(15, 15, 15, 0.5);"
     "color: rgb(255, 255, 255)";
+
+const QString Style::kButtonStyle =
+    "QPushButton:pressed {"
+    "  background-color: rgb(47, 47, 47);"
+    "}"
+    "QPushButton {"
+    "  background-color: #400105;"
+    "  color: rgb(255, 255, 255);"
+    "  border-radius: 10px;"
+    "  border: 1px solid #5e0107;"
+    "  font-size: 16px;"
+    "}";
+
+const QString Style::kLineEditStyle =
+    "border-radius: 10px;"
+    "background-color: rgb(47, 47, 47);"
+    "border: 1px solid #5e0107;"
+    "font-size: 17px;"
+    "padding-left: 16px;"
+    "color: rgb(255, 255, 255);";

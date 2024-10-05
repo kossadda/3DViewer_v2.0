@@ -18,15 +18,15 @@ BaseWidget::BaseWidget(QLabel *title) : QWidget{} {
 
 void BaseWidget::allocateMemory() {
   grid_ = new QGridLayout;
+  frame_grid_ = new QGridLayout;
   frame_ = new QFrame;
 }
 
 void BaseWidget::initView(QLabel *title) {
-  QGridLayout *main_grid{new QGridLayout};
-  setLayout(main_grid);
-  main_grid->setContentsMargins(1, 1, 1, 1);
+  setLayout(frame_grid_);
+  frame_grid_->setContentsMargins(1, 1, 1, 1);
 
-  main_grid->addWidget(frame_);
+  frame_grid_->addWidget(frame_);
   frame_->setLayout(grid_);
 
   if (title) {
