@@ -22,8 +22,8 @@ TEST(FigureTest, Constructor) {
 
   Edge edge(v_1, v_2);
 
-  EXPECT_EQ(&edge.begin(), &v_1);
-  EXPECT_EQ(&edge.end(), &v_2);
+  EXPECT_EQ(edge.begin(), v_1);
+  EXPECT_EQ(edge.end(), v_2);
 
   std::vector<Vertex> v{v_1, v_2};
   std::vector<Edge> e{edge};
@@ -39,8 +39,8 @@ TEST(FigureTest, TransformTest) {
   Vertex v_2{4.f, 5.f, 6.f};
 
   Edge edge(v_1, v_2);
-  std::vector<Vertex> vertices = {v_1, v_2};
-  std::vector<Edge> edges = {edge};
+  std::vector<Vertex> vertices{v_1, v_2};
+  std::vector<Edge> edges{edge};
 
   Figure figure(vertices, edges);
 

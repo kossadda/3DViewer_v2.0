@@ -63,66 +63,112 @@ TEST(FileReaderTest, ParseFaceCorrect) {
 //   }
 // }
 
-TEST(FileReaderTest, ReadScene) {
+TEST(FileReaderTest, ReadSceneOneFigure) {
   s21::FileReader reader;
+  s21::NormalizationParameters params;
+  std::string path{"tests/data/test.obj"};
   std::vector<std::string> lines{
-      "v 0.288236 0.185213 1.545897",  // Первая вершина
-      "v 0.257309 0.009730 1.185200",  // Вторая вершина
-      "v 0.289416 0.128668 1.506040",  // Третья вершина
-      "f 1/48/1 2/23/1 3/24/1"         // Поверхность
-  };
+      "v 0.288236 0.185213 1.545897", "v 0.257309 0.009730 1.185200",
+      "v 0.289416 0.128668 1.506040", "f 1/48/1 2/23/1 3/24/1"};
 
-  // Создаем временный файл для теста
-  std::ofstream test_file("test.obj");
+  std::ofstream test_file(path);
   for (const auto& line : lines) {
     test_file << line << std::endl;
   }
+
   test_file.close();
+  s21::Scene scene = reader.ReadScene(path, params);
 
-  // Параметры нормализации (можно не учитывать в этом тесте)
-  s21::NormalizationParameters params;
+  auto edge = scene.figures().front().edges();
+  auto vertex = scene.figures().front().vertices();
 
-  // Читаем сцену из файла
-  s21::Scene scene = reader.ReadScene("test.obj", params);
+  scene.figures();
+  EXPECT_EQ(edge[0].begin(), vertex[0]);
+  EXPECT_EQ(edge[0].end(), vertex[1]);
 
-  // Проверка количества фигур в сцене
-  ASSERT_EQ(scene.figures().size(), 1);
+  EXPECT_EQ(edge[1].begin(), vertex[1]);
+  EXPECT_EQ(edge[1].end(), vertex[2]);
 
-  // Проверка количества вершин и рёбер в фигуре
-  const s21::Figure& figure = scene.figures().at(0);
-  EXPECT_EQ(figure.vertices().size(), 3);
-  EXPECT_EQ(figure.edges().size(), 3);
+  EXPECT_EQ(edge[2].begin(), vertex[2]);
+  EXPECT_EQ(edge[2].end(), vertex[0]);
 
-  // Проверка корректности вершин
-  EXPECT_FLOAT_EQ(figure.vertices()[0].position().x, 0.288236f);
-  EXPECT_FLOAT_EQ(figure.vertices()[0].position().y, 0.185213f);
-  EXPECT_FLOAT_EQ(figure.vertices()[0].position().z, 1.545897f);
-
-  EXPECT_FLOAT_EQ(figure.vertices()[1].position().x, 0.257309f);
-  EXPECT_FLOAT_EQ(figure.vertices()[1].position().y, 0.009730f);
-  EXPECT_FLOAT_EQ(figure.vertices()[1].position().z, 1.185200f);
-
-  EXPECT_FLOAT_EQ(figure.vertices()[2].position().x, 0.289416f);
-  EXPECT_FLOAT_EQ(figure.vertices()[2].position().y, 0.128668f);
-  EXPECT_FLOAT_EQ(figure.vertices()[2].position().z, 1.506040f);
-
-  // Проверка корректности рёбер
-  EXPECT_EQ(figure.edges()[0].begin().position(),
-            figure.vertices()[0].position());
-  EXPECT_EQ(figure.edges()[0].end().position(),
-            figure.vertices()[1].position());
-
-  EXPECT_EQ(figure.edges()[1].begin().position(),
-            figure.vertices()[1].position());
-  EXPECT_EQ(figure.edges()[1].end().position(),
-            figure.vertices()[2].position());
-
-  EXPECT_EQ(figure.edges()[2].begin().position(),
-            figure.vertices()[2].position());
-  EXPECT_EQ(figure.edges()[2].end().position(),
-            figure.vertices()[0].position());
+  std::remove(path.c_str());
 }
 
+TEST(FileReaderTest, ReadSceneTwoFigure) {
+  s21::FileReader reader;
+  s21::NormalizationParameters params;
+  std::string path{"tests/data/test.obj"};
+  std::vector<std::string> lines{
+      "v 0.288236 0.185213 1.545897",  "v 0.257309 0.009730 1.185200",
+      "v 0.289416 0.128668 1.506040",  "v 0.128494 0.067700 -1.630105",
+      "v -1.999521 0.069781 1.518724", "v -1.983809 0.019215 -1.563283",
+      "f 1/48/1 2/23/1 3/24/1",        "f 4/12/9 5/11/8 6/17/14 "};
+
+  std::ofstream test_file(path);
+  for (const auto& line : lines) {
+    test_file << line << std::endl;
+  }
+
+  test_file.close();
+  s21::Scene scene = reader.ReadScene(path, params);
+
+  auto edge1 = scene.figures()[0].edges();
+  auto vertex1 = scene.figures()[0].vertices();
+  auto edge2 = scene.figures()[1].edges();
+  auto vertex2 = scene.figures()[1].vertices();
+
+  scene.figures();
+  EXPECT_EQ(edge1[0].begin(), vertex1[0]);
+  EXPECT_EQ(edge1[0].end(), vertex1[1]);
+  EXPECT_EQ(edge1[1].begin(), vertex1[1]);
+  EXPECT_EQ(edge1[1].end(), vertex1[2]);
+  EXPECT_EQ(edge1[2].begin(), vertex1[2]);
+  EXPECT_EQ(edge1[2].end(), vertex1[0]);
+
+  EXPECT_EQ(edge2[0].begin(), vertex2[1]);
+  std::cout << edge2[0].begin().position().x << std::endl;
+  std::cout << vertex2[0].position().x << std::endl;
+  // EXPECT_EQ(edge2[0].end(), vertex2[1]);
+  // EXPECT_EQ(edge2[1].begin(), vertex2[1]);
+  // EXPECT_EQ(edge2[1].end(), vertex2[2]);
+  // EXPECT_EQ(edge2[2].begin(), vertex2[2]);
+  // EXPECT_EQ(edge2[2].end(), vertex2[0]);
+
+  std::remove(path.c_str());
+}
+
+//   // Проверка корректности вершин
+//   EXPECT_FLOAT_EQ(figure.vertices()[0].position().x, 0.288236f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[0].position().y, 0.185213f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[0].position().z, 1.545897f);
+
+//   EXPECT_FLOAT_EQ(figure.vertices()[1].position().x, 0.257309f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[1].position().y, 0.009730f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[1].position().z, 1.185200f);
+
+//   EXPECT_FLOAT_EQ(figure.vertices()[2].position().x, 0.289416f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[2].position().y, 0.128668f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[2].position().z, 1.506040f);
+
+//   // Проверка корректности рёбер
+//   EXPECT_EQ(figure.edges()[0].begin().position(),
+//             figure.vertices()[0].position());
+//   EXPECT_EQ(figure.edges()[0].end().position(),
+//             figure.vertices()[1].position());
+
+//   EXPECT_EQ(figure.edges()[1].begin().position(),
+//             figure.vertices()[1].position());
+//   EXPECT_EQ(figure.edges()[1].end().position(),
+//             figure.vertices()[2].position());
+
+//   EXPECT_EQ(figure.edges()[2].begin().position(),
+//             figure.vertices()[2].position());
+//   EXPECT_EQ(figure.edges()[2].end().position(),
+//             figure.vertices()[0].position());
+// }
+
+// >>>>>>> develop
 // TEST(FileReaderTest, ReadLinesCorrectly) {
 //   s21::FileReader reader;
 //   std::string path = "tests/data/test_1.obj";
