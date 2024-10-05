@@ -40,15 +40,20 @@ void MainWindow::allocateMemory() {
 
 void MainWindow::initView() {
   QGridLayout *grid{new QGridLayout};
+  
   setLayout(grid);
-  setFixedSize(800, 600);
+  setStyleSheet(Style::kWindowStyle);
 
-  grid->addWidget(path_);
-  grid->addWidget(scene_);
-  grid->addWidget(rotate_);
-  grid->addWidget(scale_);
-  grid->addWidget(translate_);
-  grid->addWidget(vertex_);
-  grid->addWidget(lines_);
-  grid->addWidget(setting_);
+  grid->addWidget(rotate_, 0, 0);
+  grid->addWidget(scale_, 1, 0);
+  grid->addWidget(translate_, 2, 0);
+  grid->addWidget(scene_, 0, 1, 3, 1);
+  // grid->addWidget(path_);
+  // grid->addWidget(vertex_);
+  // grid->addWidget(lines_);
+  // grid->addWidget(setting_);
+
+  rotate_->setMaximumSize(400, 200);
+  translate_->setMaximumSize(400, 200);
+  scale_->setMaximumSize(400, 100);
 }

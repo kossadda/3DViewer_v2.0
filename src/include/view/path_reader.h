@@ -9,12 +9,12 @@
  *
  */
 
-#include <QWidget>
-
 #ifndef SRC_INCLUDE_VIEW_PATH_READER_H_
 #define SRC_INCLUDE_VIEW_PATH_READER_H_
 
-class PathReader : public QWidget {
+#include "include/view/base_widget.h"
+
+class PathReader : public BaseWidget {
  public:
   PathReader();
   ~PathReader();

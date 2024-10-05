@@ -11,7 +11,7 @@
 
 #include "include/view/object_scene.h"
 
-ObjectScene::ObjectScene() : QWidget{} {
+ObjectScene::ObjectScene() : BaseWidget{} {
   allocateMemory();
   initView();
 }
@@ -20,4 +20,9 @@ ObjectScene::~ObjectScene() { delete scene_; }
 
 void ObjectScene::allocateMemory() { scene_ = new QOpenGLWidget; }
 
-void ObjectScene::initView() {}
+void ObjectScene::initView() {
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  scene_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  scene_->setMinimumSize(1000, 800);
+  grid_->addWidget(scene_);
+}

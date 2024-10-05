@@ -9,13 +9,15 @@
  *
  */
 
-#include <QSlider>
-#include <QSpinBox>
-#include <QLabel>
-#include <QGridLayout>
-
 #ifndef SRC_INCLUDE_VIEW_SLIDER_H_
 #define SRC_INCLUDE_VIEW_SLIDER_H_
+
+#include <QGridLayout>
+#include <QLabel>
+#include <QSlider>
+#include <QSpinBox>
+
+#include "include/view/style.h"
 
 class Slider : public QWidget {
  public:
@@ -26,6 +28,7 @@ class Slider : public QWidget {
   void allocateMemory(const QString &name);
   void initView(int min, int max);
 
+  QGridLayout *grid_;
   QSlider *slider_;
   QSpinBox *box_;
   QLabel *label_;

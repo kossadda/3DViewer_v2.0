@@ -12,13 +12,13 @@
 #ifndef SRC_INCLUDE_VIEW_AFINNE_DATA_H_
 #define SRC_INCLUDE_VIEW_AFINNE_DATA_H_
 
-#include <QWidget>
 #include <QGridLayout>
 #include <QVector>
 
+#include "include/view/base_widget.h"
 #include "include/view/slider.h"
 
-class AfinneData : public QWidget {
+class AfinneData : public BaseWidget {
  public:
   AfinneData(const QStringList &names, int min, int max);
   ~AfinneData();
@@ -27,7 +27,6 @@ class AfinneData : public QWidget {
   void allocateMemory(const QStringList &names, int min, int max);
   void initView();
 
-  QGridLayout *grid_;
   QVector<Slider *> sliders_;
 };
 

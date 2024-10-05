@@ -11,7 +11,7 @@
 
 #include "include/view/path_reader.h"
 
-PathReader::PathReader() : QWidget{} {
+PathReader::PathReader() : BaseWidget{} {
   allocateMemory();
   initView();
 }

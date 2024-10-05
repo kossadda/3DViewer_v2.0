@@ -13,9 +13,10 @@
 #define SRC_INCLUDE_VIEW_OBJECT_SCENE_H_
 
 #include <QOpenGLWidget>
-#include <QWidget>
 
-class ObjectScene : public QWidget {
+#include "include/view/base_widget.h"
+
+class ObjectScene : public BaseWidget {
  public:
   ObjectScene();
   ~ObjectScene();

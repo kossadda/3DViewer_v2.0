@@ -19,25 +19,25 @@ Slider::Slider(const QString &name, int min, int max) : QWidget{} {
 Slider::~Slider() {}
 
 void Slider::allocateMemory(const QString &name) {
+  grid_ = new QGridLayout;
   label_ = new QLabel{name};
   slider_ = new QSlider{Qt::Horizontal};
   box_ = new QSpinBox;
 }
 
 void Slider::initView(int min, int max) {
-  QGridLayout *grid{new QGridLayout};
-  setLayout(grid);
+  setLayout(grid_);
 
-  grid->addWidget(label_, 0, 0);
-  grid->addWidget(slider_, 0, 1);
-  grid->addWidget(box_, 0, 2);
-
-  label_->setFixedSize(10, 30);
-  slider_->setFixedSize(120, 30);
-  box_->setFixedSize(60, 30);
+  grid_->addWidget(label_, 0, 0);
+  grid_->addWidget(slider_, 0, 1);
+  grid_->addWidget(box_, 0, 2);
 
   slider_->setMinimum(min);
   slider_->setMaximum(max);
   box_->setMinimum(min);
   box_->setMaximum(max);
+
+  setStyleSheet(Style::kWindowStyle);
+  label_->setStyleSheet(Style::kLabelStyle);
+  slider_->setStyleSheet(Style::kSliderStyle);
 }

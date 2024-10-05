@@ -12,14 +12,15 @@
 #ifndef SRC_INCLUDE_VIEW_MAIN_WINDOW_H_
 #define SRC_INCLUDE_VIEW_MAIN_WINDOW_H_
 
-#include <QWidget>
 #include <QGridLayout>
+#include <QWidget>
 
-#include "include/view/object_scene.h"
-#include "include/view/path_reader.h"
 #include "include/view/afinne_data.h"
 #include "include/view/figure_data.h"
+#include "include/view/object_scene.h"
+#include "include/view/path_reader.h"
 #include "include/view/scene_setting.h"
+#include "include/view/style.h"
 
 class MainWindow : public QWidget {
  public:
