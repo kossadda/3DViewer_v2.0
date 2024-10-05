@@ -31,8 +31,7 @@ void BaseWidget::initView(QLabel *title) {
 
   if (title) {
     grid_->addWidget(title, 0, 0, Qt::AlignCenter);
-    QString new_label_style{Style::kLabelStyle};
-    title->setStyleSheet(new_label_style.replace("12px", "15px"));
+    title->setStyleSheet(QString{Style::kLabelStyle}.replace("14px", "15px"));
   }
 
   setStyleSheet(Style::kWindowStyle);

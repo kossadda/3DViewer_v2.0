@@ -30,7 +30,7 @@ const QString Style::kFrameStyle =
 
 const QString Style::kSliderStyle =
     "QSlider {"
-    "  background-color: rgb(50, 50, 50);"
+    "  background-color: rgba(0, 0, 0, 0.0);"
     "}"
     "QSlider::groove:horizontal {"
     "  border: 1px solid #999999;"
@@ -59,11 +59,21 @@ const QString Style::kLabelStyle =
     "padding-right: 15px;"
     "color: rgb(255, 255, 255);"
     "border: none;"
-    "font-size: 12px;";
+    "font-size: 14px;";
 
 const QString Style::kSpinBoxStyle =
-    "background-color: rgba(15, 15, 15, 0.5);"
-    "color: rgb(255, 255, 255)";
+    "QSpinBox {"
+    "  background-color: rgba(15, 15, 15, 0.5);"
+    "  border: 1px solid #5e0107;"
+    "  border-radius: 10px;"
+    "  color: rgb(255, 255, 255);"
+    "}"
+    "QSpinBox::down-button {"
+    "  width: 0px;"
+    "}"
+    "QSpinBox::up-button {"
+    "  width: 0px;"
+    "}";
 
 const QString Style::kButtonStyle =
     "QPushButton:pressed {"
@@ -84,3 +94,23 @@ const QString Style::kLineEditStyle =
     "font-size: 17px;"
     "padding-left: 16px;"
     "color: rgb(255, 255, 255);";
+
+const QString Style::kComboBoxStyle =
+    "QComboBox {"
+    "  subcontrol-origin: padding;"
+    "  subcontrol-position: top right;"
+    "  selection-background-color: transparent;"
+    "  selection-color: #bd020e;"
+    "  background-color: rgb(47, 47, 47);"
+    "  font-size: 14px;"
+    "  color: rgb(255, 255, 255);"
+    "  border: 1px solid #5e0107;"
+    "  border-radius: 10px;"
+    "  padding: 1px 0px 1px 20px;"
+    "}"
+    "QComboBox::drop-down {"
+    "  image: url(:down_arrow.png);"
+    "  width: 20px;"
+    "  height: 38px;"
+    "  margin-right: 5px;"
+    "}";

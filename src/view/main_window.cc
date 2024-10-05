@@ -17,14 +17,16 @@ MainWindow::MainWindow() : QWidget{} {
 }
 
 void MainWindow::allocateMemory() {
+  left_menu = new QGridLayout;
+  right_menu = new QGridLayout;
   path_ = new PathReader;
   scene_ = new ObjectScene;
   rotate_ = new AfinneData{new QLabel{"Rotate"}, {"X", "Y", "Z"}, -360, 360};
   scale_ = new AfinneData{new QLabel{"Scale"}, {""}, -99, 600};
   translate_ =
       new AfinneData{new QLabel{"Translate"}, {"X", "Y", "Z"}, -100, 100};
-  vertex_ = new FigureData;
-  lines_ = new FigureData;
+  vertex_ = new FigureData{new QLabel{"Vertex"}, {"off", " □", " ◯"}};
+  lines_ = new FigureData{new QLabel{"Facet"}, {"off", "──", "----"}};
   setting_ = new SceneSetting;
 }
 
@@ -33,17 +35,21 @@ void MainWindow::initView() {
   setLayout(grid);
   setStyleSheet(Style::kWindowStyle);
 
-  grid->addWidget(rotate_, 1, 0);
-  grid->addWidget(scale_, 2, 0);
-  grid->addWidget(translate_, 3, 0);
+  left_menu->addWidget(rotate_);
+  left_menu->addWidget(scale_);
+  left_menu->addWidget(translate_);
+  right_menu->addWidget(vertex_);
+  right_menu->addWidget(lines_);
+  // right_menu->addWidget(setting_);
+  grid->addLayout(left_menu, 1, 0, Qt::AlignTop);
   grid->addWidget(path_, 0, 1);
-  grid->addWidget(scene_, 1, 1, 4, 1);
-  // grid->addWidget(vertex_);
-  // grid->addWidget(lines_);
-  // grid->addWidget(setting_);
+  grid->addWidget(scene_, 1, 1);
+  grid->addLayout(right_menu, 1, 2, Qt::AlignTop);
 
   rotate_->setFixedSize(350, 200);
   translate_->setFixedSize(350, 200);
   scale_->setFixedSize(350, 100);
   path_->setFixedHeight(60);
+  vertex_->setFixedSize(230, 190);
+  lines_->setFixedSize(230, 190);
 }

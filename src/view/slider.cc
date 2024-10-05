@@ -25,8 +25,9 @@ void Slider::allocateMemory(const QString &name) {
 
 void Slider::initView(int min, int max) {
   setLayout(grid_);
+  grid_->setHorizontalSpacing(17);
 
-  grid_->addWidget(label_, 0, 0);
+  grid_->addWidget(label_, 0, 0, Qt::AlignBottom);
   grid_->addWidget(slider_, 0, 1);
   grid_->addWidget(box_, 0, 2);
 
@@ -34,6 +35,9 @@ void Slider::initView(int min, int max) {
   slider_->setMaximum(max);
   box_->setMinimum(min);
   box_->setMaximum(max);
+
+  box_->setMinimumSize(50, 35);
+  slider_->setMinimumHeight(37);
 
   setStyleSheet(Style::kWindowTranparentStyle);
   label_->setStyleSheet(Style::kLabelStyle);

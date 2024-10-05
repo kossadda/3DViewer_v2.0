@@ -30,6 +30,9 @@ class MainWindow : public QWidget {
   void allocateMemory();
   void initView();
 
+  QGridLayout *left_menu;
+  QGridLayout *right_menu;
+
   PathReader *path_;
   ObjectScene *scene_;
   AfinneData *rotate_;

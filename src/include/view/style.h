@@ -24,6 +24,7 @@ class Style {
   static const QString kSpinBoxStyle;
   static const QString kButtonStyle;
   static const QString kLineEditStyle;
+  static const QString kComboBoxStyle;
 };
 
 #endif  // SRC_INCLUDE_VIEW_STYLE_H_
