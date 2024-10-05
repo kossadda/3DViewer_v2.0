@@ -66,6 +66,16 @@ $(OBJ_DIR)/tests/modules/%.o: $(TESTS_DIR)/modules/%.cc $(TESTS_H)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 #=================================== TARGETS ===================================
+all: install run
+val: install valgrind_run
+
+install:
+	mkdir -p $(BIN_DIR)
+	cd $(BIN_DIR) && cmake ../src && make
+
+uninstall: clean
+	rm -rf $(BIN_DIR)
+
 test: $(OBJ_DIR)/tests/modules $(TESTS_O) $(MODEL_LIB)
 	$(CXX) $(MAIN_TEST) $(TESTS_O) $(MODEL_LIB) $(LDFLAGS) -o $@
 	./$@
@@ -91,6 +101,12 @@ clean:
 	rm -f test
 	rm -rf $(REPORT_DIR)
 	rm -rf $(CONTROLLER_LIB)
+
+run:
+	./$(BIN_DIR)/viewer
+
+valgrind_run:
+	valgrind --leak-check=full ./$(BIN_DIR)/viewer
 
 #=========================== STATIC LIBRARY BUILDING ===========================
 $(MODEL_LIB): $(OBJ_DIR)/model $(MODEL_O)
