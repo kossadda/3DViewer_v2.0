@@ -13,4 +13,9 @@
 
 namespace s21 {
 Point3D::Point3D(float x, float y, float z) : x{x}, y{y}, z{z} {}
+
+bool Point3D::operator==(const Point3D& other) const noexcept {
+  return x == other.x && y == other.y && z == other.z;
+}
+
 }  // namespace s21

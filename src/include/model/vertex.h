@@ -25,6 +25,8 @@ class Vertex : public SceneObject {
   inline void set_position(const Point3D &point) noexcept { position_ = point; }
   void Transform(const TransformMatrix &matrix) override;
 
+  bool operator==(const Vertex &other) const noexcept;
+
  private:
   Point3D position_;
 };

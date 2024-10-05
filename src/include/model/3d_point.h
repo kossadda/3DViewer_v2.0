@@ -17,6 +17,7 @@ struct Point3D {
   Point3D(float x, float y, float z);
   Point3D() = default;
 
+  bool operator==(const Point3D& other) const noexcept;
   float x{}, y{}, z{};
 };
 }  // namespace s21
