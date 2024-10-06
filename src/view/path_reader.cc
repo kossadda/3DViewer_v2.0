@@ -16,7 +16,8 @@ PathReader::PathReader() : BaseWidget{} {
   initView();
 }
 
-void PathReader::allocateMemory() {
+void PathReader::allocateMemory()
+{
   path_button_ = new QPushButton{"Load"};
   path_edit_ = new QLineEdit;
   vertex_info_ = new QLabel{"Vertex: 0"};
@@ -35,8 +36,8 @@ void PathReader::initView() {
 
   path_button_->setFixedSize(70, 40);
   path_edit_->setFixedHeight(40);
-  vertex_info_->setMaximumWidth(150);
-  facet_info_->setMaximumWidth(150);
+  vertex_info_->setMaximumWidth(250);
+  facet_info_->setMaximumWidth(250);
 
   vertex_info_->setAlignment(Qt::AlignRight);
   facet_info_->setAlignment(Qt::AlignRight);
@@ -54,8 +55,8 @@ void PathReader::initView() {
 void PathReader::onButtonClicked() {
   if(dialog_->exec() == QDialog::Accepted) {
     path_edit_->setText(dialog_->selectedFiles().first());
+    validPath();
   }
-  validPath();
 }
 
 void PathReader::validPath() {
@@ -79,4 +80,9 @@ void PathReader::validPath() {
   } else {
     emit valid(path_edit_->text());
   }
+}
+
+void PathReader::setInfo(int vertex_count, int facet_count) {
+  vertex_info_->setText("Vertex: " + QString::number(vertex_count));
+  facet_info_->setText("Facet: " + QString::number(facet_count));
 }

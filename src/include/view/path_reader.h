@@ -28,6 +28,8 @@ class PathReader : public BaseWidget {
  public:
   PathReader();
 
+  void setInfo(int vertex_count, int facet_count);
+
  private slots:
   void onButtonClicked();
   void validPath();

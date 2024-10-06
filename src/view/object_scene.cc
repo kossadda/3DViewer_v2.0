@@ -10,7 +10,7 @@
  */
 
 #include "include/view/object_scene.h"
-#include <QMessageBox>
+
 ObjectScene::ObjectScene() : BaseWidget{} {
   allocateMemory();
   initView();
@@ -25,4 +25,20 @@ void ObjectScene::initView() {
 
 void ObjectScene::drawScene(const QString& path) {
   (void)path;
+}
+
+void ObjectScene::saveImage(const QString & path) {
+  (void)path;
+}
+
+void ObjectScene::saveGif(const QString & path) {
+  (void)path;
+}
+
+void ObjectScene::clearScene() {
+
+}
+
+void ObjectScene::resetObject() {
+  
 }

@@ -20,7 +20,11 @@ class ObjectScene : public BaseWidget {
  public:
   ObjectScene();
 
-  void drawScene(const QString& path);
+  void drawScene(const QString &path);
+  void saveImage(const QString &path);
+  void saveGif(const QString &path);
+  void clearScene();
+  void resetObject();
 
  private:
   void allocateMemory();
