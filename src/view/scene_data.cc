@@ -23,7 +23,7 @@ void SceneData::allocateMemory() {
   color_label_ = new QLabel{"   Color"};
   calculate_combo_ = new QComboBox;
   projection_combo_ = new QComboBox;
-  color_button_ = new QPushButton{"Choose"};
+  color_button_ = new ColorButton;
 }
 
 void SceneData::initView() {
@@ -63,5 +63,4 @@ void SceneData::initView() {
 
   calculate_combo_->setStyleSheet(Style::kComboBoxStyle);
   projection_combo_->setStyleSheet(Style::kComboBoxStyle);
-  color_button_->setStyleSheet(Style::kButtonStyle);
 }

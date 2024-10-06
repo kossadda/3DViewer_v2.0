@@ -118,3 +118,15 @@ const QString Style::kComboBoxStyle =
     "  margin-top: 12px;"
     "  margin-right: 2px;"
     "}";
+
+const QString Style::kColorButtonStyle =
+    "QPushButton:pressed {"
+    "  background-color: rgb(47, 47, 47);"
+    "}"
+    "QPushButton {"
+    "  background-color: ;"
+    "  color: rgb(255, 255, 255);"
+    "  border-radius: 10px;"
+    "  border: 1px solid #636363;"
+    "  font-size: 14px;"
+    "}";

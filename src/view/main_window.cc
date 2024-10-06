@@ -39,10 +39,10 @@ void MainWindow::initView() {
   left_menu->addWidget(translate_);
   left_menu->addWidget(setting_);
   left_menu->addWidget(figure_);
-  left_menu->addWidget(function_);
   grid->addLayout(left_menu, 0, 0, 2, 1, Qt::AlignTop);
   grid->addWidget(path_, 0, 1);
-  grid->addWidget(scene_, 1, 1);
+  grid->addWidget(scene_, 1, 1, 3, 1);
+  grid->addWidget(function_, 2, 0, 2, 1, Qt::AlignBottom);
 
   rotate_->setFixedSize(310, 160);
   translate_->setFixedSize(310, 160);

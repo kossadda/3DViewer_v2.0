@@ -25,10 +25,10 @@ void ObjectData::allocateMemory() {
   color_label_ = new QLabel{"   Color"};
   vtype_combo_ = new QComboBox;
   vsize_box_ = new QSpinBox;
-  vcolor_button_ = new QPushButton{"Choose"};
+  vcolor_button_ = new ColorButton{QColor{64, 1, 5}};
   ftype_combo_ = new QComboBox;
   fsize_box_ = new QSpinBox;
-  fcolor_button_ = new QPushButton{"Choose"};
+  fcolor_button_ = new ColorButton{QColor{64, 1, 5}};
 }
 
 void ObjectData::initView() {
@@ -86,8 +86,6 @@ void ObjectData::initView() {
 
   vtype_combo_->setStyleSheet(Style::kComboBoxStyle);
   vsize_box_->setStyleSheet(Style::kSpinBoxStyle);
-  vcolor_button_->setStyleSheet(Style::kButtonStyle);
   ftype_combo_->setStyleSheet(Style::kComboBoxStyle);
   fsize_box_->setStyleSheet(Style::kSpinBoxStyle);
-  fcolor_button_->setStyleSheet(Style::kButtonStyle);
 }

@@ -23,6 +23,7 @@ class Style {
   static const QString kLabelStyle;
   static const QString kSpinBoxStyle;
   static const QString kButtonStyle;
+  static const QString kColorButtonStyle;
   static const QString kLineEditStyle;
   static const QString kComboBoxStyle;
 };

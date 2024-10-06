@@ -15,11 +15,11 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QLabel>
-#include <QPushButton>
 #include <QSpinBox>
 #include <QVector>
 
 #include "include/view/base_widget.h"
+#include "include/view/color_button.h"
 #include "include/view/style.h"
 
 class ObjectData : public BaseWidget {
@@ -38,7 +38,7 @@ class ObjectData : public BaseWidget {
   QLabel *color_label_;
   QComboBox *vtype_combo_, *ftype_combo_;
   QSpinBox *vsize_box_, *fsize_box_;
-  QPushButton *vcolor_button_, *fcolor_button_;
+  ColorButton *vcolor_button_, *fcolor_button_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_OBJECT_DATA_H_
