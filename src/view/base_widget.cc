@@ -18,19 +18,24 @@ BaseWidget::BaseWidget(QLabel *title) : QWidget{} {
 
 void BaseWidget::allocateMemory() {
   grid_ = new QGridLayout;
+  frame_grid_ = new QGridLayout;
   frame_ = new QFrame;
 }
 
 void BaseWidget::initView(QLabel *title) {
-  QGridLayout *main_grid{new QGridLayout};
-  setLayout(main_grid);
+  QGridLayout *title_grid{new QGridLayout};
+  setLayout(frame_grid_);
+  frame_grid_->setContentsMargins(1, 1, 1, 1);
 
-  main_grid->addWidget(frame_);
+  frame_grid_->addWidget(frame_);
   frame_->setLayout(grid_);
+
+  grid_->setVerticalSpacing(4);
+  grid_->addLayout(title_grid, 0, 0, Qt::AlignTop);
+
   if (title) {
-    grid_->addWidget(title, 0, 0, Qt::AlignCenter);
-    QString new_label_style{Style::kLabelStyle};
-    title->setStyleSheet(new_label_style.replace("12px", "15px"));
+    title_grid->addWidget(title, 0, 0, Qt::AlignCenter);
+    title->setStyleSheet(QString{Style::kLabelStyle}.replace("14px", "15px"));
   }
 
   setStyleSheet(Style::kWindowStyle);

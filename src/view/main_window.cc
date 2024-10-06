@@ -16,46 +16,36 @@ MainWindow::MainWindow() : QWidget{} {
   initView();
 }
 
-MainWindow::~MainWindow() {
-  delete path_;
-  delete scene_;
-  delete rotate_;
-  delete scale_;
-  delete translate_;
-  delete vertex_;
-  delete lines_;
-  delete setting_;
-}
-
 void MainWindow::allocateMemory() {
+  left_menu = new QGridLayout;
   path_ = new PathReader;
   scene_ = new ObjectScene;
   rotate_ = new AfinneData{new QLabel{"Rotate"}, {"X", "Y", "Z"}, -360, 360};
-  scale_ = new AfinneData{new QLabel{"Scale"}, {""}, -99, 600};
+  scale_ = new AfinneData{new QLabel{"Scale"}, {"%"}, 1, 600, 100};
   translate_ =
       new AfinneData{new QLabel{"Translate"}, {"X", "Y", "Z"}, -100, 100};
-  vertex_ = new FigureData;
-  lines_ = new FigureData;
-  setting_ = new SceneSetting;
+  figure_ = new ObjectData;
+  setting_ = new SceneData{new QLabel{"Scene"}};
 }
 
 void MainWindow::initView() {
   QGridLayout *grid{new QGridLayout};
-
   setLayout(grid);
   setStyleSheet(Style::kWindowStyle);
 
-  grid->addWidget(rotate_, 0, 0);
-  grid->addWidget(scale_, 1, 0);
-  grid->addWidget(translate_, 2, 0);
-  grid->addWidget(scene_, 0, 1, 3, 1);
-  // grid->addWidget(path_);
-  // grid->addWidget(vertex_);
-  // grid->addWidget(lines_);
-  // grid->addWidget(setting_);
+  left_menu->addWidget(rotate_);
+  left_menu->addWidget(scale_);
+  left_menu->addWidget(translate_);
+  left_menu->addWidget(setting_);
+  left_menu->addWidget(figure_);
+  grid->addLayout(left_menu, 0, 0, 2, 1, Qt::AlignTop);
+  grid->addWidget(path_, 0, 1);
+  grid->addWidget(scene_, 1, 1);
 
-
-  rotate_->setFixedSize(350, 200);
-  translate_->setFixedSize(350, 200);
-  scale_->setFixedSize(350, 100);
+  rotate_->setFixedSize(310, 160);
+  translate_->setFixedSize(310, 160);
+  scale_->setFixedSize(310, 90);
+  path_->setFixedHeight(60);
+  setting_->setFixedSize(310, 190);
+  figure_->setFixedSize(310, 190);
 }

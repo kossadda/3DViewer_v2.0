@@ -16,29 +16,28 @@
 #include <QWidget>
 
 #include "include/view/afinne_data.h"
-#include "include/view/figure_data.h"
+#include "include/view/object_data.h"
 #include "include/view/object_scene.h"
 #include "include/view/path_reader.h"
-#include "include/view/scene_setting.h"
+#include "include/view/scene_data.h"
 #include "include/view/style.h"
 
 class MainWindow : public QWidget {
  public:
   MainWindow();
-  ~MainWindow();
 
  private:
   void allocateMemory();
   void initView();
 
+  QGridLayout *left_menu;
   PathReader *path_;
   ObjectScene *scene_;
   AfinneData *rotate_;
   AfinneData *scale_;
   AfinneData *translate_;
-  FigureData *vertex_;
-  FigureData *lines_;
-  SceneSetting *setting_;
+  ObjectData *figure_;
+  SceneData *setting_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_MAIN_WINDOW_H_

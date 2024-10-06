@@ -30,6 +30,7 @@ class BaseWidget : public QWidget {
   QFrame *frame_;
 
  protected:
+  QGridLayout *frame_grid_;
   QGridLayout *grid_;
 };
 

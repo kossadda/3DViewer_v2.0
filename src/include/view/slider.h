@@ -22,7 +22,8 @@
 class Slider : public QWidget {
  public:
   Slider(const QString &name, int min, int max);
-  ~Slider();
+
+  void setValue(int value);
 
  private slots:
   void onValueChanged(int value);

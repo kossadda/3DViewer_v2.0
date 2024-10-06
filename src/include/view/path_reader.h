@@ -12,16 +12,25 @@
 #ifndef SRC_INCLUDE_VIEW_PATH_READER_H_
 #define SRC_INCLUDE_VIEW_PATH_READER_H_
 
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+
 #include "include/view/base_widget.h"
+#include "include/view/style.h"
 
 class PathReader : public BaseWidget {
  public:
   PathReader();
-  ~PathReader();
 
  private:
   void allocateMemory();
   void initView();
+
+  QPushButton *path_button_;
+  QLineEdit *path_edit_;
+  QLabel *vertex_info_;
+  QLabel *facet_info_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_PATH_READER_H_
