@@ -21,11 +21,11 @@ void MainWindow::allocateMemory() {
   path_ = new PathReader;
   scene_ = new ObjectScene;
   rotate_ = new AfinneData{new QLabel{"Rotate"}, {"X", "Y", "Z"}, -360, 360};
-  scale_ = new AfinneData{new QLabel{"Scale"}, {""}, 1, 600, 100};
+  scale_ = new AfinneData{new QLabel{"Scale"}, {"%"}, 1, 600, 100};
   translate_ =
       new AfinneData{new QLabel{"Translate"}, {"X", "Y", "Z"}, -100, 100};
-  figure_ = new FigureData;
-  setting_ = new SceneSetting{new QLabel{"Scene"}};
+  figure_ = new ObjectData;
+  setting_ = new SceneData{new QLabel{"Scene"}};
 }
 
 void MainWindow::initView() {
@@ -42,10 +42,10 @@ void MainWindow::initView() {
   grid->addWidget(path_, 0, 1);
   grid->addWidget(scene_, 1, 1);
 
-  rotate_->setFixedSize(300, 160);
-  translate_->setFixedSize(300, 160);
-  scale_->setFixedSize(300, 90);
+  rotate_->setFixedSize(310, 160);
+  translate_->setFixedSize(310, 160);
+  scale_->setFixedSize(310, 90);
   path_->setFixedHeight(60);
-  setting_->setFixedSize(300, 180);
-  figure_->setFixedSize(300, 180);
+  setting_->setFixedSize(310, 190);
+  figure_->setFixedSize(310, 190);
 }

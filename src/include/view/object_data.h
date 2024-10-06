@@ -1,5 +1,5 @@
 /**
- * @file figure_data.h
+ * @file object_data.h
  * @author kossadda (https://github.com/kossadda)
  * @brief
  * @version 1.0
@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef SRC_INCLUDE_VIEW_FIGURE_DATA_H_
-#define SRC_INCLUDE_VIEW_FIGURE_DATA_H_
+#ifndef SRC_INCLUDE_VIEW_OBJECT_DATA_H_
+#define SRC_INCLUDE_VIEW_OBJECT_DATA_H_
 
 #include <QComboBox>
 #include <QGridLayout>
@@ -22,9 +22,9 @@
 #include "include/view/base_widget.h"
 #include "include/view/style.h"
 
-class FigureData : public BaseWidget {
+class ObjectData : public BaseWidget {
  public:
-  FigureData();
+  ObjectData();
 
  private:
   void allocateMemory();
@@ -41,4 +41,4 @@ class FigureData : public BaseWidget {
   QPushButton *vcolor_button_, *fcolor_button_;
 };
 
-#endif  // SRC_INCLUDE_VIEW_FIGURE_DATA_H_
+#endif  // SRC_INCLUDE_VIEW_OBJECT_DATA_H_

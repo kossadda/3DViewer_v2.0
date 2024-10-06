@@ -1,5 +1,5 @@
 /**
- * @file figure_data.cc
+ * @file object_data.cc
  * @author kossadda (https://github.com/kossadda)
  * @brief
  * @version 1.0
@@ -9,14 +9,14 @@
  *
  */
 
-#include "include/view/figure_data.h"
+#include "include/view/object_data.h"
 
-FigureData::FigureData() : BaseWidget{} {
+ObjectData::ObjectData() : BaseWidget{} {
   allocateMemory();
   initView();
 }
 
-void FigureData::allocateMemory() {
+void ObjectData::allocateMemory() {
   data_grid_ = new QGridLayout;
   vertex_label_ = new QLabel{"  Vertex"};
   facet_label_ = new QLabel{"  Facet"};
@@ -31,7 +31,7 @@ void FigureData::allocateMemory() {
   fcolor_button_ = new QPushButton{"Choose"};
 }
 
-void FigureData::initView() {
+void ObjectData::initView() {
   QVector<QLabel *> labels{type_label_, size_label_, color_label_,
                            vertex_label_, facet_label_};
   QString label_font_up{QString{Style::kLabelStyle}.replace("14px", "16px")};
@@ -50,13 +50,14 @@ void FigureData::initView() {
   data_grid_->addWidget(ftype_combo_, 1, 2, Qt::AlignCenter);
   data_grid_->addWidget(fsize_box_, 2, 2, Qt::AlignCenter);
   data_grid_->addWidget(fcolor_button_, 3, 2, Qt::AlignCenter);
+  data_grid_->setContentsMargins(0, 0, 0, 0);
   data_grid_->setVerticalSpacing(10);
   data_grid_->setHorizontalSpacing(5);
 
   for (auto label : labels) {
     label->setAlignment(Qt::AlignCenter);
     if (label != vertex_label_ && label != facet_label_) {
-      label->setFixedWidth(100);
+      label->setFixedWidth(110);
       label->setStyleSheet(border_font_up);
     } else {
       label->setStyleSheet(label_font_up);

@@ -1,5 +1,5 @@
 /**
- * @file scene_setting.cc
+ * @file scene_data.cc
  * @author kossadda (https://github.com/kossadda)
  * @brief
  * @version 1.0
@@ -9,14 +9,14 @@
  *
  */
 
-#include "include/view/scene_setting.h"
+#include "include/view/scene_data.h"
 
-SceneSetting::SceneSetting(QLabel *title) : BaseWidget{title} {
+SceneData::SceneData(QLabel *title) : BaseWidget{title} {
   allocateMemory();
   initView();
 }
 
-void SceneSetting::allocateMemory() {
+void SceneData::allocateMemory() {
   data_grid_ = new QGridLayout;
   calculate_label_ = new QLabel{"   Calculate"};
   projection_label_ = new QLabel{"   Projection"};
@@ -26,7 +26,7 @@ void SceneSetting::allocateMemory() {
   color_button_ = new QPushButton{"Choose"};
 }
 
-void SceneSetting::initView() {
+void SceneData::initView() {
   QVector<QLabel *> labels{calculate_label_, projection_label_, color_label_};
   QString label_font_up{QString{Style::kLabelStyle}.replace("14px", "16px")};
   label_font_up.replace("none", "1px solid #636363");
@@ -39,7 +39,7 @@ void SceneSetting::initView() {
   data_grid_->addWidget(calculate_combo_, 0, 1, Qt::AlignCenter);
   data_grid_->addWidget(projection_combo_, 1, 1, Qt::AlignCenter);
   data_grid_->addWidget(color_button_, 2, 1, Qt::AlignCenter);
-  data_grid_->setContentsMargins(0, 0, 0, 0);
+  data_grid_->setContentsMargins(0, 0, 0, 10);
   data_grid_->setVerticalSpacing(10);
   data_grid_->setHorizontalSpacing(10);
 

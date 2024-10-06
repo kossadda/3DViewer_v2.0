@@ -25,12 +25,12 @@ set(MODEL
 set(VIEW
   ${VIEW_DIR}/main_window.cc
   ${VIEW_DIR}/base_widget.cc
-  ${VIEW_DIR}/path_reader.cc
-  ${VIEW_DIR}/object_scene.cc
-  ${VIEW_DIR}/slider.cc
-  ${VIEW_DIR}/figure_data.cc
   ${VIEW_DIR}/afinne_data.cc
-  ${VIEW_DIR}/scene_setting.cc
+  ${VIEW_DIR}/scene_data.cc
+  ${VIEW_DIR}/object_data.cc
+  ${VIEW_DIR}/object_scene.cc
+  ${VIEW_DIR}/path_reader.cc
+  ${VIEW_DIR}/slider.cc
   ${VIEW_DIR}/style.cc
 )
 
@@ -41,12 +41,12 @@ set(CONTROLLER
 set(HEADERS
   ${INCLUDE_DIR}/view/main_window.h
   ${INCLUDE_DIR}/view/base_widget.h
-  ${INCLUDE_DIR}/view/path_reader.h
-  ${INCLUDE_DIR}/view/object_scene.h
-  ${INCLUDE_DIR}/view/slider.h
-  ${INCLUDE_DIR}/view/figure_data.h
   ${INCLUDE_DIR}/view/afinne_data.h
-  ${INCLUDE_DIR}/view/scene_setting.h
+  ${INCLUDE_DIR}/view/scene_data.h
+  ${INCLUDE_DIR}/view/object_data.h
+  ${INCLUDE_DIR}/view/object_scene.h
+  ${INCLUDE_DIR}/view/path_reader.h
+  ${INCLUDE_DIR}/view/slider.h
   ${INCLUDE_DIR}/view/style.h
 )
 

@@ -16,10 +16,10 @@
 #include <QWidget>
 
 #include "include/view/afinne_data.h"
-#include "include/view/figure_data.h"
+#include "include/view/object_data.h"
 #include "include/view/object_scene.h"
 #include "include/view/path_reader.h"
-#include "include/view/scene_setting.h"
+#include "include/view/scene_data.h"
 #include "include/view/style.h"
 
 class MainWindow : public QWidget {
@@ -36,8 +36,8 @@ class MainWindow : public QWidget {
   AfinneData *rotate_;
   AfinneData *scale_;
   AfinneData *translate_;
-  FigureData *figure_;
-  SceneSetting *setting_;
+  ObjectData *figure_;
+  SceneData *setting_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_MAIN_WINDOW_H_

@@ -36,7 +36,7 @@ void Slider::initView(int min, int max) {
   box_->setMinimum(min);
   box_->setMaximum(max);
 
-  label_->setFixedSize(30, 27);
+  label_->setFixedSize(35, 27);
   box_->setFixedSize(70, 27);
   slider_->setFixedSize(140, 27);
 
