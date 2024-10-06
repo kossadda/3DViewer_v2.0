@@ -23,6 +23,7 @@ void BaseWidget::allocateMemory() {
 }
 
 void BaseWidget::initView(QLabel *title) {
+  QGridLayout *title_grid{new QGridLayout};
   setLayout(frame_grid_);
   frame_grid_->setContentsMargins(1, 1, 1, 1);
 
@@ -30,9 +31,10 @@ void BaseWidget::initView(QLabel *title) {
   frame_->setLayout(grid_);
 
   grid_->setVerticalSpacing(4);
+  grid_->addLayout(title_grid, 0, 0, Qt::AlignTop);
 
   if (title) {
-    grid_->addWidget(title, 0, 0, Qt::AlignCenter);
+    title_grid->addWidget(title, 0, 0, Qt::AlignCenter);
     title->setStyleSheet(QString{Style::kLabelStyle}.replace("14px", "15px"));
   }
 

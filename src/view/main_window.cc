@@ -25,7 +25,7 @@ void MainWindow::allocateMemory() {
   translate_ =
       new AfinneData{new QLabel{"Translate"}, {"X", "Y", "Z"}, -100, 100};
   figure_ = new FigureData;
-  setting_ = new SceneSetting{new QLabel{"Settings"}};
+  setting_ = new SceneSetting{new QLabel{"Scene"}};
 }
 
 void MainWindow::initView() {
@@ -36,15 +36,16 @@ void MainWindow::initView() {
   left_menu->addWidget(rotate_);
   left_menu->addWidget(scale_);
   left_menu->addWidget(translate_);
+  left_menu->addWidget(setting_);
   left_menu->addWidget(figure_);
   grid->addLayout(left_menu, 0, 0, 2, 1, Qt::AlignTop);
   grid->addWidget(path_, 0, 1);
   grid->addWidget(scene_, 1, 1);
 
-  rotate_->setFixedSize(320, 170);
-  translate_->setFixedSize(320, 170);
-  scale_->setFixedSize(320, 100);
+  rotate_->setFixedSize(300, 160);
+  translate_->setFixedSize(300, 160);
+  scale_->setFixedSize(300, 90);
   path_->setFixedHeight(60);
-  figure_->setFixedSize(320, 170);
-  setting_->setFixedSize(230, 190);
+  setting_->setFixedSize(300, 180);
+  figure_->setFixedSize(300, 180);
 }

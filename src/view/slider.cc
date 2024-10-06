@@ -38,7 +38,7 @@ void Slider::initView(int min, int max) {
 
   label_->setFixedSize(30, 27);
   box_->setFixedSize(70, 27);
-  slider_->setFixedSize(150, 30);
+  slider_->setFixedSize(140, 27);
 
   setStyleSheet(Style::kWindowTranparentStyle);
   label_->setStyleSheet(Style::kLabelStyle);

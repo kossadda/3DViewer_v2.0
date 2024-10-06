@@ -12,6 +12,11 @@
 #ifndef SRC_INCLUDE_VIEW_SCENE_SETTING_H_
 #define SRC_INCLUDE_VIEW_SCENE_SETTING_H_
 
+#include <QComboBox>
+#include <QGridLayout>
+#include <QLabel>
+#include <QPushButton>
+
 #include "include/view/base_widget.h"
 
 class SceneSetting : public BaseWidget {
@@ -21,6 +26,13 @@ class SceneSetting : public BaseWidget {
  private:
   void allocateMemory();
   void initView();
+
+  QGridLayout *data_grid_;
+  QLabel *calculate_label_;
+  QLabel *projection_label_;
+  QLabel *color_label_;
+  QComboBox *calculate_combo_, *projection_combo_;
+  QPushButton *color_button_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_SCENE_SETTING_H_

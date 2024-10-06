@@ -18,11 +18,11 @@ FigureData::FigureData() : BaseWidget{} {
 
 void FigureData::allocateMemory() {
   data_grid_ = new QGridLayout;
-  vertex_label_ = new QLabel{" Vertex"};
-  facet_label_ = new QLabel{" Facet"};
-  type_label_ = new QLabel{"Type"};
-  size_label_ = new QLabel{"Size"};
-  color_label_ = new QLabel{"Color"};
+  vertex_label_ = new QLabel{"  Vertex"};
+  facet_label_ = new QLabel{"  Facet"};
+  type_label_ = new QLabel{"   Type"};
+  size_label_ = new QLabel{"   Size"};
+  color_label_ = new QLabel{"   Color"};
   vtype_combo_ = new QComboBox;
   vsize_box_ = new QSpinBox;
   vcolor_button_ = new QPushButton{"Choose"};
@@ -35,6 +35,8 @@ void FigureData::initView() {
   QVector<QLabel *> labels{type_label_, size_label_, color_label_,
                            vertex_label_, facet_label_};
   QString label_font_up{QString{Style::kLabelStyle}.replace("14px", "16px")};
+  QString border_font_up{label_font_up += "border-radius: 10px;"};
+  border_font_up.replace("none", "1px solid #636363");
 
   grid_->addLayout(data_grid_, 1, 0, Qt::AlignCenter);
   data_grid_->addWidget(type_label_, 1, 0);
@@ -49,12 +51,16 @@ void FigureData::initView() {
   data_grid_->addWidget(fsize_box_, 2, 2, Qt::AlignCenter);
   data_grid_->addWidget(fcolor_button_, 3, 2, Qt::AlignCenter);
   data_grid_->setVerticalSpacing(10);
-  data_grid_->setHorizontalSpacing(10);
+  data_grid_->setHorizontalSpacing(5);
 
   for (auto label : labels) {
-    label->setStyleSheet(label_font_up);
-    label->setFixedSize(70, 25);
     label->setAlignment(Qt::AlignCenter);
+    if (label != vertex_label_ && label != facet_label_) {
+      label->setFixedWidth(100);
+      label->setStyleSheet(border_font_up);
+    } else {
+      label->setStyleSheet(label_font_up);
+    }
   }
 
   for (auto name : QStringList{"□", "○", "none"}) {
@@ -65,12 +71,17 @@ void FigureData::initView() {
     ftype_combo_->addItem(name);
   }
 
-  vtype_combo_->setFixedSize(100, 35);
-  vsize_box_->setFixedSize(100, 35);
-  vcolor_button_->setFixedSize(100, 35);
-  ftype_combo_->setFixedSize(100, 35);
-  fsize_box_->setFixedSize(100, 35);
-  fcolor_button_->setFixedSize(100, 35);
+  vsize_box_->setMinimum(1);
+  vsize_box_->setMaximum(10);
+  fsize_box_->setMinimum(1);
+  fsize_box_->setMaximum(10);
+
+  vtype_combo_->setFixedSize(70, 35);
+  vsize_box_->setFixedSize(70, 35);
+  vcolor_button_->setFixedSize(70, 35);
+  ftype_combo_->setFixedSize(70, 35);
+  fsize_box_->setFixedSize(70, 35);
+  fcolor_button_->setFixedSize(70, 35);
 
   vtype_combo_->setStyleSheet(Style::kComboBoxStyle);
   vsize_box_->setStyleSheet(Style::kSpinBoxStyle);

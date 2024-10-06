@@ -87,7 +87,7 @@ const QString Style::kButtonStyle =
     "  color: rgb(255, 255, 255);"
     "  border-radius: 10px;"
     "  border: 1px solid #636363;"
-    "  font-size: 16px;"
+    "  font-size: 14px;"
     "}";
 
 const QString Style::kLineEditStyle =
