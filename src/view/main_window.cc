@@ -26,6 +26,7 @@ void MainWindow::allocateMemory() {
       new AfinneData{new QLabel{"Translate"}, {"X", "Y", "Z"}, -100, 100};
   figure_ = new ObjectData;
   setting_ = new SceneData{new QLabel{"Scene"}};
+  function_ = new Function;
 }
 
 void MainWindow::initView() {
@@ -38,6 +39,7 @@ void MainWindow::initView() {
   left_menu->addWidget(translate_);
   left_menu->addWidget(setting_);
   left_menu->addWidget(figure_);
+  left_menu->addWidget(function_);
   grid->addLayout(left_menu, 0, 0, 2, 1, Qt::AlignTop);
   grid->addWidget(path_, 0, 1);
   grid->addWidget(scene_, 1, 1);
