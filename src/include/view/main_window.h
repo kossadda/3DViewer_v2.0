@@ -16,6 +16,7 @@
 #include <QWidget>
 
 #include "include/view/afinne_data.h"
+#include "include/view/function.h"
 #include "include/view/object_data.h"
 #include "include/view/object_scene.h"
 #include "include/view/path_reader.h"
@@ -38,6 +39,7 @@ class MainWindow : public QWidget {
   AfinneData *translate_;
   ObjectData *figure_;
   SceneData *setting_;
+  Function *function_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_MAIN_WINDOW_H_

@@ -70,11 +70,11 @@ const QString Style::kSpinBoxStyle =
     "  color: rgb(255, 255, 255);"
     "}"
     "QSpinBox::down-button {"
-    "  image: url(:down_arrow_white.png);"
+    "  image: url(:down_arrow.png);"
     "  margin-right: 2px;"
     "}"
     "QSpinBox::up-button {"
-    "  image: url(:up_arrow_white.png);"
+    "  image: url(:up_arrow.png);"
     "  margin-right: 2px;"
     "}";
 
@@ -112,7 +112,7 @@ const QString Style::kComboBoxStyle =
     "  padding: 1px 0px 1px 10px;"
     "}"
     "QComboBox::drop-down {"
-    "  image: url(:down_arrow_white.png);"
+    "  image: url(:down_arrow.png);"
     "  width: 13px;"
     "  height: 13px;"
     "  margin-top: 12px;"
