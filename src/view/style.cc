@@ -94,7 +94,7 @@ const QString Style::kLineEditStyle =
     "border-radius: 10px;"
     "background-color: rgb(47, 47, 47);"
     "border: 1px solid #5e0107;"
-    "font-size: 17px;"
+    "font-size: 14px;"
     "padding-left: 16px;"
     "color: rgb(255, 255, 255);";
 
@@ -130,3 +130,7 @@ const QString Style::kColorButtonStyle =
     "  border: 1px solid #636363;"
     "  font-size: 14px;"
     "}";
+
+const QString Style::kFileDialogStyle =
+    "background-color: rgb(47, 47, 47);"
+    "color: rgb(255, 255, 255);";

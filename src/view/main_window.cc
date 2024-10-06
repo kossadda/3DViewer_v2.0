@@ -50,4 +50,6 @@ void MainWindow::initView() {
   path_->setFixedHeight(60);
   setting_->setFixedSize(310, 190);
   figure_->setFixedSize(310, 190);
+
+  connect(path_, &PathReader::valid, scene_, &ObjectScene::drawScene);
 }

@@ -20,6 +20,8 @@ class ObjectScene : public BaseWidget {
  public:
   ObjectScene();
 
+  void drawScene(const QString& path);
+
  private:
   void allocateMemory();
   void initView();

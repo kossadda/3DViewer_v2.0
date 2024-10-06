@@ -15,13 +15,25 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QPair>
 
 #include "include/view/base_widget.h"
 #include "include/view/style.h"
 
 class PathReader : public BaseWidget {
+  Q_OBJECT
+  
  public:
   PathReader();
+
+ private slots:
+  void onButtonClicked();
+  void validPath();
+
+ signals:
+  void valid(const QString& path);
 
  private:
   void allocateMemory();
@@ -31,6 +43,7 @@ class PathReader : public BaseWidget {
   QLineEdit *path_edit_;
   QLabel *vertex_info_;
   QLabel *facet_info_;
+  QFileDialog *dialog_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_PATH_READER_H_

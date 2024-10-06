@@ -10,7 +10,7 @@
  */
 
 #include "include/view/object_scene.h"
-
+#include <QMessageBox>
 ObjectScene::ObjectScene() : BaseWidget{} {
   allocateMemory();
   initView();
@@ -21,4 +21,8 @@ void ObjectScene::allocateMemory() { scene_ = new QOpenGLWidget; }
 void ObjectScene::initView() {
   scene_->setMinimumSize(1000, 800);
   grid_->addWidget(scene_);
+}
+
+void ObjectScene::drawScene(const QString& path) {
+  (void)path;
 }

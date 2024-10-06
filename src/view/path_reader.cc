@@ -21,6 +21,7 @@ void PathReader::allocateMemory() {
   path_edit_ = new QLineEdit;
   vertex_info_ = new QLabel{"Vertex: 0"};
   facet_info_ = new QLabel{"Facets: 0"};
+  dialog_ = new QFileDialog{this, "Choose wireframe file", QDir::homePath(), "Wireframe obj (*.obj)"};
 }
 
 void PathReader::initView() {
@@ -44,4 +45,38 @@ void PathReader::initView() {
   path_edit_->setStyleSheet(Style::kLineEditStyle);
   vertex_info_->setStyleSheet(Style::kLabelStyle);
   facet_info_->setStyleSheet(Style::kLabelStyle);
+  dialog_->setStyleSheet(Style::kFileDialogStyle);
+
+  connect(path_button_, &QPushButton::clicked, this, &PathReader::onButtonClicked);
+  connect(path_edit_, &QLineEdit::returnPressed, this, &PathReader::validPath);
+}
+
+void PathReader::onButtonClicked() {
+  if(dialog_->exec() == QDialog::Accepted) {
+    path_edit_->setText(dialog_->selectedFiles().first());
+  }
+  validPath();
+}
+
+void PathReader::validPath() {
+  QFileInfo info{path_edit_->text()};
+  bool valid_path{true};
+  QString error_message;
+
+  if(!info.isAbsolute()) {
+    valid_path = false;
+    error_message = "Enter the absolute path to the file";
+  } else if(!info.exists()) {
+    valid_path = false;
+    error_message = "File " + info.fileName() + " does not exist";
+  } else if(info.suffix() != "obj") {
+    valid_path = false;
+    error_message = "Enter path to wireframe file (.obj)";
+  }
+
+  if(!valid_path) {
+    QMessageBox::warning(this, "Error", error_message);
+  } else {
+    emit valid(path_edit_->text());
+  }
 }
