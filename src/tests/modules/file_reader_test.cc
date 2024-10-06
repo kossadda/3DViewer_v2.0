@@ -92,7 +92,6 @@ TEST(FileReaderTest, ReadSceneOneFigure) {
   EXPECT_EQ(edge[2].begin(), vertex[2]);
   EXPECT_EQ(edge[2].end(), vertex[0]);
 
-<<<<<<< HEAD
   std::remove(path.c_str());
 }
 
@@ -138,38 +137,38 @@ TEST(FileReaderTest, ReadSceneTwoFigure) {
 
   std::remove(path.c_str());
 }
-=======
-  // Проверка корректности вершин
-  EXPECT_FLOAT_EQ(figure.vertices()[0].position().x, 0.288236f);
-  EXPECT_FLOAT_EQ(figure.vertices()[0].position().y, 0.185213f);
-  EXPECT_FLOAT_EQ(figure.vertices()[0].position().z, 1.545897f);
 
-  EXPECT_FLOAT_EQ(figure.vertices()[1].position().x, 0.257309f);
-  EXPECT_FLOAT_EQ(figure.vertices()[1].position().y, 0.009730f);
-  EXPECT_FLOAT_EQ(figure.vertices()[1].position().z, 1.185200f);
+//   // Проверка корректности вершин
+//   EXPECT_FLOAT_EQ(figure.vertices()[0].position().x, 0.288236f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[0].position().y, 0.185213f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[0].position().z, 1.545897f);
 
-  EXPECT_FLOAT_EQ(figure.vertices()[2].position().x, 0.289416f);
-  EXPECT_FLOAT_EQ(figure.vertices()[2].position().y, 0.128668f);
-  EXPECT_FLOAT_EQ(figure.vertices()[2].position().z, 1.506040f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[1].position().x, 0.257309f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[1].position().y, 0.009730f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[1].position().z, 1.185200f);
 
-  // Проверка корректности рёбер
-  EXPECT_EQ(figure.edges()[0].begin().position(),
-            figure.vertices()[0].position());
-  EXPECT_EQ(figure.edges()[0].end().position(),
-            figure.vertices()[1].position());
+//   EXPECT_FLOAT_EQ(figure.vertices()[2].position().x, 0.289416f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[2].position().y, 0.128668f);
+//   EXPECT_FLOAT_EQ(figure.vertices()[2].position().z, 1.506040f);
 
-  EXPECT_EQ(figure.edges()[1].begin().position(),
-            figure.vertices()[1].position());
-  EXPECT_EQ(figure.edges()[1].end().position(),
-            figure.vertices()[2].position());
+//   // Проверка корректности рёбер
+//   EXPECT_EQ(figure.edges()[0].begin().position(),
+//             figure.vertices()[0].position());
+//   EXPECT_EQ(figure.edges()[0].end().position(),
+//             figure.vertices()[1].position());
 
-  EXPECT_EQ(figure.edges()[2].begin().position(),
-            figure.vertices()[2].position());
-  EXPECT_EQ(figure.edges()[2].end().position(),
-            figure.vertices()[0].position());
-}
+//   EXPECT_EQ(figure.edges()[1].begin().position(),
+//             figure.vertices()[1].position());
+//   EXPECT_EQ(figure.edges()[1].end().position(),
+//             figure.vertices()[2].position());
 
->>>>>>> develop
+//   EXPECT_EQ(figure.edges()[2].begin().position(),
+//             figure.vertices()[2].position());
+//   EXPECT_EQ(figure.edges()[2].end().position(),
+//             figure.vertices()[0].position());
+// }
+
+// >>>>>>> develop
 // TEST(FileReaderTest, ReadLinesCorrectly) {
 //   s21::FileReader reader;
 //   std::string path = "tests/data/test_1.obj";
