@@ -16,7 +16,7 @@
 
 class SceneSetting : public BaseWidget {
  public:
-  SceneSetting();
+  explicit SceneSetting(QLabel *title);
 
  private:
   void allocateMemory();

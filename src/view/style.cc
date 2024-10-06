@@ -63,16 +63,19 @@ const QString Style::kLabelStyle =
 
 const QString Style::kSpinBoxStyle =
     "QSpinBox {"
-    "  background-color: rgba(15, 15, 15, 0.5);"
-    "  border: 1px solid #5e0107;"
+    "  background-color: rgb(47, 47, 47);"
+    "  border: 1px solid #636363;"
+    "  padding: 1px 0px 1px 10px;"
     "  border-radius: 10px;"
     "  color: rgb(255, 255, 255);"
     "}"
     "QSpinBox::down-button {"
-    "  width: 0px;"
+    "  image: url(:down_arrow_white.png);"
+    "  margin-right: 2px;"
     "}"
     "QSpinBox::up-button {"
-    "  width: 0px;"
+    "  image: url(:up_arrow_white.png);"
+    "  margin-right: 2px;"
     "}";
 
 const QString Style::kButtonStyle =
@@ -83,7 +86,7 @@ const QString Style::kButtonStyle =
     "  background-color: #400105;"
     "  color: rgb(255, 255, 255);"
     "  border-radius: 10px;"
-    "  border: 1px solid #5e0107;"
+    "  border: 1px solid #636363;"
     "  font-size: 16px;"
     "}";
 
@@ -104,13 +107,14 @@ const QString Style::kComboBoxStyle =
     "  background-color: rgb(47, 47, 47);"
     "  font-size: 14px;"
     "  color: rgb(255, 255, 255);"
-    "  border: 1px solid #5e0107;"
+    "  border: 1px solid #636363;"
     "  border-radius: 10px;"
-    "  padding: 1px 0px 1px 20px;"
+    "  padding: 1px 0px 1px 10px;"
     "}"
     "QComboBox::drop-down {"
-    "  image: url(:down_arrow.png);"
-    "  width: 20px;"
-    "  height: 38px;"
-    "  margin-right: 5px;"
+    "  image: url(:down_arrow_white.png);"
+    "  width: 13px;"
+    "  height: 13px;"
+    "  margin-top: 12px;"
+    "  margin-right: 2px;"
     "}";

@@ -22,12 +22,12 @@ void MainWindow::allocateMemory() {
   path_ = new PathReader;
   scene_ = new ObjectScene;
   rotate_ = new AfinneData{new QLabel{"Rotate"}, {"X", "Y", "Z"}, -360, 360};
-  scale_ = new AfinneData{new QLabel{"Scale"}, {""}, -99, 600};
+  scale_ = new AfinneData{new QLabel{"Scale"}, {""}, 1, 600, 100};
   translate_ =
       new AfinneData{new QLabel{"Translate"}, {"X", "Y", "Z"}, -100, 100};
-  vertex_ = new FigureData{new QLabel{"Vertex"}, {"off", " □", " ◯"}};
-  lines_ = new FigureData{new QLabel{"Facet"}, {"off", "──", "----"}};
-  setting_ = new SceneSetting;
+  vertex_ = new FigureData{new QLabel{"Vertex"}, {"□", "○", "none"}};
+  lines_ = new FigureData{new QLabel{"Facet"}, {"──", "----", "none"}};
+  setting_ = new SceneSetting{new QLabel{"Settings"}};
 }
 
 void MainWindow::initView() {
@@ -40,16 +40,17 @@ void MainWindow::initView() {
   left_menu->addWidget(translate_);
   right_menu->addWidget(vertex_);
   right_menu->addWidget(lines_);
-  // right_menu->addWidget(setting_);
+  right_menu->addWidget(setting_);
   grid->addLayout(left_menu, 1, 0, Qt::AlignTop);
   grid->addWidget(path_, 0, 1);
   grid->addWidget(scene_, 1, 1);
   grid->addLayout(right_menu, 1, 2, Qt::AlignTop);
 
-  rotate_->setFixedSize(350, 200);
-  translate_->setFixedSize(350, 200);
-  scale_->setFixedSize(350, 100);
+  rotate_->setFixedSize(340, 200);
+  translate_->setFixedSize(340, 200);
+  scale_->setFixedSize(340, 100);
   path_->setFixedHeight(60);
   vertex_->setFixedSize(230, 190);
   lines_->setFixedSize(230, 190);
+  setting_->setFixedSize(230, 190);
 }

@@ -25,10 +25,10 @@ void Slider::allocateMemory(const QString &name) {
 
 void Slider::initView(int min, int max) {
   setLayout(grid_);
-  grid_->setHorizontalSpacing(17);
+  grid_->setHorizontalSpacing(10);
 
-  grid_->addWidget(label_, 0, 0, Qt::AlignBottom);
-  grid_->addWidget(slider_, 0, 1);
+  grid_->addWidget(label_, 0, 0);
+  grid_->addWidget(slider_, 0, 1, Qt::AlignLeft);
   grid_->addWidget(box_, 0, 2);
 
   slider_->setMinimum(min);
@@ -36,8 +36,9 @@ void Slider::initView(int min, int max) {
   box_->setMinimum(min);
   box_->setMaximum(max);
 
-  box_->setMinimumSize(50, 35);
-  slider_->setMinimumHeight(37);
+  label_->setFixedSize(30, 35);
+  box_->setFixedSize(70, 35);
+  slider_->setFixedSize(170, 37);
 
   setStyleSheet(Style::kWindowTranparentStyle);
   label_->setStyleSheet(Style::kLabelStyle);
@@ -52,3 +53,5 @@ void Slider::onValueChanged(int value) {
   slider_->setValue(value);
   box_->setValue(value);
 }
+
+void Slider::setValue(int value) { slider_->setValue(value); }

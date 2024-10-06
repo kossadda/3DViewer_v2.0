@@ -11,7 +11,7 @@
 
 #include "include/view/scene_setting.h"
 
-SceneSetting::SceneSetting() : BaseWidget{} {
+SceneSetting::SceneSetting(QLabel *title) : BaseWidget{title} {
   allocateMemory();
   initView();
 }
