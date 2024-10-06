@@ -24,19 +24,21 @@
 
 class FigureData : public BaseWidget {
  public:
-  FigureData(QLabel *title, const QStringList &buttons_name);
+  FigureData();
 
  private:
   void allocateMemory();
-  void initView(const QStringList &buttons_name);
+  void initView();
 
   QGridLayout *data_grid_;
+  QLabel *vertex_label_;
+  QLabel *facet_label_;
   QLabel *type_label_;
   QLabel *size_label_;
   QLabel *color_label_;
-  QComboBox *type_combo_;
-  QSpinBox *size_box_;
-  QPushButton *color_button_;
+  QComboBox *vtype_combo_, *ftype_combo_;
+  QSpinBox *vsize_box_, *fsize_box_;
+  QPushButton *vcolor_button_, *fcolor_button_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_FIGURE_DATA_H_

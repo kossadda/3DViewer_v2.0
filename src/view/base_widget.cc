@@ -29,6 +29,8 @@ void BaseWidget::initView(QLabel *title) {
   frame_grid_->addWidget(frame_);
   frame_->setLayout(grid_);
 
+  grid_->setVerticalSpacing(4);
+
   if (title) {
     grid_->addWidget(title, 0, 0, Qt::AlignCenter);
     title->setStyleSheet(QString{Style::kLabelStyle}.replace("14px", "15px"));

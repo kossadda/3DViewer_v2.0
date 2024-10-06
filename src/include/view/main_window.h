@@ -31,15 +31,12 @@ class MainWindow : public QWidget {
   void initView();
 
   QGridLayout *left_menu;
-  QGridLayout *right_menu;
-
   PathReader *path_;
   ObjectScene *scene_;
   AfinneData *rotate_;
   AfinneData *scale_;
   AfinneData *translate_;
-  FigureData *vertex_;
-  FigureData *lines_;
+  FigureData *figure_;
   SceneSetting *setting_;
 };
 
