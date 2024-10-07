@@ -15,6 +15,7 @@
 #include <QGridLayout>
 #include <QWidget>
 
+#include "include/controller/data.h"
 #include "include/view/afinne_data.h"
 #include "include/view/function.h"
 #include "include/view/object_data.h"
@@ -24,22 +25,28 @@
 #include "include/view/style.h"
 
 class MainWindow : public QWidget {
+  Q_OBJECT
+
  public:
   MainWindow();
+  ~MainWindow();
 
  private:
   void allocateMemory();
   void initView();
+  Data *objectData();
 
   QGridLayout *left_menu;
   PathReader *path_;
   ObjectScene *scene_;
   AfinneData *rotate_;
   AfinneData *scale_;
-  AfinneData *translate_;
+  AfinneData *move_;
   ObjectData *figure_;
   SceneData *setting_;
   Function *function_;
+
+  Data *data_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_MAIN_WINDOW_H_

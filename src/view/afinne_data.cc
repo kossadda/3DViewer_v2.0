@@ -30,3 +30,17 @@ void AfinneData::initView(int current) {
     i->setValue(current);
   }
 }
+
+void AfinneData::recordData(Data *data) {
+  if (title() == "Rotate") {
+    data->rotate_x = sliders_[0]->value();
+    data->rotate_y = sliders_[1]->value();
+    data->rotate_z = sliders_[2]->value();
+  } else if (title() == "Scale") {
+    data->scale = sliders_[0]->value();
+  } else {
+    data->move_x = sliders_[0]->value();
+    data->move_y = sliders_[1]->value();
+    data->move_z = sliders_[2]->value();
+  }
+}

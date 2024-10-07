@@ -31,6 +31,7 @@ set(VIEW
   ${VIEW_DIR}/object_scene.cc
   ${VIEW_DIR}/path_reader.cc
   ${VIEW_DIR}/function.cc
+  ${VIEW_DIR}/color_button.cc
   ${VIEW_DIR}/slider.cc
   ${VIEW_DIR}/style.cc
 )
@@ -48,8 +49,10 @@ set(HEADERS
   ${INCLUDE_DIR}/view/object_scene.h
   ${INCLUDE_DIR}/view/path_reader.h
   ${INCLUDE_DIR}/view/function.h
+  ${INCLUDE_DIR}/view/color_button.h
   ${INCLUDE_DIR}/view/slider.h
   ${INCLUDE_DIR}/view/style.h
+  ${INCLUDE_DIR}/controller/data.h
 )
 
 set(MAIN

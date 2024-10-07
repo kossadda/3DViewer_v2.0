@@ -15,13 +15,18 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QLabel>
-#include <QPushButton>
 
+#include "include/controller/data.h"
 #include "include/view/base_widget.h"
+#include "include/view/color_button.h"
 
 class SceneData : public BaseWidget {
+  Q_OBJECT
+
  public:
   explicit SceneData(QLabel *title);
+
+  void recordData(Data *data);
 
  private:
   void allocateMemory();
@@ -32,7 +37,7 @@ class SceneData : public BaseWidget {
   QLabel *projection_label_;
   QLabel *color_label_;
   QComboBox *calculate_combo_, *projection_combo_;
-  QPushButton *color_button_;
+  ColorButton *color_button_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_SCENE_DATA_H_
