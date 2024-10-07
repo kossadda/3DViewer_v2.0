@@ -25,6 +25,14 @@ void AfinneData::allocateMemory(const QStringList &sliders, int min, int max) {
 }
 
 void AfinneData::initView(int current) {
+  if (title() == "Rotate") {
+    icon_->setPixmap({":rotate"});
+  } else if (title() == "Scale") {
+    icon_->setPixmap({":scale"});
+  } else {
+    icon_->setPixmap({":move"});
+  }
+
   for (auto i : sliders_) {
     grid_->addWidget(i);
     i->setValue(current);

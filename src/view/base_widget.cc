@@ -35,7 +35,10 @@ void BaseWidget::initView() {
   grid_->addLayout(title_grid, 0, 0, Qt::AlignTop);
 
   if (title_) {
-    title_grid->addWidget(title_, 0, 0, Qt::AlignCenter);
+    setIcon(40, 25);
+
+    title_grid->addWidget(icon_, 0, 0);
+    title_grid->addWidget(title_, 0, 1, Qt::AlignCenter);
     title_->setStyleSheet(QString{Style::kLabelStyle}.replace("14px", "15px"));
   }
 
@@ -44,3 +47,10 @@ void BaseWidget::initView() {
 }
 
 QString BaseWidget::title() { return (title_) ? title_->text() : QString{}; }
+
+void BaseWidget::setIcon(int w, int h) {
+  icon_ = new QLabel;
+  icon_->setStyleSheet(Style::kLabelStyle);
+  icon_->setFixedSize(w, h);
+  icon_->setScaledContents(true);
+}

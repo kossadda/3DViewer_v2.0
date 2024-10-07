@@ -31,6 +31,7 @@ void SceneData::initView() {
   QString label_font_up{QString{Style::kLabelStyle}.replace("14px", "16px")};
   label_font_up.replace("none", "1px solid #636363");
   label_font_up += "border-radius: 10px;";
+  icon_->setPixmap({":setting"});
 
   grid_->addLayout(data_grid_, 1, 0, Qt::AlignCenter);
   data_grid_->addWidget(calculate_label_, 0, 0);
