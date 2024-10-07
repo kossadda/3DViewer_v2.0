@@ -20,6 +20,8 @@
 #include "include/view/color_button.h"
 
 class SceneData : public BaseWidget {
+  Q_OBJECT
+
  public:
   explicit SceneData(QLabel *title);
 

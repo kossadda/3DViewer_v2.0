@@ -23,22 +23,14 @@ void ObjectScene::initView() {
   grid_->addWidget(scene_);
 }
 
-void ObjectScene::drawScene(const QString& path) {
+void ObjectScene::drawScene(const QString &path) { (void)path; }
+
+void ObjectScene::imageSave(const QString &path, const QString &format) {
   (void)path;
 }
 
-void ObjectScene::saveImage(const QString & path) {
-  (void)path;
-}
+void ObjectScene::gifSave(const QString &path) { (void)path; }
 
-void ObjectScene::saveGif(const QString & path) {
-  (void)path;
-}
+void ObjectScene::clearScene() {}
 
-void ObjectScene::clearScene() {
-
-}
-
-void ObjectScene::resetObject() {
-  
-}
+void ObjectScene::resetObject() {}

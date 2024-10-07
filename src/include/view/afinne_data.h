@@ -19,6 +19,8 @@
 #include "include/view/slider.h"
 
 class AfinneData : public BaseWidget {
+  Q_OBJECT
+
  public:
   AfinneData(QLabel *title, const QStringList &sliders, int min, int max,
              int current = 0);

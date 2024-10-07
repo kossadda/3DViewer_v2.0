@@ -24,6 +24,8 @@
 #include "include/view/style.h"
 
 class MainWindow : public QWidget {
+  Q_OBJECT
+
  public:
   MainWindow();
 

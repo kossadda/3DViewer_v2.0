@@ -20,6 +20,8 @@
 #include "include/view/style.h"
 
 class BaseWidget : public QWidget {
+  Q_OBJECT
+
  public:
   explicit BaseWidget(QLabel *title = nullptr);
 

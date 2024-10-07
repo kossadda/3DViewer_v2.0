@@ -19,6 +19,8 @@
 #include "include/view/style.h"
 
 class ColorButton : public QPushButton {
+  Q_OBJECT
+
  public:
   explicit ColorButton(const QColor &color = QColor{Qt::black});
   ~ColorButton();

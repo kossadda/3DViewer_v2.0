@@ -23,6 +23,8 @@
 #include "include/view/style.h"
 
 class ObjectData : public BaseWidget {
+  Q_OBJECT
+
  public:
   ObjectData();
 

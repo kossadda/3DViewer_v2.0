@@ -12,19 +12,19 @@
 #ifndef SRC_INCLUDE_VIEW_PATH_READER_H_
 #define SRC_INCLUDE_VIEW_PATH_READER_H_
 
+#include <QFileDialog>
 #include <QLabel>
 #include <QLineEdit>
-#include <QPushButton>
-#include <QFileDialog>
 #include <QMessageBox>
 #include <QPair>
+#include <QPushButton>
 
 #include "include/view/base_widget.h"
 #include "include/view/style.h"
 
 class PathReader : public BaseWidget {
   Q_OBJECT
-  
+
  public:
   PathReader();
 
@@ -35,7 +35,7 @@ class PathReader : public BaseWidget {
   void validPath();
 
  signals:
-  void valid(const QString& path);
+  void valid(const QString &path);
 
  private:
   void allocateMemory();

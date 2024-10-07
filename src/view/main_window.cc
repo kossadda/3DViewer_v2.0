@@ -52,4 +52,8 @@ void MainWindow::initView() {
   figure_->setFixedSize(310, 190);
 
   connect(path_, &PathReader::valid, scene_, &ObjectScene::drawScene);
+  connect(function_, &Function::imageSave, scene_, &ObjectScene::imageSave);
+  connect(function_, &Function::gifSave, scene_, &ObjectScene::gifSave);
+  connect(function_, &Function::clear, scene_, &ObjectScene::clearScene);
+  connect(function_, &Function::reset, scene_, &ObjectScene::resetObject);
 }
