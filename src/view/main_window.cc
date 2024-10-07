@@ -35,12 +35,14 @@ void MainWindow::initView() {
   QGridLayout *grid{new QGridLayout};
   setLayout(grid);
   setStyleSheet(Style::kWindowStyle);
+  setWindowIcon(QIcon{":main"});
+  setWindowTitle("3DViewer");
 
   left_menu->addWidget(rotate_);
   left_menu->addWidget(scale_);
   left_menu->addWidget(move_);
-  left_menu->addWidget(setting_);
   left_menu->addWidget(figure_);
+  left_menu->addWidget(setting_);
   grid->addLayout(left_menu, 0, 0, 2, 1, Qt::AlignTop);
   grid->addWidget(path_, 0, 1);
   grid->addWidget(scene_, 1, 1, 3, 1);
@@ -52,10 +54,6 @@ void MainWindow::initView() {
   path_->setFixedHeight(60);
   setting_->setFixedSize(310, 190);
   figure_->setFixedSize(310, 190);
-
-  QPushButton *temp{new QPushButton{"temp"}};
-  left_menu->addWidget(temp);
-  connect(temp, &QPushButton::clicked, this, &MainWindow::objectData);
 
   connect(path_, &PathReader::valid, scene_, &ObjectScene::drawScene);
   connect(function_, &Function::imageSave, scene_, &ObjectScene::imageSave);

@@ -38,7 +38,10 @@ void ObjectData::initView() {
   QString border_font_up{label_font_up += "border-radius: 10px;"};
   border_font_up.replace("none", "1px solid #636363");
 
+  setIcon(35, 25);
+  icon_->setPixmap({":line"});
   grid_->addLayout(data_grid_, 1, 0, Qt::AlignCenter);
+  data_grid_->addWidget(icon_, 0, 0, Qt::AlignLeft | Qt::AlignVCenter);
   data_grid_->addWidget(type_label_, 1, 0);
   data_grid_->addWidget(size_label_, 2, 0);
   data_grid_->addWidget(color_label_, 3, 0);

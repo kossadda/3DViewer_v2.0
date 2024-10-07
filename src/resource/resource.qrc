@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/">
+        <file>main.png</file>
+        <file>rotate.png</file>
+        <file>scale.png</file>
+        <file>move.png</file>
+        <file>setting.png</file>
+        <file>line.png</file>
         <file>up_arrow.png</file>
         <file>down_arrow.png</file>
     </qresource>
