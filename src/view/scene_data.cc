@@ -23,7 +23,7 @@ void SceneData::allocateMemory() {
   color_label_ = new QLabel{"   Color"};
   calculate_combo_ = new QComboBox;
   projection_combo_ = new QComboBox;
-  color_button_ = new ColorButton;
+  color_button_ = new ColorButton{Qt::black};
 }
 
 void SceneData::initView() {
@@ -63,4 +63,20 @@ void SceneData::initView() {
 
   calculate_combo_->setStyleSheet(Style::kComboBoxStyle);
   projection_combo_->setStyleSheet(Style::kComboBoxStyle);
+}
+
+void SceneData::recordData(Data *data) {
+  if (calculate_combo_->currentText() == "CPU") {
+    data->calculate_type = CalculateType::CPU;
+  } else {
+    data->calculate_type = CalculateType::GPU;
+  }
+
+  if (projection_combo_->currentText() == "Central") {
+    data->projection_type = ProjectionType::Centrall;
+  } else {
+    data->projection_type = ProjectionType::Parallel;
+  }
+
+  data->background_color = color_button_->getColor();
 }

@@ -16,6 +16,7 @@
 #include <QGridLayout>
 #include <QLabel>
 
+#include "include/controller/data.h"
 #include "include/view/base_widget.h"
 #include "include/view/color_button.h"
 
@@ -24,6 +25,8 @@ class SceneData : public BaseWidget {
 
  public:
   explicit SceneData(QLabel *title);
+
+  void recordData(Data *data);
 
  private:
   void allocateMemory();

@@ -52,6 +52,7 @@ set(HEADERS
   ${INCLUDE_DIR}/view/color_button.h
   ${INCLUDE_DIR}/view/slider.h
   ${INCLUDE_DIR}/view/style.h
+  ${INCLUDE_DIR}/controller/data.h
 )
 
 set(MAIN

@@ -26,7 +26,6 @@ void PathReader::allocateMemory() {
 }
 
 void PathReader::initView() {
-  frame_grid_->setContentsMargins(0, 0, 0, 0);
   grid_->setHorizontalSpacing(15);
 
   grid_->addWidget(path_button_, 0, 0, 2, 1);
@@ -86,4 +85,8 @@ void PathReader::validPath() {
 void PathReader::setInfo(int vertex_count, int facet_count) {
   vertex_info_->setText("Vertex: " + QString::number(vertex_count));
   facet_info_->setText("Facet: " + QString::number(facet_count));
+}
+
+void PathReader::recordData(Data *data) {
+  data->path = path_edit_->text().toStdString();
 }

@@ -89,3 +89,26 @@ void ObjectData::initView() {
   ftype_combo_->setStyleSheet(Style::kComboBoxStyle);
   fsize_box_->setStyleSheet(Style::kSpinBoxStyle);
 }
+
+void ObjectData::recordData(Data *data) {
+  if (vtype_combo_->currentIndex() == 0) {
+    data->vertex_type = VertexType::Square;
+  } else if (vtype_combo_->currentIndex() == 1) {
+    data->vertex_type = VertexType::Circle;
+  } else {
+    data->vertex_type = VertexType::None;
+  }
+
+  if (ftype_combo_->currentIndex() == 0) {
+    data->facet_type = FacetType::Solid;
+  } else if (ftype_combo_->currentIndex() == 1) {
+    data->facet_type = FacetType::Dotted;
+  } else {
+    data->facet_type = FacetType::None;
+  }
+
+  data->vertex_size = vsize_box_->value();
+  data->facet_size = fsize_box_->value();
+  data->vertex_color = vcolor_button_->getColor();
+  data->facet_color = fcolor_button_->getColor();
+}

@@ -22,13 +22,13 @@ class ColorButton : public QPushButton {
   Q_OBJECT
 
  public:
-  explicit ColorButton(const QColor &color = QColor{Qt::black});
+  explicit ColorButton(const QColor &color);
   ~ColorButton();
 
   QColor getColor();
+  void setColor(const QColor &color);
 
  private slots:
-  void setColor(const QColor &color);
   void onButtonClicked();
 
  private:

@@ -18,6 +18,7 @@
 #include <QSpinBox>
 #include <QVector>
 
+#include "include/controller/data.h"
 #include "include/view/base_widget.h"
 #include "include/view/color_button.h"
 #include "include/view/style.h"
@@ -27,6 +28,8 @@ class ObjectData : public BaseWidget {
 
  public:
   ObjectData();
+
+  void recordData(Data *data);
 
  private:
   void allocateMemory();

@@ -27,6 +27,7 @@ void ObjectScene::drawScene(const QString &path) { (void)path; }
 
 void ObjectScene::imageSave(const QString &path, const QString &format) {
   (void)path;
+  (void)format;
 }
 
 void ObjectScene::gifSave(const QString &path) { (void)path; }

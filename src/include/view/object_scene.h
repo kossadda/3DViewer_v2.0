@@ -14,6 +14,7 @@
 
 #include <QOpenGLWidget>
 
+#include "include/controller/data.h"
 #include "include/view/base_widget.h"
 
 class ObjectScene : public BaseWidget {

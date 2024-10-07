@@ -25,14 +25,17 @@ class BaseWidget : public QWidget {
  public:
   explicit BaseWidget(QLabel *title = nullptr);
 
+  QString title();
+
  private:
-  virtual void allocateMemory();
-  virtual void initView(QLabel *title);
+  virtual void allocateMemory(QLabel *title);
+  virtual void initView();
 
   QFrame *frame_;
+  QGridLayout *frame_grid_;
+  QLabel *title_;
 
  protected:
-  QGridLayout *frame_grid_;
   QGridLayout *grid_;
 };
 

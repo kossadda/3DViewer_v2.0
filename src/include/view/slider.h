@@ -25,6 +25,7 @@ class Slider : public QWidget {
  public:
   Slider(const QString &name, int min, int max);
 
+  int value();
   void setValue(int value);
 
  private slots:

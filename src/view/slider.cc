@@ -55,3 +55,5 @@ void Slider::onValueChanged(int value) {
 }
 
 void Slider::setValue(int value) { slider_->setValue(value); }
+
+int Slider::value() { return slider_->value(); }

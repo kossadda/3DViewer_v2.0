@@ -11,6 +11,7 @@
 
 #include "include/view/color_button.h"
 
+#include <QDebug>
 ColorButton::ColorButton(const QColor &color) {
   dialog_ = new QColorDialog{color};
   setColor(color);
@@ -21,7 +22,7 @@ ColorButton::~ColorButton() { delete dialog_; }
 
 void ColorButton::onButtonClicked() {
   if (dialog_->exec() == QDialog::Accepted) {
-    setColor(dialog_->selectedColor());
+    setColor(dialog_->currentColor());
   }
 }
 

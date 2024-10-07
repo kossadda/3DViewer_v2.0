@@ -19,6 +19,7 @@
 #include <QPair>
 #include <QPushButton>
 
+#include "include/controller/data.h"
 #include "include/view/base_widget.h"
 #include "include/view/style.h"
 
@@ -29,6 +30,7 @@ class PathReader : public BaseWidget {
   PathReader();
 
   void setInfo(int vertex_count, int facet_count);
+  void recordData(Data *data);
 
  private slots:
   void onButtonClicked();
