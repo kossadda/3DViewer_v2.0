@@ -12,17 +12,18 @@
 #include "include/view/base_widget.h"
 
 BaseWidget::BaseWidget(QLabel *title) : QWidget{} {
-  allocateMemory();
-  initView(title);
+  allocateMemory(title);
+  initView();
 }
 
-void BaseWidget::allocateMemory() {
+void BaseWidget::allocateMemory(QLabel *title) {
   grid_ = new QGridLayout;
   frame_grid_ = new QGridLayout;
   frame_ = new QFrame;
+  title_ = title;
 }
 
-void BaseWidget::initView(QLabel *title) {
+void BaseWidget::initView() {
   QGridLayout *title_grid{new QGridLayout};
   setLayout(frame_grid_);
   frame_grid_->setContentsMargins(1, 1, 1, 1);
@@ -33,11 +34,13 @@ void BaseWidget::initView(QLabel *title) {
   grid_->setVerticalSpacing(4);
   grid_->addLayout(title_grid, 0, 0, Qt::AlignTop);
 
-  if (title) {
-    title_grid->addWidget(title, 0, 0, Qt::AlignCenter);
-    title->setStyleSheet(QString{Style::kLabelStyle}.replace("14px", "15px"));
+  if (title_) {
+    title_grid->addWidget(title_, 0, 0, Qt::AlignCenter);
+    title_->setStyleSheet(QString{Style::kLabelStyle}.replace("14px", "15px"));
   }
 
   setStyleSheet(Style::kWindowStyle);
   frame_->setStyleSheet(Style::kFrameStyle);
 }
+
+QString BaseWidget::title() { return (title_) ? title_->text() : QString{}; }

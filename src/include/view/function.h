@@ -12,6 +12,7 @@
 #ifndef SRC_INCLUDE_VIEW_FUNCTION_H_
 #define SRC_INCLUDE_VIEW_FUNCTION_H_
 
+#include <QFileDialog>
 #include <QGridLayout>
 #include <QPushButton>
 #include <QVector>
@@ -20,10 +21,23 @@
 #include "include/view/style.h"
 
 class Function : public QWidget {
+  Q_OBJECT
+
  public:
   Function();
 
+ signals:
+  void imageSave(const QString &path, const QString &format);
+  void gifSave(const QString &path);
+  void clear();
+  void reset();
+
  private:
+  void onImageSaveClicked();
+  void onGifSaveClicked();
+  void onClearClicked();
+  void onResetClicked();
+
   void allocateMemory();
   void initView();
 
@@ -32,6 +46,8 @@ class Function : public QWidget {
   QPushButton *save_gif_;
   QPushButton *clear_;
   QPushButton *reset_;
+  QFileDialog *img_dialog_;
+  QFileDialog *gif_dialog_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_FUNCTION_H_

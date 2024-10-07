@@ -20,9 +20,12 @@
 #include "include/view/style.h"
 
 class Slider : public QWidget {
+  Q_OBJECT
+
  public:
   Slider(const QString &name, int min, int max);
 
+  int value();
   void setValue(int value);
 
  private slots:

@@ -12,16 +12,32 @@
 #ifndef SRC_INCLUDE_VIEW_PATH_READER_H_
 #define SRC_INCLUDE_VIEW_PATH_READER_H_
 
+#include <QFileDialog>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
+#include <QPair>
 #include <QPushButton>
 
+#include "include/controller/data.h"
 #include "include/view/base_widget.h"
 #include "include/view/style.h"
 
 class PathReader : public BaseWidget {
+  Q_OBJECT
+
  public:
   PathReader();
+
+  void setInfo(int vertex_count, int facet_count);
+  void recordData(Data *data);
+
+ private slots:
+  void onButtonClicked();
+  void validPath();
+
+ signals:
+  void valid(const QString &path);
 
  private:
   void allocateMemory();
@@ -31,6 +47,7 @@ class PathReader : public BaseWidget {
   QLineEdit *path_edit_;
   QLabel *vertex_info_;
   QLabel *facet_info_;
+  QFileDialog *dialog_;
 };
 
 #endif  // SRC_INCLUDE_VIEW_PATH_READER_H_

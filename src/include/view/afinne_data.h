@@ -15,13 +15,18 @@
 #include <QGridLayout>
 #include <QVector>
 
+#include "include/controller/data.h"
 #include "include/view/base_widget.h"
 #include "include/view/slider.h"
 
 class AfinneData : public BaseWidget {
+  Q_OBJECT
+
  public:
   AfinneData(QLabel *title, const QStringList &sliders, int min, int max,
              int current = 0);
+
+  void recordData(Data *data);
 
  private:
   void allocateMemory(const QStringList &sliders, int min, int max);
