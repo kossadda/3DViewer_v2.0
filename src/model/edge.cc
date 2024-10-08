@@ -12,6 +12,5 @@
 #include "include/model/edge.h"
 
 namespace s21 {
-Edge::Edge(const Vertex &begin, const Vertex &end) noexcept
-    : begin_{begin}, end_{end} {}
+Edge::Edge(int begin, int end) noexcept : begin_{begin}, end_{end} {}
 }  // namespace s21
