@@ -11,7 +11,8 @@
 
 #include "include/view/color_button.h"
 
-#include <QDebug>
+namespace s21 {
+
 ColorButton::ColorButton(const QColor &color) {
   dialog_ = new QColorDialog{color};
   setColor(color);
@@ -32,3 +33,5 @@ void ColorButton::setColor(const QColor &color) {
   QString new_color{Style::kColorButtonStyle};
   setStyleSheet(new_color.replace("-color:", "-color:" + color.name()));
 }
+
+}  // namespace s21

@@ -34,6 +34,7 @@ set(VIEW
   ${VIEW_DIR}/color_button.cc
   ${VIEW_DIR}/slider.cc
   ${VIEW_DIR}/style.cc
+  ${MODEL_DIR}/qt_scene_drawer.cc
 )
 
 set(CONTROLLER
@@ -53,6 +54,8 @@ set(HEADERS
   ${INCLUDE_DIR}/view/slider.h
   ${INCLUDE_DIR}/view/style.h
   ${INCLUDE_DIR}/controller/data.h
+  ${INCLUDE_DIR}/model/scene_drawer_base.h
+  ${INCLUDE_DIR}/model/qt_scene_drawer.h
 )
 
 set(MAIN

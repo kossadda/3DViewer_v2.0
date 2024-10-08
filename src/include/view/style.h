@@ -14,6 +14,8 @@
 
 #include <QString>
 
+namespace s21 {
+
 class Style {
  public:
   static const QString kWindowTranparentStyle;
@@ -28,5 +30,7 @@ class Style {
   static const QString kComboBoxStyle;
   static const QString kFileDialogStyle;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_STYLE_H_

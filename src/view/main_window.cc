@@ -11,6 +11,8 @@
 
 #include "include/view/main_window.h"
 
+namespace s21 {
+
 MainWindow::MainWindow() : QWidget{} {
   allocateMemory();
   initView();
@@ -35,27 +37,26 @@ void MainWindow::initView() {
   QGridLayout *grid{new QGridLayout};
   setLayout(grid);
   setStyleSheet(Style::kWindowStyle);
+  setWindowIcon(QIcon{":main"});
+  setWindowTitle("3DViewer");
+  std::setlocale(LC_NUMERIC, "C");
 
   left_menu->addWidget(rotate_);
   left_menu->addWidget(scale_);
   left_menu->addWidget(move_);
-  left_menu->addWidget(setting_);
   left_menu->addWidget(figure_);
+  left_menu->addWidget(setting_);
   grid->addLayout(left_menu, 0, 0, 2, 1, Qt::AlignTop);
   grid->addWidget(path_, 0, 1);
   grid->addWidget(scene_, 1, 1, 3, 1);
   grid->addWidget(function_, 2, 0, 2, 1, Qt::AlignBottom);
 
-  rotate_->setFixedSize(310, 160);
-  move_->setFixedSize(310, 160);
+  rotate_->setFixedSize(310, 170);
+  move_->setFixedSize(310, 170);
   scale_->setFixedSize(310, 90);
   path_->setFixedHeight(60);
   setting_->setFixedSize(310, 190);
   figure_->setFixedSize(310, 190);
-
-  QPushButton *temp{new QPushButton{"temp"}};
-  left_menu->addWidget(temp);
-  connect(temp, &QPushButton::clicked, this, &MainWindow::objectData);
 
   connect(path_, &PathReader::valid, scene_, &ObjectScene::drawScene);
   connect(function_, &Function::imageSave, scene_, &ObjectScene::imageSave);
@@ -74,3 +75,5 @@ Data *MainWindow::objectData() {
 
   return data_;
 }
+
+}  // namespace s21

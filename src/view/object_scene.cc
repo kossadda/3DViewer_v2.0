@@ -11,6 +11,8 @@
 
 #include "include/view/object_scene.h"
 
+namespace s21 {
+
 ObjectScene::ObjectScene() : BaseWidget{} {
   allocateMemory();
   initView();
@@ -35,3 +37,5 @@ void ObjectScene::gifSave(const QString &path) { (void)path; }
 void ObjectScene::clearScene() {}
 
 void ObjectScene::resetObject() {}
+
+}  // namespace s21

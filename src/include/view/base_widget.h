@@ -19,6 +19,8 @@
 
 #include "include/view/style.h"
 
+namespace s21 {
+
 class BaseWidget : public QWidget {
   Q_OBJECT
 
@@ -26,6 +28,7 @@ class BaseWidget : public QWidget {
   explicit BaseWidget(QLabel *title = nullptr);
 
   QString title();
+  void setIcon(int w, int h);
 
  private:
   virtual void allocateMemory(QLabel *title);
@@ -37,6 +40,9 @@ class BaseWidget : public QWidget {
 
  protected:
   QGridLayout *grid_;
+  QLabel *icon_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_BASE_WIDGET_H_

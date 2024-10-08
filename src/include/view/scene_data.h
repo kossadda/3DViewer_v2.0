@@ -20,6 +20,8 @@
 #include "include/view/base_widget.h"
 #include "include/view/color_button.h"
 
+namespace s21 {
+
 class SceneData : public BaseWidget {
   Q_OBJECT
 
@@ -39,5 +41,7 @@ class SceneData : public BaseWidget {
   QComboBox *calculate_combo_, *projection_combo_;
   ColorButton *color_button_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_SCENE_DATA_H_

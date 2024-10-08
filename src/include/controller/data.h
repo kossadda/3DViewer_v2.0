@@ -15,6 +15,8 @@
 #include <QColor>
 #include <string>
 
+namespace s21 {
+
 enum class CalculateType { CPU, GPU };
 enum class ProjectionType { Centrall, Parallel };
 enum class VertexType { Square, Circle, None };
@@ -36,5 +38,7 @@ struct Data {
   QColor vertex_color;
   QColor facet_color;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_CONTROLLER_DATA_H_

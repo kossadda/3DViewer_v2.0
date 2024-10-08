@@ -24,6 +24,8 @@
 #include "include/view/scene_data.h"
 #include "include/view/style.h"
 
+namespace s21 {
+
 class MainWindow : public QWidget {
   Q_OBJECT
 
@@ -48,5 +50,7 @@ class MainWindow : public QWidget {
 
   Data *data_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_MAIN_WINDOW_H_

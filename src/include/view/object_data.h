@@ -23,6 +23,8 @@
 #include "include/view/color_button.h"
 #include "include/view/style.h"
 
+namespace s21 {
+
 class ObjectData : public BaseWidget {
   Q_OBJECT
 
@@ -45,5 +47,7 @@ class ObjectData : public BaseWidget {
   QSpinBox *vsize_box_, *fsize_box_;
   ColorButton *vcolor_button_, *fcolor_button_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_OBJECT_DATA_H_

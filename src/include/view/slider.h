@@ -19,6 +19,8 @@
 
 #include "include/view/style.h"
 
+namespace s21 {
+
 class Slider : public QWidget {
   Q_OBJECT
 
@@ -40,5 +42,7 @@ class Slider : public QWidget {
   QSpinBox *box_;
   QLabel *label_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_SLIDER_H_

@@ -11,6 +11,8 @@
 
 #include "include/view/path_reader.h"
 
+namespace s21 {
+
 PathReader::PathReader() : BaseWidget{} {
   allocateMemory();
   initView();
@@ -90,3 +92,5 @@ void PathReader::setInfo(int vertex_count, int facet_count) {
 void PathReader::recordData(Data *data) {
   data->path = path_edit_->text().toStdString();
 }
+
+}  // namespace s21

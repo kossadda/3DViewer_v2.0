@@ -11,6 +11,8 @@
 
 #include "include/view/afinne_data.h"
 
+namespace s21 {
+
 AfinneData::AfinneData(QLabel *title, const QStringList &sliders, int min,
                        int max, int current)
     : BaseWidget{title} {
@@ -25,6 +27,14 @@ void AfinneData::allocateMemory(const QStringList &sliders, int min, int max) {
 }
 
 void AfinneData::initView(int current) {
+  if (title() == "Rotate") {
+    icon_->setPixmap({":rotate"});
+  } else if (title() == "Scale") {
+    icon_->setPixmap({":scale"});
+  } else {
+    icon_->setPixmap({":move"});
+  }
+
   for (auto i : sliders_) {
     grid_->addWidget(i);
     i->setValue(current);
@@ -44,3 +54,5 @@ void AfinneData::recordData(Data *data) {
     data->move_z = sliders_[2]->value();
   }
 }
+
+}  // namespace s21
