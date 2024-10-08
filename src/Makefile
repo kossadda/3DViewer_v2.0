@@ -146,3 +146,6 @@ $(OBJ_DIR)/tests/modules:
 
 $(REPORT_DIR):
 	mkdir -p $(REPORT_DIR)
+
+123:
+	sudo apt-get install build-essential libgl1-mesa-dev
