@@ -14,16 +14,14 @@
 namespace s21 {
 Vertex::Vertex(const Point3D &point) noexcept : position_{point} {}
 
+Vertex::Vertex(float x, float y, float z) : position_{x, y, z} {}
+
 void Vertex::Transform(const TransformMatrix &matrix) {
   position_ = matrix.TransformPoint(position_);
 }
 
 bool Vertex::operator==(const Vertex &other) const noexcept {
-  return position_.x == other.position_.x && position_.y == other.position_.y &&
-         position_.z == other.position_.z;
+  return position_ == other.position_;
 }
-
-Vertex::Vertex(const float x, const float y, const float z)
-    : position_{x, y, z} {}
 
 }  // namespace s21
