@@ -17,6 +17,8 @@
 #include "include/controller/data.h"
 #include "include/view/base_widget.h"
 
+namespace s21 {
+
 class ObjectScene : public BaseWidget {
   Q_OBJECT
 
@@ -35,5 +37,7 @@ class ObjectScene : public BaseWidget {
 
   QOpenGLWidget *scene_{};
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_OBJECT_SCENE_H_

@@ -11,6 +11,8 @@
 
 #include "include/view/object_data.h"
 
+namespace s21 {
+
 ObjectData::ObjectData() : BaseWidget{} {
   allocateMemory();
   initView();
@@ -115,3 +117,5 @@ void ObjectData::recordData(Data *data) {
   data->vertex_color = vcolor_button_->getColor();
   data->facet_color = fcolor_button_->getColor();
 }
+
+}  // namespace s21

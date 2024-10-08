@@ -11,6 +11,8 @@
 
 #include "include/view/style.h"
 
+namespace s21 {
+
 const QString Style::kWindowStyle =
     "QWidget {"
     "  background: rgba(10, 10, 10, 0.7);"
@@ -134,3 +136,5 @@ const QString Style::kColorButtonStyle =
 const QString Style::kFileDialogStyle =
     "background-color: rgb(47, 47, 47);"
     "color: rgb(255, 255, 255);";
+
+}  // namespace s21

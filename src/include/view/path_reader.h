@@ -23,6 +23,8 @@
 #include "include/view/base_widget.h"
 #include "include/view/style.h"
 
+namespace s21 {
+
 class PathReader : public BaseWidget {
   Q_OBJECT
 
@@ -49,5 +51,7 @@ class PathReader : public BaseWidget {
   QLabel *facet_info_;
   QFileDialog *dialog_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_PATH_READER_H_

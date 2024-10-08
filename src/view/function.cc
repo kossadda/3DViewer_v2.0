@@ -11,6 +11,8 @@
 
 #include "include/view/function.h"
 
+namespace s21 {
+
 Function::Function() : QWidget{} {
   allocateMemory();
   initView();
@@ -95,3 +97,5 @@ void Function::onGifSaveClicked() {
 void Function::onClearClicked() { emit clear(); }
 
 void Function::onResetClicked() { emit reset(); }
+
+}  // namespace s21

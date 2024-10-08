@@ -18,6 +18,8 @@
 
 #include "include/view/style.h"
 
+namespace s21 {
+
 class ColorButton : public QPushButton {
   Q_OBJECT
 
@@ -34,5 +36,7 @@ class ColorButton : public QPushButton {
  private:
   QColorDialog *dialog_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_COLOR_BUTTON_H_

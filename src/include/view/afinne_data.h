@@ -19,6 +19,8 @@
 #include "include/view/base_widget.h"
 #include "include/view/slider.h"
 
+namespace s21 {
+
 class AfinneData : public BaseWidget {
   Q_OBJECT
 
@@ -34,5 +36,7 @@ class AfinneData : public BaseWidget {
 
   QVector<Slider *> sliders_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_AFINNE_DATA_H_

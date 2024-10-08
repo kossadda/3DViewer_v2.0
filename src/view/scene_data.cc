@@ -11,6 +11,8 @@
 
 #include "include/view/scene_data.h"
 
+namespace s21 {
+
 SceneData::SceneData(QLabel *title) : BaseWidget{title} {
   allocateMemory();
   initView();
@@ -81,3 +83,5 @@ void SceneData::recordData(Data *data) {
 
   data->background_color = color_button_->getColor();
 }
+
+}  // namespace s21

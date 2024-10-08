@@ -19,6 +19,8 @@
 
 #include "include/view/style.h"
 
+namespace s21 {
+
 class BaseWidget : public QWidget {
   Q_OBJECT
 
@@ -40,5 +42,7 @@ class BaseWidget : public QWidget {
   QGridLayout *grid_;
   QLabel *icon_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_BASE_WIDGET_H_

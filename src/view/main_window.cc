@@ -11,6 +11,8 @@
 
 #include "include/view/main_window.h"
 
+namespace s21 {
+
 MainWindow::MainWindow() : QWidget{} {
   allocateMemory();
   initView();
@@ -37,6 +39,7 @@ void MainWindow::initView() {
   setStyleSheet(Style::kWindowStyle);
   setWindowIcon(QIcon{":main"});
   setWindowTitle("3DViewer");
+  std::setlocale(LC_NUMERIC, "C");
 
   left_menu->addWidget(rotate_);
   left_menu->addWidget(scale_);
@@ -48,8 +51,8 @@ void MainWindow::initView() {
   grid->addWidget(scene_, 1, 1, 3, 1);
   grid->addWidget(function_, 2, 0, 2, 1, Qt::AlignBottom);
 
-  rotate_->setFixedSize(310, 160);
-  move_->setFixedSize(310, 160);
+  rotate_->setFixedSize(310, 170);
+  move_->setFixedSize(310, 170);
   scale_->setFixedSize(310, 90);
   path_->setFixedHeight(60);
   setting_->setFixedSize(310, 190);
@@ -72,3 +75,5 @@ Data *MainWindow::objectData() {
 
   return data_;
 }
+
+}  // namespace s21

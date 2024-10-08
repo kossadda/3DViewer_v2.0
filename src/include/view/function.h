@@ -20,6 +20,8 @@
 
 #include "include/view/style.h"
 
+namespace s21 {
+
 class Function : public QWidget {
   Q_OBJECT
 
@@ -49,5 +51,7 @@ class Function : public QWidget {
   QFileDialog *img_dialog_;
   QFileDialog *gif_dialog_;
 };
+
+}  // namespace s21
 
 #endif  // SRC_INCLUDE_VIEW_FUNCTION_H_

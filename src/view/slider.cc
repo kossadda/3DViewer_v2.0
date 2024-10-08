@@ -11,6 +11,8 @@
 
 #include "include/view/slider.h"
 
+namespace s21 {
+
 Slider::Slider(const QString &name, int min, int max) : QWidget{} {
   allocateMemory(name);
   initView(min, max);
@@ -57,3 +59,5 @@ void Slider::onValueChanged(int value) {
 void Slider::setValue(int value) { slider_->setValue(value); }
 
 int Slider::value() { return slider_->value(); }
+
+}  // namespace s21

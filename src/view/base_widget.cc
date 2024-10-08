@@ -11,6 +11,8 @@
 
 #include "include/view/base_widget.h"
 
+namespace s21 {
+
 BaseWidget::BaseWidget(QLabel *title) : QWidget{} {
   allocateMemory(title);
   initView();
@@ -54,3 +56,5 @@ void BaseWidget::setIcon(int w, int h) {
   icon_->setFixedSize(w, h);
   icon_->setScaledContents(true);
 }
+
+}  // namespace s21
