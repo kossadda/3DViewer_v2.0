@@ -12,13 +12,14 @@
 #include "include/model/scene.h"
 
 namespace s21 {
-void Scene::TransformFigures(const TransformMatrix& matrix) noexcept {
-  for (auto& figure : figures_) {
-    figure.Transform(matrix);
+Scene::Scene(const std::vector<Edge>& edges,
+             const std::vector<Vertex>& vertices) noexcept
+    : edges_{edges}, vertices_{vertices} {}
+
+void Scene::Transform(const TransformMatrix& matrix) noexcept {
+  for (auto& vertex : vertices_) {
+    vertex.Transform(matrix);
   }
 }
 
-void Scene::AddFigure(const Figure& figure) noexcept {
-  figures_.push_back(figure);
-}
 }  // namespace s21

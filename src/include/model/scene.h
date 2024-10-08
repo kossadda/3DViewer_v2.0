@@ -14,22 +14,24 @@
 
 #include <vector>
 
-#include "include/model/figure.h"
+#include "include/model/edge.h"
+#include "include/model/vertex.h"
 
 namespace s21 {
 class Scene {
  public:
   Scene() = default;
+  Scene(const std::vector<Edge>& edges,
+        const std::vector<Vertex>& vertices) noexcept;
 
-  inline const std::vector<Figure>& figures() const noexcept {
-    return figures_;
-  }
+  inline std::vector<Edge> edges() const noexcept { return edges_; }
 
-  void TransformFigures(const TransformMatrix& matrix) noexcept;
-  void AddFigure(const Figure& figure) noexcept;
+  inline std::vector<Vertex> vertices() const noexcept { return vertices_; }
+  void Transform(const TransformMatrix& matrix) noexcept;
 
  private:
-  std::vector<Figure> figures_;
+  std::vector<Edge> edges_;
+  std::vector<Vertex> vertices_;
 };
 }  // namespace s21
 
