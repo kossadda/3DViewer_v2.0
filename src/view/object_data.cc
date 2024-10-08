@@ -93,29 +93,43 @@ void ObjectData::initView() {
   vsize_box_->setStyleSheet(Style::kSpinBoxStyle);
   ftype_combo_->setStyleSheet(Style::kComboBoxStyle);
   fsize_box_->setStyleSheet(Style::kSpinBoxStyle);
+
+  connect(vsize_box_, &QSpinBox::valueChanged, this, &ObjectData::onParameterChanged);
+  connect(fsize_box_, &QSpinBox::valueChanged, this, &ObjectData::onParameterChanged);
+  connect(vtype_combo_, &QComboBox::currentIndexChanged, this, &ObjectData::onParameterChanged);
+  connect(ftype_combo_, &QComboBox::currentIndexChanged, this, &ObjectData::onParameterChanged);
+  connect(vcolor_button_, &ColorButton::colorChanged, this, &ObjectData::recordData);
+  connect(fcolor_button_, &ColorButton::colorChanged, this, &ObjectData::recordData);
 }
 
-void ObjectData::recordData(Data *data) {
+void ObjectData::onParameterChanged(int value) {
+  (void)value;
+  recordData();
+}
+
+void ObjectData::recordData() {
+  Data &data{Data::data()};
+
   if (vtype_combo_->currentIndex() == 0) {
-    data->vertex_type = VertexType::Square;
+    data.vertex_type = VertexType::Square;
   } else if (vtype_combo_->currentIndex() == 1) {
-    data->vertex_type = VertexType::Circle;
+    data.vertex_type = VertexType::Circle;
   } else {
-    data->vertex_type = VertexType::None;
+    data.vertex_type = VertexType::None;
   }
 
   if (ftype_combo_->currentIndex() == 0) {
-    data->facet_type = FacetType::Solid;
+    data.facet_type = FacetType::Solid;
   } else if (ftype_combo_->currentIndex() == 1) {
-    data->facet_type = FacetType::Dotted;
+    data.facet_type = FacetType::Dotted;
   } else {
-    data->facet_type = FacetType::None;
+    data.facet_type = FacetType::None;
   }
 
-  data->vertex_size = vsize_box_->value();
-  data->facet_size = fsize_box_->value();
-  data->vertex_color = vcolor_button_->getColor();
-  data->facet_color = fcolor_button_->getColor();
+  data.vertex_size = vsize_box_->value();
+  data.facet_size = fsize_box_->value();
+  data.vertex_color = vcolor_button_->getColor();
+  data.facet_color = fcolor_button_->getColor();
 }
 
 }  // namespace s21

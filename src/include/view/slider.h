@@ -30,6 +30,9 @@ class Slider : public QWidget {
   int value();
   void setValue(int value);
 
+ signals:
+  void valueChanged();
+
  private slots:
   void onValueChanged(int value);
 

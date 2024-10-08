@@ -18,14 +18,19 @@ ObjectScene::ObjectScene() : BaseWidget{} {
   initView();
 }
 
-void ObjectScene::allocateMemory() { scene_ = new QOpenGLWidget; }
+void ObjectScene::allocateMemory() {
+  scene_ = new QtSceneDrawer;
+}
 
 void ObjectScene::initView() {
   scene_->setMinimumSize(1000, 800);
   grid_->addWidget(scene_);
 }
 
-void ObjectScene::drawScene(const QString &path) { (void)path; }
+// void ObjectScene::drawScene(const QString &path) {
+void ObjectScene::drawScene() {
+  scene_->initModel(nullptr);
+}
 
 void ObjectScene::imageSave(const QString &path, const QString &format) {
   (void)path;

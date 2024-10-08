@@ -30,6 +30,9 @@ class ColorButton : public QPushButton {
   QColor getColor();
   void setColor(const QColor &color);
 
+ signals:
+  void colorChanged();
+
  private slots:
   void onButtonClicked();
 

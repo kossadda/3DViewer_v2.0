@@ -18,8 +18,6 @@ MainWindow::MainWindow() : QWidget{} {
   initView();
 }
 
-MainWindow::~MainWindow() { delete data_; }
-
 void MainWindow::allocateMemory() {
   left_menu = new QGridLayout;
   path_ = new PathReader;
@@ -30,7 +28,6 @@ void MainWindow::allocateMemory() {
   figure_ = new ObjectData;
   setting_ = new SceneData{new QLabel{"Scene"}};
   function_ = new Function;
-  data_ = new Data;
 }
 
 void MainWindow::initView() {
@@ -58,22 +55,24 @@ void MainWindow::initView() {
   setting_->setFixedSize(310, 190);
   figure_->setFixedSize(310, 190);
 
-  connect(path_, &PathReader::valid, scene_, &ObjectScene::drawScene);
+  QPushButton *test_button{new QPushButton{"Test button"}};
+  left_menu->addWidget(test_button);
+  connect(test_button, &QPushButton::clicked, scene_, &ObjectScene::drawScene);
+
+  // connect(path_, &PathReader::valid, scene_, &ObjectScene::drawScene);
   connect(function_, &Function::imageSave, scene_, &ObjectScene::imageSave);
   connect(function_, &Function::gifSave, scene_, &ObjectScene::gifSave);
   connect(function_, &Function::clear, scene_, &ObjectScene::clearScene);
   connect(function_, &Function::reset, scene_, &ObjectScene::resetObject);
 }
 
-Data *MainWindow::objectData() {
-  rotate_->recordData(data_);
-  scale_->recordData(data_);
-  move_->recordData(data_);
-  setting_->recordData(data_);
-  figure_->recordData(data_);
-  path_->recordData(data_);
-
-  return data_;
+void MainWindow::recordData() {
+  rotate_->recordData();
+  scale_->recordData();
+  move_->recordData();
+  setting_->recordData();
+  figure_->recordData();
+  path_->recordData();
 }
 
 }  // namespace s21

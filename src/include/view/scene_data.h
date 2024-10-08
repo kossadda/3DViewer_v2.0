@@ -28,8 +28,11 @@ class SceneData : public BaseWidget {
  public:
   explicit SceneData(QLabel *title);
 
-  void recordData(Data *data);
+  void recordData();
 
+ private slots:
+  void onParameterChanged(int value);
+  
  private:
   void allocateMemory();
   void initView();

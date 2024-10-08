@@ -32,7 +32,7 @@ class PathReader : public BaseWidget {
   PathReader();
 
   void setInfo(int vertex_count, int facet_count);
-  void recordData(Data *data);
+  void recordData();
 
  private slots:
   void onButtonClicked();

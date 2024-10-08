@@ -35,23 +35,26 @@ void AfinneData::initView(int current) {
     icon_->setPixmap({":move"});
   }
 
-  for (auto i : sliders_) {
-    grid_->addWidget(i);
-    i->setValue(current);
+  for (auto slider : sliders_) {
+    grid_->addWidget(slider);
+    slider->setValue(current);
+    connect(slider, &Slider::valueChanged, this, &AfinneData::recordData);
   }
 }
 
-void AfinneData::recordData(Data *data) {
+void AfinneData::recordData() {
+  Data &data{Data::data()};
+  
   if (title() == "Rotate") {
-    data->rotate_x = sliders_[0]->value();
-    data->rotate_y = sliders_[1]->value();
-    data->rotate_z = sliders_[2]->value();
+    data.rotate_x = sliders_[0]->value();
+    data.rotate_y = sliders_[1]->value();
+    data.rotate_z = sliders_[2]->value();
   } else if (title() == "Scale") {
-    data->scale = sliders_[0]->value();
+    data.scale = 0.01f * sliders_[0]->value();
   } else {
-    data->move_x = sliders_[0]->value();
-    data->move_y = sliders_[1]->value();
-    data->move_z = sliders_[2]->value();
+    data.move_x = sliders_[0]->value();
+    data.move_y = sliders_[1]->value();
+    data.move_z = sliders_[2]->value();
   }
 }
 

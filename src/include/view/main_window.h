@@ -31,12 +31,11 @@ class MainWindow : public QWidget {
 
  public:
   MainWindow();
-  ~MainWindow();
 
  private:
   void allocateMemory();
   void initView();
-  Data *objectData();
+  void recordData();
 
   QGridLayout *left_menu;
   PathReader *path_;
@@ -47,8 +46,6 @@ class MainWindow : public QWidget {
   ObjectData *figure_;
   SceneData *setting_;
   Function *function_;
-
-  Data *data_;
 };
 
 }  // namespace s21

@@ -31,7 +31,10 @@ class ObjectData : public BaseWidget {
  public:
   ObjectData();
 
-  void recordData(Data *data);
+  void recordData();
+
+ private slots:
+  void onParameterChanged(int value);
 
  private:
   void allocateMemory();

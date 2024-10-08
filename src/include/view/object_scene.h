@@ -16,6 +16,7 @@
 
 #include "include/controller/data.h"
 #include "include/view/base_widget.h"
+#include "include/model/qt_scene_drawer.h"
 
 namespace s21 {
 
@@ -25,7 +26,9 @@ class ObjectScene : public BaseWidget {
  public:
   ObjectScene();
 
-  void drawScene(const QString &path);
+  
+  // void drawScene(const QString &path);
+  void drawScene();  // drawScene without path is temporary
   void imageSave(const QString &path, const QString &format);
   void gifSave(const QString &path);
   void clearScene();
@@ -35,7 +38,7 @@ class ObjectScene : public BaseWidget {
   void allocateMemory();
   void initView();
 
-  QOpenGLWidget *scene_{};
+  QtSceneDrawer *scene_;
 };
 
 }  // namespace s21

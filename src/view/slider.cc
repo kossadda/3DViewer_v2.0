@@ -54,6 +54,7 @@ void Slider::initView(int min, int max) {
 void Slider::onValueChanged(int value) {
   slider_->setValue(value);
   box_->setValue(value);
+  emit valueChanged();
 }
 
 void Slider::setValue(int value) { slider_->setValue(value); }

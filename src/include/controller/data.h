@@ -23,20 +23,31 @@ enum class VertexType { Square, Circle, None };
 enum class FacetType { Solid, Dotted, None };
 
 struct Data {
- public:
+public:
+  static Data &data() {
+    static Data instance;
+    return instance;
+  }
+
+  Data(const Data&) = delete;
+  Data& operator=(const Data&) = delete;
+
   std::string path;
-  int rotate_x, rotate_y, rotate_z;
-  int scale;
-  int move_x, move_y, move_z;
-  CalculateType calculate_type;
-  ProjectionType projection_type;
-  QColor background_color;
-  VertexType vertex_type;
-  FacetType facet_type;
-  int vertex_size;
-  int facet_size;
-  QColor vertex_color;
-  QColor facet_color;
+  int rotate_x{}, rotate_y{}, rotate_z{};
+  float scale{1.0f};
+  int move_x{}, move_y{}, move_z{};
+  CalculateType calculate_type{CalculateType::CPU};
+  ProjectionType projection_type{ProjectionType::Centrall};
+  QColor background_color{Qt::black};
+  VertexType vertex_type{VertexType::Square};
+  FacetType facet_type{FacetType::Solid};
+  int vertex_size{1};
+  int facet_size{1};
+  QColor vertex_color{QColor{64, 1, 5}};
+  QColor facet_color{QColor{64, 1, 5}};
+
+private:
+  Data() {}
 };
 
 }  // namespace s21

@@ -66,22 +66,33 @@ void SceneData::initView() {
 
   calculate_combo_->setStyleSheet(Style::kComboBoxStyle);
   projection_combo_->setStyleSheet(Style::kComboBoxStyle);
+  
+  connect(calculate_combo_, &QComboBox::currentIndexChanged, this, &SceneData::onParameterChanged);
+  connect(projection_combo_, &QComboBox::currentIndexChanged, this, &SceneData::onParameterChanged);
+  connect(color_button_, &ColorButton::colorChanged, this, &SceneData::recordData);
 }
 
-void SceneData::recordData(Data *data) {
+void SceneData::onParameterChanged(int value) {
+  (void)value;
+  recordData();
+}
+
+void SceneData::recordData() {
+  Data &data{Data::data()};
+
   if (calculate_combo_->currentText() == "CPU") {
-    data->calculate_type = CalculateType::CPU;
+    data.calculate_type = CalculateType::CPU;
   } else {
-    data->calculate_type = CalculateType::GPU;
+    data.calculate_type = CalculateType::GPU;
   }
 
   if (projection_combo_->currentText() == "Central") {
-    data->projection_type = ProjectionType::Centrall;
+    data.projection_type = ProjectionType::Centrall;
   } else {
-    data->projection_type = ProjectionType::Parallel;
+    data.projection_type = ProjectionType::Parallel;
   }
 
-  data->background_color = color_button_->getColor();
+  data.background_color = color_button_->getColor();
 }
 
 }  // namespace s21

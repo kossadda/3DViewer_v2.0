@@ -28,7 +28,7 @@ class AfinneData : public BaseWidget {
   AfinneData(QLabel *title, const QStringList &sliders, int min, int max,
              int current = 0);
 
-  void recordData(Data *data);
+  void recordData();
 
  private:
   void allocateMemory(const QStringList &sliders, int min, int max);

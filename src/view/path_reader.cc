@@ -89,8 +89,8 @@ void PathReader::setInfo(int vertex_count, int facet_count) {
   facet_info_->setText("Facet: " + QString::number(facet_count));
 }
 
-void PathReader::recordData(Data *data) {
-  data->path = path_edit_->text().toStdString();
+void PathReader::recordData() {
+  Data::data().path = path_edit_->text().toStdString();
 }
 
 }  // namespace s21
