@@ -27,10 +27,10 @@ void ObjectData::allocateMemory() {
   color_label_ = new QLabel{"   Color"};
   vtype_combo_ = new QComboBox;
   vsize_box_ = new QSpinBox;
-  vcolor_button_ = new ColorButton{QColor{64, 1, 5}};
+  vcolor_button_ = new ColorButton{Data::data().vertex_color};
   ftype_combo_ = new QComboBox;
   fsize_box_ = new QSpinBox;
-  fcolor_button_ = new ColorButton{QColor{64, 1, 5}};
+  fcolor_button_ = new ColorButton{Data::data().facet_color};
 }
 
 void ObjectData::initView() {

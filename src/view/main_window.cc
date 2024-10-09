@@ -23,7 +23,7 @@ void MainWindow::allocateMemory() {
   path_ = new PathReader;
   scene_ = new ObjectScene;
   rotate_ = new AfinneData{new QLabel{"Rotate"}, {"X", "Y", "Z"}, -360, 360};
-  scale_ = new AfinneData{new QLabel{"Scale"}, {"%"}, 1, 600, 100};
+  scale_ = new AfinneData{new QLabel{"Scale"}, {"%"}, 1, 600};
   move_ = new AfinneData{new QLabel{"Translate"}, {"X", "Y", "Z"}, -100, 100};
   figure_ = new ObjectData;
   setting_ = new SceneData{new QLabel{"Scene"}};

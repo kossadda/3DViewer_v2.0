@@ -43,8 +43,8 @@ struct Data {
   FacetType facet_type{FacetType::Solid};
   int vertex_size{1};
   int facet_size{1};
-  QColor vertex_color{QColor{64, 1, 5}};
-  QColor facet_color{QColor{64, 1, 5}};
+  QColor vertex_color{64, 1, 5};
+  QColor facet_color{64, 1, 5};
 
  private:
   Data() {}

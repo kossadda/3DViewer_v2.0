@@ -25,7 +25,7 @@ void SceneData::allocateMemory() {
   color_label_ = new QLabel{"   Color"};
   calculate_combo_ = new QComboBox;
   projection_combo_ = new QComboBox;
-  color_button_ = new ColorButton{Qt::black};
+  color_button_ = new ColorButton{Data::data().background_color};
 }
 
 void SceneData::initView() {

@@ -40,12 +40,12 @@ class QtSceneDrawer : public QOpenGLWidget, public QOpenGLFunctions {
   void mouseWheel(QWheelEvent *event);
 
  protected:
-  // void initializeGL() override;
-  // void paintGL() override;
-  // void resizeGL(int w, int h) override;
-  // void mousePressEvent(QMouseEvent *event) override;
-  // void mouseMoveEvent(QMouseEvent *event) override;
-  // void wheelEvent(QWheelEvent *event) override;
+  void initializeGL() override;
+  void paintGL() override;
+  void resizeGL(int w, int h) override;
+  void mousePressEvent(QMouseEvent *event) override;
+  void mouseMoveEvent(QMouseEvent *event) override;
+  void wheelEvent(QWheelEvent *event) override;
 
  private:
   void allocateMemory();

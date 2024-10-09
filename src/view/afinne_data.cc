@@ -13,11 +13,10 @@
 
 namespace s21 {
 
-AfinneData::AfinneData(QLabel *title, const QStringList &sliders, int min,
-                       int max, int current)
+AfinneData::AfinneData(QLabel *title, const QStringList &sliders, int min, int max)
     : BaseWidget{title} {
   allocateMemory(sliders, min, max);
-  initView(current);
+  initView();
 }
 
 void AfinneData::allocateMemory(const QStringList &sliders, int min, int max) {
@@ -26,7 +25,7 @@ void AfinneData::allocateMemory(const QStringList &sliders, int min, int max) {
   }
 }
 
-void AfinneData::initView(int current) {
+void AfinneData::initView() {
   if (title() == "Rotate") {
     icon_->setPixmap({":rotate"});
   } else if (title() == "Scale") {
@@ -37,7 +36,13 @@ void AfinneData::initView(int current) {
 
   for (auto slider : sliders_) {
     grid_->addWidget(slider);
-    slider->setValue(current);
+
+    if (title() == "Scale") {
+      slider->setValue(100 * Data::data().scale);    
+    } else {
+      slider->setValue(0);
+    }
+    
     connect(slider, &Slider::valueChanged, this, &AfinneData::recordData);
   }
 }

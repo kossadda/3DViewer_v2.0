@@ -25,14 +25,13 @@ class AfinneData : public BaseWidget {
   Q_OBJECT
 
  public:
-  AfinneData(QLabel *title, const QStringList &sliders, int min, int max,
-             int current = 0);
+  AfinneData(QLabel *title, const QStringList &sliders, int min, int max);
 
   void recordData();
 
  private:
   void allocateMemory(const QStringList &sliders, int min, int max);
-  void initView(int current);
+  void initView();
 
   QVector<Slider *> sliders_;
 };
