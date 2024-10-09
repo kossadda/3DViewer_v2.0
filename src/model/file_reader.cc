@@ -17,35 +17,29 @@
 #include <sstream>
 
 namespace s21 {
-/// @note Строка парсится дважды: 1) В ParseVerticals, 2)в ParseEdges.
-/// @note Может удалять вершины в ParseVerticals?
+
 Scene FileReader::ReadScene(const std::string& path,
                             const NormalizationParameters& params) {
-  Scene scene;
   std::ifstream file{path};
   std::string line;
   std::vector<Vertex> vertices;
+  std::vector<int> indices;
 
   if (!file.is_open()) {
     std::cerr << "Error: Unable to open file " << path << std::endl;
-    return scene;
   }
 
   while (std::getline(file, line)) {
     if (line.compare(0, 2, "v ") == 0) {
       vertices.emplace_back(ParseVertex(line));
     } else if (line.compare(0, 2, "f ") == 0) {
-      std::vector<int> vertex_indices = ParseFace(line);
-      std::vector<Edge> edges =
-          CreateEdgesFromIndices(vertex_indices, vertices);
-      Figure figure{vertices, edges};
-      scene.AddFigure(figure);
+      indices = ParseFace(line);
     }
   }
 
   file.close();
 
-  return scene;
+  return Scene{indices, vertices};
 }
 
 Vertex FileReader::ParseVertex(const std::string& line) noexcept {
@@ -77,19 +71,19 @@ std::vector<int> FileReader::ParseFace(const std::string& line) noexcept {
   return vertex_indices;
 }
 
-std::vector<Edge> FileReader::CreateEdgesFromIndices(
-    const std::vector<int>& vertex_indices,
-    const std::vector<Vertex>& vertices) {
-  std::vector<Edge> edges;
+// std::vector<Edge> FileReader::CreateEdgesFromIndices(
+//     const std::vector<int>& vertex_indices,
+//     const std::vector<Vertex>& vertices) {
+//   std::vector<Edge> edges;
 
-  for (size_t i = 0; i < vertex_indices.size(); ++i) {
-    int current_index = vertex_indices[i] - 1;
-    int next_index = vertex_indices[(i + 1) % vertex_indices.size()] - 1;
-    edges.emplace_back(Edge{vertices[current_index], vertices[next_index]});
-  }
+//   for (size_t i = 0; i < vertex_indices.size(); ++i) {
+//     int current_index = vertex_indices[i] - 1;
+//     int next_index = vertex_indices[(i + 1) % vertex_indices.size()] - 1;
+//     edges.emplace_back(Edge{vertices[current_index], vertices[next_index]});
+//   }
 
-  return edges;
-}
+//   return edges;
+// }
 
 float FileReader::Normalize(float value, const NormalizationParameters& params,
                             const bool is_x_axis) {
