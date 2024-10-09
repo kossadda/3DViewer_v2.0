@@ -22,7 +22,7 @@ class Vertex : public SceneObject {
   Vertex(float x, float y, float z);
   explicit Vertex(const Point3D &point) noexcept;
 
-  inline Point3D position() const noexcept { return position_; }
+  inline const Point3D &position() const noexcept { return position_; }
   inline void set_position(const Point3D &point) noexcept { position_ = point; }
   void Transform(const TransformMatrix &matrix) override;
 
