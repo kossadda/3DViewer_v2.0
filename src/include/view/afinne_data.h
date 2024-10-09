@@ -28,6 +28,7 @@ class AfinneData : public BaseWidget {
   AfinneData(QLabel *title, const QStringList &sliders, int min, int max);
 
   void recordData();
+  void setData();
   void reset();
 
  signals:

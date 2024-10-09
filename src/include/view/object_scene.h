@@ -12,7 +12,7 @@
 #ifndef SRC_INCLUDE_VIEW_OBJECT_SCENE_H_
 #define SRC_INCLUDE_VIEW_OBJECT_SCENE_H_
 
-#include <QOpenGLWidget>
+#include <QPoint>
 
 #include "include/controller/data.h"
 #include "include/model/qt_scene_drawer.h"
@@ -32,9 +32,23 @@ class ObjectScene : public BaseWidget {
   void gifSave(const QString &path);
   void clearScene();
 
+ signals:
+  void mouseEvent();
+
+ private slots:
+  void onMousePress(QMouseEvent *event);
+  void onMouseMove(QMouseEvent *event);
+  void onMouseWheel(QWheelEvent *event);
+
  private:
   void allocateMemory();
   void initView();
+
+  Data &data_{Data::data()};
+
+  bool leftMouse;
+  bool rightMouse;
+  QPoint startPos;
 
   QtSceneDrawer *scene_;
 };

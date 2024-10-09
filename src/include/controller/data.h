@@ -11,7 +11,7 @@
 
 #ifndef SRC_INCLUDE_CONTROLLER_DATA_H_
 #define SRC_INCLUDE_CONTROLLER_DATA_H_
-
+#include <iostream>
 #include <QColor>
 #include <string>
 

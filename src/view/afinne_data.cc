@@ -63,6 +63,22 @@ void AfinneData::recordData() {
   }
 }
 
+void AfinneData::setData() {
+  Data &data(Data::data());
+
+  if (title() == "Rotate") {
+    sliders_[0]->setValue(data.rotate_x);
+    sliders_[1]->setValue(data.rotate_y);
+    sliders_[2]->setValue(data.rotate_z);
+  } else if (title() == "Scale") {
+    sliders_[0]->setValue(100 * data.scale);
+  } else {
+    sliders_[0]->setValue(data.move_x);
+    sliders_[1]->setValue(data.move_y);
+    sliders_[2]->setValue(data.move_z);
+  }
+}
+
 void AfinneData::onDataChanged() {
   emit dataChanged();
 }
