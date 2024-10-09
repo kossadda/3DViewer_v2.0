@@ -12,9 +12,9 @@
 #include "include/model/scene.h"
 
 namespace s21 {
-Scene::Scene(const std::vector<Edge>& edges,
+Scene::Scene(const std::vector<int>& indices,
              const std::vector<Vertex>& vertices) noexcept
-    : edges_{edges}, vertices_{vertices} {}
+    : indices_{indices}, vertices_{vertices} {}
 
 void Scene::Transform(const TransformMatrix& matrix) noexcept {
   for (auto& vertex : vertices_) {

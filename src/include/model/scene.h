@@ -21,16 +21,19 @@ namespace s21 {
 class Scene {
  public:
   Scene() = default;
-  Scene(const std::vector<Edge>& edges,
+  Scene(const std::vector<int>& indices,
         const std::vector<Vertex>& vertices) noexcept;
 
-  inline std::vector<Edge> edges() const noexcept { return edges_; }
+  inline const std::vector<int>& indices() const noexcept { return indices_; }
 
-  inline std::vector<Vertex> vertices() const noexcept { return vertices_; }
+  inline const std::vector<Vertex>& vertices() const noexcept {
+    return vertices_;
+  }
+
   void Transform(const TransformMatrix& matrix) noexcept;
 
  private:
-  std::vector<Edge> edges_;
+  std::vector<int> indices_;
   std::vector<Vertex> vertices_;
 };
 }  // namespace s21
