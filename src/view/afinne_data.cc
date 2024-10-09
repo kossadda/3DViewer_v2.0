@@ -44,7 +44,7 @@ void AfinneData::initView(int current) {
 
 void AfinneData::recordData() {
   Data &data{Data::data()};
-  
+
   if (title() == "Rotate") {
     data.rotate_x = sliders_[0]->value();
     data.rotate_y = sliders_[1]->value();

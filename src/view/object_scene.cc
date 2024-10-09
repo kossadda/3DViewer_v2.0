@@ -18,9 +18,7 @@ ObjectScene::ObjectScene() : BaseWidget{} {
   initView();
 }
 
-void ObjectScene::allocateMemory() {
-  scene_ = new QtSceneDrawer;
-}
+void ObjectScene::allocateMemory() { scene_ = new QtSceneDrawer; }
 
 void ObjectScene::initView() {
   scene_->setMinimumSize(1000, 800);
@@ -28,9 +26,7 @@ void ObjectScene::initView() {
 }
 
 // void ObjectScene::drawScene(const QString &path) {
-void ObjectScene::drawScene() {
-  scene_->initModel(nullptr);
-}
+void ObjectScene::drawScene() { scene_->initModel(nullptr); }
 
 void ObjectScene::imageSave(const QString &path, const QString &format) {
   (void)path;

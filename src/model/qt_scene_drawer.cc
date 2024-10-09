@@ -13,246 +13,263 @@
 
 namespace s21 {
 
-QtSceneDrawer::QtSceneDrawer() : QOpenGLWidget{}, data_{Data::data()} {
+QtSceneDrawer::QtSceneDrawer() : QOpenGLWidget{} {
+  allocateMemory();
   setlocale(LC_NUMERIC, "C");
 }
 
 QtSceneDrawer::~QtSceneDrawer() {
   destroyBuffers();
   delete program_;
+  delete vbo_;
+  delete ebo_;
+  delete vao_;
 }
 
-void QtSceneDrawer::destroyBuffers() {
-  makeCurrent();
-  if (vao_.isCreated()) {
-    vao_.destroy();
-  }
-  if (vbo_.isCreated()) {
-    vbo_.destroy();
-  }
-  if (ebo_.isCreated()) {
-    ebo_.destroy();
-  }
+void QtSceneDrawer::allocateMemory() {
+  vbo_ = new QOpenGLBuffer{QOpenGLBuffer::VertexBuffer};
+  ebo_ = new QOpenGLBuffer{QOpenGLBuffer::IndexBuffer};
+  vao_ = new QOpenGLVertexArrayObject;
 }
 
-void QtSceneDrawer::initializeGL() {
-  initializeOpenGLFunctions();
+// void QtSceneDrawer::initModel(Scene *scene) {
+//   (void)scene;
+//   scene_ = testModel();
+//   destroyBuffers();
+//   initBuffers();
+//   update();
+// }
 
-  glEnable(GL_DEPTH_TEST);
+// void QtSceneDrawer::initializeGL() {
+//   initializeOpenGLFunctions();
 
-  program_ = new QOpenGLShaderProgram;
-  program_->addShaderFromSourceCode(QOpenGLShader::Vertex, kVertexShader);
-  program_->addShaderFromSourceCode(QOpenGLShader::Fragment, kFragmentShader);
-  program_->bindAttributeLocation("vertex", 0);
-  program_->link();
-  program_->bind();
+//   glEnable(GL_DEPTH_TEST);
 
-  coeff_matrix_ = program_->uniformLocation("coeff_matrix");
-  color_ = program_->uniformLocation("color");
+//   program_ = new QOpenGLShaderProgram;
+//   program_->addShaderFromSourceCode(QOpenGLShader::Vertex, kVertexShader);
+//   program_->addShaderFromSourceCode(QOpenGLShader::Fragment, kFragmentShader);
+//   program_->bindAttributeLocation("vertex", 0);
+//   program_->link();
+//   program_->bind();
 
-  rotate_.setToIdentity();
-  move_.setToIdentity();
-  scale_.setToIdentity();
-}
+//   coeff_matrix_ = program_->uniformLocation("coeff_matrix");
+//   color_ = program_->uniformLocation("color");
+// }
 
-void QtSceneDrawer::initBuffers() {
-  makeCurrent();
+// void QtSceneDrawer::paintGL() {
+//   glClearColor(data_.background_color.redF(), data_.background_color.greenF(),
+//                data_.background_color.blueF(), 1.0f);
+//   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  auto vert{scene_->vertices()};
-  auto edge{scene_->edges()};
+//   if (data_.calculate_type == CalculateType::CPU) {
+//     // updateBuffer(afinneCPU());
+//     program_->setUniformValue(coeff_matrix_, projection_ * camera_);
+//   } else {
+//     program_->setUniformValue(coeff_matrix_, afinneGPU());
+//   }
 
-  if (vao_.isCreated() == false) {
-    vao_.create();
-    vao_.bind();
+//   if (vao_->isCreated() && vbo_->isCreated() && ebo_->isCreated()) {
+//     vao_->bind();
 
-    if (vbo_.isCreated() == false) {
-      vbo_ = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
-      vbo_.create();
-      vbo_.bind();
-      vbo_.setUsagePattern(QOpenGLBuffer::DynamicDraw);
-      if (vert.size()) {
-        vbo_.allocate(vert.begin()->base(), vert.size() * 3 * sizeof(GLfloat));
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat),
-                              nullptr);
-        glEnableVertexAttribArray(0);
-      }
-    }
+//     if (data_.facet_type != FacetType::None) {
+//       program_->setUniformValue(
+//           "color",
+//           QVector4D(data_.facet_color.redF(), data_.facet_color.greenF(),
+//                     data_.facet_color.blueF(), data_.facet_color.alphaF()));
+//       glLineWidth(data_.facet_size);
 
-    if (ebo_.isCreated() == false) {
-      ebo_ = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
-      ebo_.create();
-      ebo_.bind();
-      ebo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
-      if (edge.size()) {
-        ebo_.allocate(edge.begin()->base(), edge.size() * 2 * sizeof(GLuint));
-      }
-    }
+//       if (data_.facet_type == FacetType::Dotted) {
+//         glEnable(GL_LINE_STIPPLE);
+//         glLineStipple(1, 0x00FF);
+//       } else {
+//         glDisable(GL_LINE_STIPPLE);
+//       }
 
-    vao_.release();
-  }
-}
+//       glDrawElements(GL_LINES, scene_->edges().size() * 2, GL_UNSIGNED_INT,
+//                      nullptr);
+//     }
 
-void QtSceneDrawer::resizeGL(int w, int h) { 
-  setupProjection(w, h);
-}
+//     if (data_.vertex_type != VertexType::None) {
+//       program_->setUniformValue(
+//           "color",
+//           QVector4D(data_.vertex_color.redF(), data_.vertex_color.greenF(),
+//                     data_.vertex_color.blueF(), data_.vertex_color.alphaF()));
+//       glPointSize(data_.vertex_size);
 
-void QtSceneDrawer::setupProjection(int w, int h) {
-  if (w < 1 || h < 1) {
-    w = width();
-    h = height();
-  }
+//       if (data_.vertex_type == VertexType::Circle) {
+//         glEnable(GL_POINT_SMOOTH);
+//       } else {
+//         glDisable(GL_POINT_SMOOTH);
+//       }
 
-  setAllMatrixToIdentity();
-  camera_.setToIdentity();
-  projection_.setToIdentity();
+//       glDrawArrays(GL_POINTS, 0, scene_->vertices().size() * 3);
+//     }
 
-  if (data_.projection_type == ProjectionType::Centrall) {
-    camera_.translate(0.0f, 0.0f, -3.0f);
-    projection_.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
-  } else {
-    float top, bottom, right, left;
-    float aspect = (GLfloat)w / h;
-    float coeff = 1.3f;
+//     vao_->release();
+//   }
+// }
 
-    if (w > h) {
-      top = coeff;
-      bottom = -coeff;
-      right = coeff * aspect;
-      left = -right;
-    } else {
-      right = coeff;
-      left = -coeff;
-      top = coeff / aspect;
-      bottom = -top;
-    }
+// void QtSceneDrawer::resizeGL(int w, int h) { setupProjection(w, h); }
 
-    camera_.ortho(left, right, bottom, top, -100.0f, 100.0f);
-  }
-}
+// void QtSceneDrawer::setupProjection(int w, int h) {
+//   if (w < 1 || h < 1) {
+//     w = width();
+//     h = height();
+//   }
 
-void QtSceneDrawer::afinneCPU() {
-  setAllMatrixToIdentity();
+//   camera_.setToIdentity();
+//   projection_.setToIdentity();
 
-  // 
-}
+//   if (data_.projection_type == ProjectionType::Centrall) {
+//     camera_.translate(0.0f, 0.0f, -3.0f);
+//     projection_.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
+//   } else {
+//     float top, bottom, right, left;
+//     float aspect = (GLfloat)w / h;
+//     float coeff = 1.3f;
 
-void QtSceneDrawer::afinneGPU() {
-  setAllMatrixToIdentity();
+//     if (w > h) {
+//       top = coeff;
+//       bottom = -coeff;
+//       right = coeff * aspect;
+//       left = -right;
+//     } else {
+//       right = coeff;
+//       left = -coeff;
+//       top = coeff / aspect;
+//       bottom = -top;
+//     }
 
-  rotate_.rotate(data_.rotate_x, 1, 0, 0);
-  rotate_.rotate(data_.rotate_y, 0, 1, 0);
-  rotate_.rotate(data_.rotate_z, 0, 0, 1);
-  move_.translate(data_.move_x, data_.move_y, data_.move_z);
-  scale_.scale(data_.scale, data_.scale, data_.scale);
-}
+//     camera_.ortho(left, right, bottom, top, -100.0f, 100.0f);
+//   }
+// }
 
-void QtSceneDrawer::setAllMatrixToIdentity() {
-  rotate_.setToIdentity();
-  move_.setToIdentity();
-  scale_.setToIdentity();
-}
+// void QtSceneDrawer::initBuffers() {
+//   makeCurrent();
 
-void QtSceneDrawer::paintGL() {
-  glClearColor(data_.background_color.redF(), data_.background_color.greenF(), data_.background_color.blueF(), 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//   auto vertices{scene_->vertices()};
+//   auto edges{scene_->edges()};
 
-  if (data_.calculate_type == CalculateType::CPU) {
-    afinneCPU();
-  } else {
-    afinneGPU();
-  }
+//   const float *vptr{vertices.begin()->position().base()};
+//   const int *eptr{edges.begin()->begin()};
 
-  program_->setUniformValue(coeff_matrix_, projection_ * camera_ * scale_ * move_ * rotate_);
+//   if (vao_->isCreated() == false) {
+//     vao_->create();
+//     vao_->bind();
 
-  if (vao_.isCreated() && vbo_.isCreated() && ebo_.isCreated()) {
-    vao_.bind();
+//     if (vbo_->isCreated() == false) {
+//       vbo_->create();
+//       vbo_->bind();
+//       vbo_->setUsagePattern(QOpenGLBuffer::DynamicDraw);
+//       if (vertices.size()) {
+//         vbo_->allocate(vptr, vertices.size() * 3 * sizeof(GLfloat));
+//         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat),
+//                               nullptr);
+//         glEnableVertexAttribArray(0);
+//       }
+//     }
 
-    if (data_.facet_type != FacetType::None) {
-      program_->setUniformValue("color", QVector4D(data_.facet_color.redF(), data_.facet_color.greenF(), data_.facet_color.blueF(), data_.facet_color.alphaF()));
-      glLineWidth(data_.facet_size);
+//     if (ebo_->isCreated() == false) {
+//       ebo_->create();
+//       ebo_->bind();
+//       ebo_->setUsagePattern(QOpenGLBuffer::StaticDraw);
+//       if (edges.size()) {
+//         ebo_->allocate(eptr, edges.size() * 2 * sizeof(GLuint));
+//       }
+//     }
 
-      if (data_.facet_type == FacetType::Dotted) {
-        glEnable(GL_LINE_STIPPLE);
-        glLineStipple(1, 0x00FF);
-      } else {
-        glDisable(GL_LINE_STIPPLE);
-      }
+//     vao_->release();
+//   }
+// }
 
-      glDrawElements(GL_LINES, scene_->edges().size() * 2, GL_UNSIGNED_INT, nullptr);
-    }
+// void QtSceneDrawer::updateBuffer(const TransformMatrix &matrix) {
+//   scene_->Transform(matrix);
+//   vbo_->bind();
+//   vbo_->write(0, scene_->vertices().begin()->position().base(),
+//               scene_->vertices().size() * 3 * sizeof(GLfloat));
+//   vbo_->release();
+// }
 
-    if (data_.vertex_type != VertexType::None) {
-      program_->setUniformValue("color", QVector4D(data_.vertex_color.redF(), data_.vertex_color.greenF(), data_.vertex_color.blueF(), data_.vertex_color.alphaF()));
-      glPointSize(data_.vertex_size);
+// void QtSceneDrawer::destroyBuffers() {
+//   makeCurrent();
 
-      if (data_.vertex_type == VertexType::Circle) {
-        glEnable(GL_POINT_SMOOTH);
-      } else {
-        glDisable(GL_POINT_SMOOTH);
-      }
+//   if (vao_->isCreated()) {
+//     vao_->destroy();
+//   }
+//   if (vbo_->isCreated()) {
+//     vbo_->destroy();
+//   }
+//   if (ebo_->isCreated()) {
+//     ebo_->destroy();
+//   }
+// }
 
-      glDrawArrays(GL_POINTS, 0, scene_->vertices().size() * 3);
-    }
+// TransformMatrix QtSceneDrawer::afinneCPU() {
+//   TransformMatrix rotate{TransformMatrixBuilder::CreateRotationMatrix(
+//       data_.rotate_x, data_.rotate_y, data_.rotate_z)};
+//   TransformMatrix scale{TransformMatrixBuilder::CreateScaleMatrix(
+//       data_.scale, data_.scale, data_.scale)};
+//   TransformMatrix move{TransformMatrixBuilder::CreateMoveMatrix(
+//       data_.move_x, data_.move_y, data_.move_z)};
 
-    vao_.release();
-  }
-}
+//   return rotate * scale * move;
+// }
 
-void QtSceneDrawer::mousePressEvent(QMouseEvent *event) { emit mousePress(event); }
+// QMatrix4x4 QtSceneDrawer::afinneGPU() {
+//   QMatrix4x4 rotate;
+//   QMatrix4x4 scale;
+//   QMatrix4x4 move;
 
-void QtSceneDrawer::mouseMoveEvent(QMouseEvent *event) { emit mouseMove(event); }
+//   rotate.rotate(data_.rotate_x, 1, 0, 0);
+//   rotate.rotate(data_.rotate_y, 0, 1, 0);
+//   rotate.rotate(data_.rotate_z, 0, 0, 1);
+//   move.translate(data_.move_x, data_.move_y, data_.move_z);
+//   scale.scale(data_.scale, data_.scale, data_.scale);
 
-void QtSceneDrawer::wheelEvent(QWheelEvent *event) { emit mouseWheel(event); }
+//   return projection_ * camera_ * rotate * scale * move;
+// }
 
-void QtSceneDrawer::initModel(Scene *scene) {
-  (void)scene;
-  scene_ = testModel();
-  destroyBuffers();
-  initBuffers();
-  update();
-}
+// void QtSceneDrawer::mousePressEvent(QMouseEvent *event) {
+//   emit mousePress(event);
+// }
 
-const char *QtSceneDrawer::kVertexShader =
-      "attribute vec4 vertex;\n"
-      "uniform mat4 coeff_matrix;\n"
-      "void main() {\n"
-      "  gl_Position = coeff_matrix * vertex;\n"
-      "}\n";
+// void QtSceneDrawer::mouseMoveEvent(QMouseEvent *event) {
+//   emit mouseMove(event);
+// }
 
-const char *QtSceneDrawer::kFragmentShader =
-    "uniform vec4 color;\n"
-    "void main() {\n"
-    "  gl_FragColor = color;\n"
-    "}\n";
+// void QtSceneDrawer::wheelEvent(QWheelEvent *event) { emit mouseWheel(event); }
 
-Scene *QtSceneDrawer::testModel() {
-  std::vector<Point3D> vertices;
-  std::vector<Edge> edges = {
-    {0, 1}, {1, 2}, {2, 0},
-    {2, 1}, {1, 3}, {3, 2},
-    {2, 3}, {3, 4}, {4, 2},
-    {4, 3}, {3, 5}, {5, 4},
-    {4, 5}, {5, 6}, {6, 4},
-    {6, 5}, {5, 7}, {7, 6},
-    {6, 7}, {7, 0}, {0, 6},
-    {0, 7}, {7, 1}, {1, 0},
-    {1, 7}, {7, 3}, {3, 1},
-    {3, 7}, {7, 5}, {5, 3},
-    {6, 0}, {0, 4}, {4, 6},
-    {4, 0}, {0, 2}, {2, 4}
-  };
+// const char *QtSceneDrawer::kVertexShader =
+//     "attribute vec4 vertex;\n"
+//     "uniform mat4 coeff_matrix;\n"
+//     "void main() {\n"
+//     "  gl_Position = coeff_matrix * vertex;\n"
+//     "}\n";
 
-  vertices.push_back({-1.f, -1.f, 2.f});
-  vertices.push_back({1.f, -1.f, 2.f});
-  vertices.push_back({-1.f, 1.f, 2.f});
-  vertices.push_back({1.f, 1.f, 2.f});
-  vertices.push_back({-1.f, 1.f, 0.f});
-  vertices.push_back({1.f, 1.f, 0.f});
-  vertices.push_back({-1.f, -1.f, 0.f});
-  vertices.push_back({1.f, -1.f, 0.f});
+// const char *QtSceneDrawer::kFragmentShader =
+//     "uniform vec4 color;\n"
+//     "void main() {\n"
+//     "  gl_FragColor = color;\n"
+//     "}\n";
 
-  return new Scene{vertices, edges};
-}
+// Scene *QtSceneDrawer::testModel() {
+//   std::vector<Vertex> vertices;
+//   std::vector<Edge> edges = {
+//       {0, 1}, {1, 2}, {2, 0}, {2, 1}, {1, 3}, {3, 2}, {2, 3}, {3, 4}, {4, 2},
+//       {4, 3}, {3, 5}, {5, 4}, {4, 5}, {5, 6}, {6, 4}, {6, 5}, {5, 7}, {7, 6},
+//       {6, 7}, {7, 0}, {0, 6}, {0, 7}, {7, 1}, {1, 0}, {1, 7}, {7, 3}, {3, 1},
+//       {3, 7}, {7, 5}, {5, 3}, {6, 0}, {0, 4}, {4, 6}, {4, 0}, {0, 2}, {2, 4}};
 
+//   vertices.push_back({-1.f, -1.f, 2.f});
+//   vertices.push_back({1.f, -1.f, 2.f});
+//   vertices.push_back({-1.f, 1.f, 2.f});
+//   vertices.push_back({1.f, 1.f, 2.f});
+//   vertices.push_back({-1.f, 1.f, 0.f});
+//   vertices.push_back({1.f, 1.f, 0.f});
+//   vertices.push_back({-1.f, -1.f, 0.f});
+//   vertices.push_back({1.f, -1.f, 0.f});
+
+//   return new Scene{edges, vertices};
+// }
 
 }  // namespace s21

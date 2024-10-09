@@ -12,7 +12,6 @@
 #ifndef SRC_INCLUDE_MODEL_QT_SCENE_DRAWER_H_
 #define SRC_INCLUDE_MODEL_QT_SCENE_DRAWER_H_
 
-#include <QButtonGroup>
 #include <QMouseEvent>
 #include <QOpenGLBuffer>
 #include <QOpenGLFunctions>
@@ -21,41 +20,10 @@
 #include <QOpenGLWidget>
 
 #include "include/controller/data.h"
+#include "include/model/scene.h"
+#include "include/model/transform_matrix_builder.h"
 
 namespace s21 {
-
-class Point3D {
- public:
-  Point3D(float x, float y, float z) : x(x), y(y), z(z) {}
-  float *base() { return &x; }
-
- private:
-  float x, y, z;
-};
-
-class Edge {
- public:
-  Edge(int begin, int end) : begin_(begin), end_(end) {}
-  int *base() { return &begin_; }
-
- private:
-  int begin_;
-  int end_;
-};
-
-class Scene {
- public:
-  Scene() = default;
-  Scene(const std::vector<Point3D> &vertices, const std::vector<Edge> &edges)
-      : vertices_(vertices), edges_(edges) {}
-
-  const std::vector<Point3D> &vertices() const noexcept { return vertices_; }
-  const std::vector<Edge> &edges() const noexcept { return edges_; }
-
- private:
-  std::vector<Point3D> vertices_;
-  std::vector<Edge> edges_;
-};
 
 class QtSceneDrawer : public QOpenGLWidget, public QOpenGLFunctions {
   Q_OBJECT
@@ -63,7 +31,7 @@ class QtSceneDrawer : public QOpenGLWidget, public QOpenGLFunctions {
  public:
   QtSceneDrawer();
   ~QtSceneDrawer();
-  
+
   void initModel(Scene *scene);
 
  signals:
@@ -72,41 +40,39 @@ class QtSceneDrawer : public QOpenGLWidget, public QOpenGLFunctions {
   void mouseWheel(QWheelEvent *event);
 
  protected:
-  void initializeGL() override;
-  void paintGL() override;
-  void resizeGL(int w, int h) override;
-  void mousePressEvent(QMouseEvent *event) override;
-  void mouseMoveEvent(QMouseEvent *event) override;
-  void wheelEvent(QWheelEvent *event) override;
+  // void initializeGL() override;
+  // void paintGL() override;
+  // void resizeGL(int w, int h) override;
+  // void mousePressEvent(QMouseEvent *event) override;
+  // void mouseMoveEvent(QMouseEvent *event) override;
+  // void wheelEvent(QWheelEvent *event) override;
 
  private:
-  void initBuffers();
-  void destroyBuffers();
+  void allocateMemory();
   void setupProjection(int w, int h);
-  void afinneCPU();
-  void afinneGPU();
-  void setAllMatrixToIdentity();
-  Scene *testModel();
+  void initBuffers();
+  void updateBuffer(const TransformMatrix &matrix);
+  void destroyBuffers();
+  TransformMatrix afinneCPU();
+  QMatrix4x4 afinneGPU();
+  Scene *testModel();  // temp
 
   static const char *kVertexShader;
   static const char *kFragmentShader;
 
-  Data &data_;
+  Data &data_{Data::data()};
   Scene *scene_;
 
   int coeff_matrix_;
   int color_;
 
   QOpenGLShaderProgram *program_;
-  QOpenGLBuffer vbo_;
-  QOpenGLBuffer ebo_;
-  QOpenGLVertexArrayObject vao_;
+  QOpenGLBuffer *vbo_;
+  QOpenGLBuffer *ebo_;
+  QOpenGLVertexArrayObject *vao_;
 
   QMatrix4x4 projection_;
   QMatrix4x4 camera_;
-  QMatrix4x4 rotate_;
-  QMatrix4x4 move_;
-  QMatrix4x4 scale_;
 };
 
 }  // namespace s21

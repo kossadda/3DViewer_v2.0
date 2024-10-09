@@ -94,12 +94,18 @@ void ObjectData::initView() {
   ftype_combo_->setStyleSheet(Style::kComboBoxStyle);
   fsize_box_->setStyleSheet(Style::kSpinBoxStyle);
 
-  connect(vsize_box_, &QSpinBox::valueChanged, this, &ObjectData::onParameterChanged);
-  connect(fsize_box_, &QSpinBox::valueChanged, this, &ObjectData::onParameterChanged);
-  connect(vtype_combo_, &QComboBox::currentIndexChanged, this, &ObjectData::onParameterChanged);
-  connect(ftype_combo_, &QComboBox::currentIndexChanged, this, &ObjectData::onParameterChanged);
-  connect(vcolor_button_, &ColorButton::colorChanged, this, &ObjectData::recordData);
-  connect(fcolor_button_, &ColorButton::colorChanged, this, &ObjectData::recordData);
+  connect(vsize_box_, &QSpinBox::valueChanged, this,
+          &ObjectData::onParameterChanged);
+  connect(fsize_box_, &QSpinBox::valueChanged, this,
+          &ObjectData::onParameterChanged);
+  connect(vtype_combo_, &QComboBox::currentIndexChanged, this,
+          &ObjectData::onParameterChanged);
+  connect(ftype_combo_, &QComboBox::currentIndexChanged, this,
+          &ObjectData::onParameterChanged);
+  connect(vcolor_button_, &ColorButton::colorChanged, this,
+          &ObjectData::recordData);
+  connect(fcolor_button_, &ColorButton::colorChanged, this,
+          &ObjectData::recordData);
 }
 
 void ObjectData::onParameterChanged(int value) {

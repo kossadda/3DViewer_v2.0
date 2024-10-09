@@ -32,7 +32,7 @@ class SceneData : public BaseWidget {
 
  private slots:
   void onParameterChanged(int value);
-  
+
  private:
   void allocateMemory();
   void initView();

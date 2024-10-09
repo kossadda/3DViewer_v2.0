@@ -23,8 +23,8 @@ enum class VertexType { Square, Circle, None };
 enum class FacetType { Solid, Dotted, None };
 
 struct Data {
-public:
-  static Data &data() {
+ public:
+  static Data& data() {
     static Data instance;
     return instance;
   }
@@ -46,7 +46,7 @@ public:
   QColor vertex_color{QColor{64, 1, 5}};
   QColor facet_color{QColor{64, 1, 5}};
 
-private:
+ private:
   Data() {}
 };
 

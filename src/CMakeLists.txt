@@ -19,7 +19,15 @@ set(CONTROLLER_DIR ${CMAKE_SOURCE_DIR}/controller)
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(MODEL
-
+  ${MODEL_DIR}/3d_point.cc
+  ${MODEL_DIR}/edge.cc
+  # ${MODEL_DIR}/file_reader.cc
+  ${MODEL_DIR}/normalization.cc
+  ${MODEL_DIR}/qt_scene_drawer.cc
+  ${MODEL_DIR}/scene.cc
+  ${MODEL_DIR}/transform_matrix_builder.cc
+  ${MODEL_DIR}/transform_matrix.cc
+  ${MODEL_DIR}/vertex.cc
 )
 
 set(VIEW
@@ -38,7 +46,7 @@ set(VIEW
 )
 
 set(CONTROLLER
-
+  ${CONTROLLER_DIR}/facade.cc
 )
 
 set(HEADERS
@@ -53,9 +61,20 @@ set(HEADERS
   ${INCLUDE_DIR}/view/color_button.h
   ${INCLUDE_DIR}/view/slider.h
   ${INCLUDE_DIR}/view/style.h
-  ${INCLUDE_DIR}/controller/data.h
-  ${INCLUDE_DIR}/model/scene_drawer_base.h
+  ${INCLUDE_DIR}/model/3d_point.h
+  ${INCLUDE_DIR}/model/base_file_reader.h
+  ${INCLUDE_DIR}/model/edge.h
+  # ${INCLUDE_DIR}/model/file_reader.h
+  ${INCLUDE_DIR}/model/normalization.h
   ${INCLUDE_DIR}/model/qt_scene_drawer.h
+  ${INCLUDE_DIR}/model/scene_drawer_base.h
+  ${INCLUDE_DIR}/model/scene_object.h
+  ${INCLUDE_DIR}/model/scene.h
+  ${INCLUDE_DIR}/model/transform_matrix_builder.h
+  ${INCLUDE_DIR}/model/transform_matrix.h
+  ${INCLUDE_DIR}/model/vertex.h
+  ${INCLUDE_DIR}/controller/data.h
+  ${INCLUDE_DIR}/controller/facade.h
 )
 
 set(MAIN

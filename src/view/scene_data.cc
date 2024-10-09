@@ -66,10 +66,13 @@ void SceneData::initView() {
 
   calculate_combo_->setStyleSheet(Style::kComboBoxStyle);
   projection_combo_->setStyleSheet(Style::kComboBoxStyle);
-  
-  connect(calculate_combo_, &QComboBox::currentIndexChanged, this, &SceneData::onParameterChanged);
-  connect(projection_combo_, &QComboBox::currentIndexChanged, this, &SceneData::onParameterChanged);
-  connect(color_button_, &ColorButton::colorChanged, this, &SceneData::recordData);
+
+  connect(calculate_combo_, &QComboBox::currentIndexChanged, this,
+          &SceneData::onParameterChanged);
+  connect(projection_combo_, &QComboBox::currentIndexChanged, this,
+          &SceneData::onParameterChanged);
+  connect(color_button_, &ColorButton::colorChanged, this,
+          &SceneData::recordData);
 }
 
 void SceneData::onParameterChanged(int value) {

@@ -58,6 +58,7 @@ void MainWindow::initView() {
   QPushButton *test_button{new QPushButton{"Test button"}};
   left_menu->addWidget(test_button);
   connect(test_button, &QPushButton::clicked, scene_, &ObjectScene::drawScene);
+  test_button->setStyleSheet(Style::kButtonStyle);
 
   // connect(path_, &PathReader::valid, scene_, &ObjectScene::drawScene);
   connect(function_, &Function::imageSave, scene_, &ObjectScene::imageSave);
