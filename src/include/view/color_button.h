@@ -31,7 +31,7 @@ class ColorButton : public QPushButton {
   void setColor(const QColor &color);
 
  signals:
-  void colorChanged();
+  void colorChanged(int value);
 
  private slots:
   void onButtonClicked();

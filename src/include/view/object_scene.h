@@ -31,7 +31,6 @@ class ObjectScene : public BaseWidget {
   void imageSave(const QString &path, const QString &format);
   void gifSave(const QString &path);
   void clearScene();
-  void resetObject();
 
  private:
   void allocateMemory();

@@ -37,6 +37,4 @@ void ObjectScene::gifSave(const QString &path) { (void)path; }
 
 void ObjectScene::clearScene() {}
 
-void ObjectScene::resetObject() {}
-
 }  // namespace s21

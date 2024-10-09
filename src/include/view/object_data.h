@@ -33,8 +33,11 @@ class ObjectData : public BaseWidget {
 
   void recordData();
 
+ signals:
+  void dataChanged();
+
  private slots:
-  void onParameterChanged(int value);
+  void onDataChanged(int value);
 
  private:
   void allocateMemory();

@@ -32,7 +32,7 @@ QColor ColorButton::getColor() { return dialog_->currentColor(); }
 void ColorButton::setColor(const QColor &color) {
   QString new_color{Style::kColorButtonStyle};
   setStyleSheet(new_color.replace("-color:", "-color:" + color.name()));
-  emit colorChanged();
+  emit colorChanged(0);
 }
 
 }  // namespace s21

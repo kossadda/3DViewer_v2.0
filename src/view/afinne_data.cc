@@ -43,7 +43,7 @@ void AfinneData::initView() {
       slider->setValue(0);
     }
     
-    connect(slider, &Slider::valueChanged, this, &AfinneData::recordData);
+    connect(slider, &Slider::valueChanged, this, &AfinneData::dataChanged);
   }
 }
 
@@ -60,6 +60,20 @@ void AfinneData::recordData() {
     data.move_x = sliders_[0]->value();
     data.move_y = sliders_[1]->value();
     data.move_z = sliders_[2]->value();
+  }
+}
+
+void AfinneData::onDataChanged() {
+  emit dataChanged();
+}
+
+void AfinneData::reset() {
+  for(auto &slider : sliders_) {
+    if (title() == "Scale") {
+      slider->setValue(100);
+    } else {
+      slider->setValue(0);
+    }
   }
 }
 

@@ -30,8 +30,11 @@ class SceneData : public BaseWidget {
 
   void recordData();
 
+ signals:
+  void dataChanged();
+
  private slots:
-  void onParameterChanged(int value);
+  void onDataChanged(int value = 0);
 
  private:
   void allocateMemory();

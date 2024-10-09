@@ -37,6 +37,7 @@ void QtSceneDrawer::initModel(Scene *scene) {
   scene_ = testModel();
   destroyBuffers();
   initBuffers();
+  setupProjection(width(), height());
   update();
 }
 
@@ -84,8 +85,7 @@ void QtSceneDrawer::paintGL() {
         glDisable(GL_LINE_STIPPLE);
       }
 
-      glDrawElements(GL_LINES, scene_->edges().size() * 2, GL_UNSIGNED_INT,
-                     nullptr);
+      glDrawElements(GL_LINES, scene_->indices().size(), GL_UNSIGNED_INT, nullptr);
     }
 
     if (data_.vertex_type != VertexType::None) {
@@ -120,11 +120,11 @@ void QtSceneDrawer::setupProjection(int w, int h) {
   projection_.setToIdentity();
 
   if (data_.projection_type == ProjectionType::Centrall) {
-    camera_.translate(0.0f, 0.0f, -3.0f);
+    camera_.translate(0.0f, 0.0f, -5.0f);
     projection_.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
   } else {
     float top, bottom, right, left;
-    float aspect = (GLfloat)w / h;
+    float aspect = static_cast<GLfloat>(w) / h;
     float coeff = 1.3f;
 
     if (w > h) {
@@ -146,11 +146,11 @@ void QtSceneDrawer::setupProjection(int w, int h) {
 void QtSceneDrawer::initBuffers() {
   makeCurrent();
 
-  auto vertices{scene_->vertices()};
-  auto edges{scene_->edges()};
+  const std::vector<Vertex> &vertices{scene_->vertices()};
+  const std::vector<int> &indices{scene_->indices()};
 
-  // const float *vptr{vertices.begin()->position().base()};
-  // const int *eptr{edges.begin()->begin()};
+  const float *vptr{vertices.begin()->position().base()};
+  const int *eptr{indices.begin().base()};
 
   if (!vao_->isCreated()) {
     vao_->create();
@@ -161,9 +161,8 @@ void QtSceneDrawer::initBuffers() {
       vbo_->bind();
       vbo_->setUsagePattern(QOpenGLBuffer::DynamicDraw);
       if (vertices.size()) {
-        // vbo_->allocate(vptr, vertices.size() * 3 * sizeof(GLfloat));
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat),
-                              nullptr);
+        vbo_->allocate(vptr, vertices.size() * sizeof(Vertex));
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
         glEnableVertexAttribArray(0);
       }
     }
@@ -172,8 +171,8 @@ void QtSceneDrawer::initBuffers() {
       ebo_->create();
       ebo_->bind();
       ebo_->setUsagePattern(QOpenGLBuffer::StaticDraw);
-      if (edges.size()) {
-        // ebo_->allocate(eptr, edges.size() * 2 * sizeof(GLuint));
+      if (indices.size()) {
+        ebo_->allocate(eptr, indices.size() * sizeof(GLuint));
       }
     }
 
@@ -185,7 +184,7 @@ void QtSceneDrawer::updateBuffer(const TransformMatrix &matrix) {
   scene_->Transform(matrix);
   vbo_->bind();
   vbo_->write(0, scene_->vertices().begin()->position().base(),
-              scene_->vertices().size() * 3 * sizeof(GLfloat));
+              scene_->vertices().size() * sizeof(Vertex));
   vbo_->release();
 }
 
@@ -253,11 +252,11 @@ const char *QtSceneDrawer::kFragmentShader =
 
 Scene *QtSceneDrawer::testModel() {
   std::vector<Vertex> vertices;
-  std::vector<Edge> edges = {
-      {0, 1}, {1, 2}, {2, 0}, {2, 1}, {1, 3}, {3, 2}, {2, 3}, {3, 4}, {4, 2},
-      {4, 3}, {3, 5}, {5, 4}, {4, 5}, {5, 6}, {6, 4}, {6, 5}, {5, 7}, {7, 6},
-      {6, 7}, {7, 0}, {0, 6}, {0, 7}, {7, 1}, {1, 0}, {1, 7}, {7, 3}, {3, 1},
-      {3, 7}, {7, 5}, {5, 3}, {6, 0}, {0, 4}, {4, 6}, {4, 0}, {0, 2}, {2, 4}};
+  std::vector<int> indices = {
+      0, 1, 1, 2, 2, 0, 2, 1, 1, 3, 3, 2, 2, 3, 3, 4, 4, 2,
+      4, 3, 3, 5, 5, 4, 4, 5, 5, 6, 6, 4, 6, 5, 5, 7, 7, 6,
+      6, 7, 7, 0, 0, 6, 0, 7, 7, 1, 1, 0, 1, 7, 7, 3, 3, 1,
+      3, 7, 7, 5, 5, 3, 6, 0, 0, 4, 4, 6, 4, 0, 0, 2, 2, 4};
 
   vertices.push_back({-1.f, -1.f, 2.f});
   vertices.push_back({1.f, -1.f, 2.f});
@@ -268,7 +267,7 @@ Scene *QtSceneDrawer::testModel() {
   vertices.push_back({-1.f, -1.f, 0.f});
   vertices.push_back({1.f, -1.f, 0.f});
 
-  return new Scene{edges, vertices};
+  return new Scene{indices, vertices};
 }
 
 }  // namespace s21

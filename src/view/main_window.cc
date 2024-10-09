@@ -55,16 +55,17 @@ void MainWindow::initView() {
   setting_->setFixedSize(310, 190);
   figure_->setFixedSize(310, 190);
 
-  QPushButton *test_button{new QPushButton{"Test button"}};
-  left_menu->addWidget(test_button);
-  connect(test_button, &QPushButton::clicked, scene_, &ObjectScene::drawScene);
-  test_button->setStyleSheet(Style::kButtonStyle);
+  connect(rotate_, &AfinneData::dataChanged, this, &MainWindow::recordData);
+  connect(scale_, &AfinneData::dataChanged, this, &MainWindow::recordData);
+  connect(move_, &AfinneData::dataChanged, this, &MainWindow::recordData);
+  connect(figure_, &ObjectData::dataChanged, this, &MainWindow::recordData);
+  connect(setting_, &SceneData::dataChanged, this, &MainWindow::recordData);
 
-  // connect(path_, &PathReader::valid, scene_, &ObjectScene::drawScene);
+  // connect(path_, &PathReader::valid, scene_, &ObjectScene::initModel);
   connect(function_, &Function::imageSave, scene_, &ObjectScene::imageSave);
   connect(function_, &Function::gifSave, scene_, &ObjectScene::gifSave);
   connect(function_, &Function::clear, scene_, &ObjectScene::clearScene);
-  connect(function_, &Function::reset, scene_, &ObjectScene::resetObject);
+  connect(function_, &Function::reset, this, &MainWindow::resetData);
 }
 
 void MainWindow::recordData() {
@@ -74,6 +75,16 @@ void MainWindow::recordData() {
   setting_->recordData();
   figure_->recordData();
   path_->recordData();
+
+  scene_->drawScene();
+}
+
+void MainWindow::resetData() {
+  rotate_->reset();
+  scale_->reset();
+  move_->reset();
+
+  scene_->drawScene();
 }
 
 }  // namespace s21

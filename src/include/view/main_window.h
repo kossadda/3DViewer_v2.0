@@ -31,6 +31,7 @@ class MainWindow : public QWidget {
 
  public:
   MainWindow();
+  void resetData();
 
  private:
   void allocateMemory();
