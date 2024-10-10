@@ -13,7 +13,8 @@
 
 namespace s21 {
 
-AfinneData::AfinneData(QLabel *title, const QStringList &sliders, int min, int max)
+AfinneData::AfinneData(QLabel *title, const QStringList &sliders, int min,
+                       int max)
     : BaseWidget{title} {
   allocateMemory(sliders, min, max);
   initView();
@@ -38,11 +39,11 @@ void AfinneData::initView() {
     grid_->addWidget(slider);
 
     if (title() == "Scale") {
-      slider->setValue(100 * Data::data().scale);    
+      slider->setValue(100 * Data::data().scale);
     } else {
       slider->setValue(0);
     }
-    
+
     connect(slider, &Slider::valueChanged, this, &AfinneData::dataChanged);
   }
 }
@@ -79,12 +80,10 @@ void AfinneData::setData() {
   }
 }
 
-void AfinneData::onDataChanged() {
-  emit dataChanged();
-}
+void AfinneData::onDataChanged() { emit dataChanged(); }
 
 void AfinneData::reset() {
-  for(auto &slider : sliders_) {
+  for (auto &slider : sliders_) {
     if (title() == "Scale") {
       slider->setValue(100);
     } else {

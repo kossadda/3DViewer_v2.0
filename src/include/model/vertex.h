@@ -16,7 +16,7 @@
 #include "include/model/scene_object.h"
 
 namespace s21 {
-class Vertex : public SceneObject {
+class Vertex {
  public:
   Vertex() = default;
   Vertex(float x, float y, float z);
@@ -24,7 +24,9 @@ class Vertex : public SceneObject {
 
   inline const Point3D &position() const noexcept { return position_; }
   inline void set_position(const Point3D &point) noexcept { position_ = point; }
-  void Transform(const TransformMatrix &matrix) override;
+  // void Transform(const TransformMatrix &matrix) override;
+
+  Vertex Transform(const TransformMatrix &matrix) const noexcept;
 
   bool operator==(const Vertex &other) const noexcept;
 

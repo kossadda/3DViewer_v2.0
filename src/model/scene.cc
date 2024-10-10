@@ -18,7 +18,7 @@ Scene::Scene(const std::vector<int>& indices,
 
 void Scene::Transform(const TransformMatrix& matrix) noexcept {
   for (auto& vertex : vertices_) {
-    vertex.Transform(matrix);
+    vertex = vertex.Transform(matrix);
   }
 }
 

@@ -16,8 +16,16 @@ Vertex::Vertex(const Point3D &point) noexcept : position_{point} {}
 
 Vertex::Vertex(float x, float y, float z) : position_{x, y, z} {}
 
-void Vertex::Transform(const TransformMatrix &matrix) {
-  position_ = matrix.TransformPoint(position_);
+// void Vertex::Transform(const TransformMatrix &matrix) {
+//   position_ = matrix.TransformPoint(position_);
+// }
+
+Vertex Vertex::Transform(const TransformMatrix &matrix) const noexcept {
+  Vertex transformed_vertex;
+
+  transformed_vertex.position_ = matrix.TransformPoint(position_);
+
+  return transformed_vertex;
 }
 
 bool Vertex::operator==(const Vertex &other) const noexcept {

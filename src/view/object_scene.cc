@@ -64,13 +64,13 @@ void ObjectScene::onMouseMove(QMouseEvent *event) {
     if (shiftPressed) {
       data_.move_x += offset.x() / 2;
       emit mouseEvent();
-      data_.move_y -= offset.y() / 2; 
+      data_.move_y -= offset.y() / 2;
       emit mouseEvent();
     } else {
-      if(std::abs(data_.rotate_x) == 360) {
+      if (std::abs(data_.rotate_x) == 360) {
         data_.rotate_x = 0;
       }
-      if(std::abs(data_.rotate_y) == 360) {
+      if (std::abs(data_.rotate_y) == 360) {
         data_.rotate_y = 0;
       }
       data_.rotate_x += offset.y() / 2;
@@ -82,13 +82,13 @@ void ObjectScene::onMouseMove(QMouseEvent *event) {
     if (shiftPressed) {
       data_.move_x += offset.x() / 2;
       emit mouseEvent();
-      data_.move_z -= offset.y() / 2; 
+      data_.move_z -= offset.y() / 2;
       emit mouseEvent();
     } else {
-      if(std::abs(data_.rotate_y) == 360) {
+      if (std::abs(data_.rotate_y) == 360) {
         data_.rotate_y = 0;
       }
-      if(std::abs(data_.rotate_z) == 360) {
+      if (std::abs(data_.rotate_z) == 360) {
         data_.rotate_z = 0;
       }
       data_.rotate_y += offset.x() / 2;
@@ -99,16 +99,15 @@ void ObjectScene::onMouseMove(QMouseEvent *event) {
   }
 
   startPos = event->pos();
-
 }
 
 void ObjectScene::onMouseWheel(QWheelEvent *event) {
-  if(event->angleDelta().y()) {
+  if (event->angleDelta().y()) {
     Data::data().scale += 0.05;
   } else {
     Data::data().scale -= 0.05;
   }
-  
+
   emit mouseEvent();
 }
 

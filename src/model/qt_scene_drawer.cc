@@ -85,7 +85,8 @@ void QtSceneDrawer::paintGL() {
         glDisable(GL_LINE_STIPPLE);
       }
 
-      glDrawElements(GL_LINES, scene_->indices().size(), GL_UNSIGNED_INT, nullptr);
+      glDrawElements(GL_LINES, scene_->indices().size(), GL_UNSIGNED_INT,
+                     nullptr);
     }
 
     if (data_.vertex_type != VertexType::None) {
@@ -162,7 +163,8 @@ void QtSceneDrawer::initBuffers() {
       vbo_->setUsagePattern(QOpenGLBuffer::DynamicDraw);
       if (vertices.size()) {
         vbo_->allocate(vptr, vertices.size() * sizeof(Vertex));
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                              nullptr);
         glEnableVertexAttribArray(0);
       }
     }
@@ -253,10 +255,9 @@ const char *QtSceneDrawer::kFragmentShader =
 Scene *QtSceneDrawer::testModel() {
   std::vector<Vertex> vertices;
   std::vector<int> indices = {
-      0, 1, 1, 2, 2, 0, 2, 1, 1, 3, 3, 2, 2, 3, 3, 4, 4, 2,
-      4, 3, 3, 5, 5, 4, 4, 5, 5, 6, 6, 4, 6, 5, 5, 7, 7, 6,
-      6, 7, 7, 0, 0, 6, 0, 7, 7, 1, 1, 0, 1, 7, 7, 3, 3, 1,
-      3, 7, 7, 5, 5, 3, 6, 0, 0, 4, 4, 6, 4, 0, 0, 2, 2, 4};
+      0, 1, 1, 2, 2, 0, 2, 1, 1, 3, 3, 2, 2, 3, 3, 4, 4, 2, 4, 3, 3, 5, 5, 4,
+      4, 5, 5, 6, 6, 4, 6, 5, 5, 7, 7, 6, 6, 7, 7, 0, 0, 6, 0, 7, 7, 1, 1, 0,
+      1, 7, 7, 3, 3, 1, 3, 7, 7, 5, 5, 3, 6, 0, 0, 4, 4, 6, 4, 0, 0, 2, 2, 4};
 
   vertices.push_back({-1.f, -1.f, 2.f});
   vertices.push_back({1.f, -1.f, 2.f});
