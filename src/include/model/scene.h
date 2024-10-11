@@ -35,6 +35,7 @@ class Scene {
  private:
   std::vector<int> indices_;
   std::vector<Vertex> vertices_;
+  std::vector<Vertex> data_;
 };
 }  // namespace s21
 

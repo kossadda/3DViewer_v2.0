@@ -61,7 +61,7 @@ class QtSceneDrawer : public QOpenGLWidget, public QOpenGLFunctions {
   static const char *kFragmentShader;
 
   Data &data_{Data::data()};
-  Scene *scene_;
+  Scene *scene_{};
 
   int coeff_matrix_;
   int color_;

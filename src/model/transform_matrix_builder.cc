@@ -18,6 +18,10 @@ TransformMatrix TransformMatrixBuilder::CreateRotationMatrix(float x, float y,
                                                              float z) noexcept {
   TransformMatrix rot_x, rot_y, rot_z;
 
+  x *= kRadian;
+  y *= kRadian;
+  z *= kRadian;
+
   rot_x.set_element(1, 1, cos(x));
   rot_x.set_element(1, 2, -sin(x));
   rot_x.set_element(2, 1, sin(x));
@@ -57,4 +61,6 @@ TransformMatrix TransformMatrixBuilder::CreateScaleMatrix(float x, float y,
 
   return matrix;
 }
+
+const float TransformMatrixBuilder::kRadian = 0.0174533;
 }  // namespace s21

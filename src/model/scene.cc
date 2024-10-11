@@ -14,11 +14,11 @@
 namespace s21 {
 Scene::Scene(const std::vector<int>& indices,
              const std::vector<Vertex>& vertices) noexcept
-    : indices_{indices}, vertices_{vertices} {}
+    : indices_{indices}, vertices_{vertices}, data_{vertices} {}
 
 void Scene::Transform(const TransformMatrix& matrix) noexcept {
-  for (auto& vertex : vertices_) {
-    vertex = vertex.Transform(matrix);
+  for (std::size_t i{}; i < data_.size(); ++i) {
+    vertices_[i] = data_[i].Transform(matrix);
   }
 }
 

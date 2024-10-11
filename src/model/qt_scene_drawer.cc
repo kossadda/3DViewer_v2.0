@@ -57,12 +57,13 @@ void QtSceneDrawer::initializeGL() {
 }
 
 void QtSceneDrawer::paintGL() {
+  if (!scene_) return;
   glClearColor(data_.background_color.redF(), data_.background_color.greenF(),
                data_.background_color.blueF(), 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   if (data_.calculate_type == CalculateType::CPU) {
-    // updateBuffer(afinneCPU());
+    updateBuffer(afinneCPU());
     program_->setUniformValue(coeff_matrix_, projection_ * camera_);
   } else {
     program_->setUniformValue(coeff_matrix_, afinneGPU());
@@ -121,7 +122,7 @@ void QtSceneDrawer::setupProjection(int w, int h) {
   projection_.setToIdentity();
 
   if (data_.projection_type == ProjectionType::Centrall) {
-    camera_.translate(0.0f, 0.0f, -5.0f);
+    camera_.translate(0.0f, 0.0f, -10.0f);
     projection_.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
   } else {
     float top, bottom, right, left;

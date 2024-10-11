@@ -24,6 +24,7 @@ Scene FileReader::ReadScene(const std::string& path,
   std::string line;
   std::vector<Vertex> vertices;
   std::vector<int> indices;
+  (void)params;
 
   if (!file.is_open()) {
     std::cerr << "Error: Unable to open file " << path << std::endl;
@@ -88,6 +89,7 @@ std::vector<int> FileReader::ParseFace(const std::string& line) noexcept {
 float FileReader::Normalize(float value, const NormalizationParameters& params,
                             const bool is_x_axis) {
   float step = (is_x_axis) ? params.dx_step_ : params.dy_step_;
+  (void)params;
 
   return ((value - params.min_) / (params.max_ - params.min_)) * step;
 }
