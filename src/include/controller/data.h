@@ -39,12 +39,12 @@ struct Data {
   CalculateType calculate_type{CalculateType::CPU};
   ProjectionType projection_type{ProjectionType::Centrall};
   QColor background_color{Qt::black};
-  VertexType vertex_type{VertexType::Square};
+  VertexType vertex_type{VertexType::None};
   FacetType facet_type{FacetType::Solid};
   int vertex_size{1};
   int facet_size{1};
-  QColor vertex_color{64, 1, 5};
-  QColor facet_color{64, 1, 5};
+  QColor vertex_color{20, 20, 200};
+  QColor facet_color{200, 20, 20};
 
  private:
   Data() {}

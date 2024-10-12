@@ -21,7 +21,7 @@ MainWindow::MainWindow() : QWidget{} {
 void MainWindow::allocateMemory() {
   left_menu = new QGridLayout;
   path_ = new PathReader;
-  scene_ = new ObjectScene;
+  scene_ = new SceneView;
   rotate_ = new AfinneData{new QLabel{"Rotate"}, {"X", "Y", "Z"}, -360, 360};
   scale_ = new AfinneData{new QLabel{"Scale"}, {"%"}, 1, 600};
   move_ = new AfinneData{new QLabel{"Translate"}, {"X", "Y", "Z"}, -100, 100};
@@ -55,19 +55,19 @@ void MainWindow::initView() {
   setting_->setFixedSize(310, 190);
   figure_->setFixedSize(310, 190);
 
-  connect(scene_, &ObjectScene::mouseEvent, rotate_, &AfinneData::setData);
-  connect(scene_, &ObjectScene::mouseEvent, scale_, &AfinneData::setData);
-  connect(scene_, &ObjectScene::mouseEvent, move_, &AfinneData::setData);
+  connect(scene_, &SceneView::mouseEvent, rotate_, &AfinneData::setData);
+  connect(scene_, &SceneView::mouseEvent, scale_, &AfinneData::setData);
+  connect(scene_, &SceneView::mouseEvent, move_, &AfinneData::setData);
   connect(rotate_, &AfinneData::dataChanged, this, &MainWindow::recordData);
   connect(scale_, &AfinneData::dataChanged, this, &MainWindow::recordData);
   connect(move_, &AfinneData::dataChanged, this, &MainWindow::recordData);
   connect(figure_, &ObjectData::dataChanged, this, &MainWindow::recordData);
   connect(setting_, &SceneData::dataChanged, this, &MainWindow::recordData);
-  connect(path_, &PathReader::valid, scene_, &ObjectScene::loadScene);
+  connect(path_, &PathReader::valid, scene_, &SceneView::loadScene);
   connect(path_, &PathReader::valid, this, &MainWindow::resetData);
-  connect(function_, &Function::imageSave, scene_, &ObjectScene::imageSave);
-  connect(function_, &Function::gifSave, scene_, &ObjectScene::gifSave);
-  connect(function_, &Function::clear, scene_, &ObjectScene::clearScene);
+  connect(function_, &Function::imageSave, scene_, &SceneView::imageSave);
+  connect(function_, &Function::gifSave, scene_, &SceneView::gifSave);
+  connect(function_, &Function::clear, scene_, &SceneView::clearScene);
   connect(function_, &Function::reset, this, &MainWindow::resetData);
 }
 

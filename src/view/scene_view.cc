@@ -1,5 +1,5 @@
 /**
- * @file object_scene.cc
+ * @file scene_view.cc
  * @author kossadda (https://github.com/kossadda)
  * @brief
  * @version 1.0
@@ -9,45 +9,45 @@
  *
  */
 
-#include "include/view/object_scene.h"
+#include "include/view/scene_view.h"
 
 namespace s21 {
 
-ObjectScene::ObjectScene() : BaseWidget{} {
+SceneView::SceneView() : BaseWidget{} {
   allocateMemory();
   initView();
 }
 
-ObjectScene::~ObjectScene() { delete controller_; }
+SceneView::~SceneView() { delete controller_; }
 
-void ObjectScene::allocateMemory() { controller_ = new Facade; }
+void SceneView::allocateMemory() { controller_ = new Facade; }
 
-void ObjectScene::initView() {
+void SceneView::initView() {
   setMinimumSize(1000, 800);
   auto widget{controller_->getSceneWidget()};
   grid_->addWidget(widget);
 
-  connect(widget, &QtSceneDrawer::mousePress, this, &ObjectScene::onMousePress);
-  connect(widget, &QtSceneDrawer::mouseMove, this, &ObjectScene::onMouseMove);
-  connect(widget, &QtSceneDrawer::mouseWheel, this, &ObjectScene::onMouseWheel);
+  connect(widget, &QtSceneDrawer::mousePress, this, &SceneView::onMousePress);
+  connect(widget, &QtSceneDrawer::mouseMove, this, &SceneView::onMouseMove);
+  connect(widget, &QtSceneDrawer::mouseWheel, this, &SceneView::onMouseWheel);
 }
 
-void ObjectScene::loadScene(const QString &path) {
+void SceneView::loadScene(const QString &path) {
   controller_->loadScene(path.toStdString());
 }
 
-void ObjectScene::drawScene() { controller_->drawScene(); }
+void SceneView::drawScene() { controller_->drawScene(); }
 
-void ObjectScene::imageSave(const QString &path, const QString &format) {
+void SceneView::imageSave(const QString &path, const QString &format) {
   (void)path;
   (void)format;
 }
 
-void ObjectScene::gifSave(const QString &path) { (void)path; }
+void SceneView::gifSave(const QString &path) { (void)path; }
 
-void ObjectScene::clearScene() {}
+void SceneView::clearScene() {}
 
-void ObjectScene::onMousePress(QMouseEvent *event) {
+void SceneView::onMousePress(QMouseEvent *event) {
   startPos = event->pos();
 
   if (event->button() == Qt::LeftButton) {
@@ -62,7 +62,7 @@ void ObjectScene::onMousePress(QMouseEvent *event) {
   }
 }
 
-void ObjectScene::onMouseMove(QMouseEvent *event) {
+void SceneView::onMouseMove(QMouseEvent *event) {
   bool shiftPressed = event->modifiers() & Qt::ShiftModifier;
   QPoint offset = event->pos() - startPos;
 
@@ -107,7 +107,7 @@ void ObjectScene::onMouseMove(QMouseEvent *event) {
   startPos = event->pos();
 }
 
-void ObjectScene::onMouseWheel(QWheelEvent *event) {
+void SceneView::onMouseWheel(QWheelEvent *event) {
   if (event->angleDelta().y()) {
     Data::data().scale += 0.05;
   } else {

@@ -44,14 +44,10 @@ class ObjectData : public BaseWidget {
   void initView();
 
   QGridLayout *data_grid_;
-  QLabel *vertex_label_;
-  QLabel *facet_label_;
-  QLabel *type_label_;
-  QLabel *size_label_;
-  QLabel *color_label_;
-  QComboBox *vtype_combo_, *ftype_combo_;
-  QSpinBox *vsize_box_, *fsize_box_;
-  ColorButton *vcolor_button_, *fcolor_button_;
+  QLabel *lvertex_, *lfacet_, *ltype_, *lsize_, *lcolor_;
+  QComboBox *vtype_, *ftype_;
+  QSpinBox *vsize_, *fsize_;
+  ColorButton *vcolor_, *fcolor_;
 };
 
 }  // namespace s21

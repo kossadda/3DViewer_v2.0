@@ -1,5 +1,5 @@
 /**
- * @file object_scene.h
+ * @file scene_view.h
  * @author kossadda (https://github.com/kossadda)
  * @brief
  * @version 1.0
@@ -20,12 +20,12 @@
 
 namespace s21 {
 
-class ObjectScene : public BaseWidget {
+class SceneView : public BaseWidget {
   Q_OBJECT
 
  public:
-  ObjectScene();
-  ~ObjectScene();
+  SceneView();
+  ~SceneView();
 
   void loadScene(const QString &path);
   void drawScene();

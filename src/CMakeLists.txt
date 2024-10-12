@@ -35,7 +35,7 @@ set(VIEW
   ${VIEW_DIR}/afinne_data.cc
   ${VIEW_DIR}/scene_data.cc
   ${VIEW_DIR}/object_data.cc
-  ${VIEW_DIR}/object_scene.cc
+  ${VIEW_DIR}/scene_view.cc
   ${VIEW_DIR}/path_reader.cc
   ${VIEW_DIR}/function.cc
   ${VIEW_DIR}/color_button.cc
@@ -54,7 +54,7 @@ set(HEADERS
   ${INCLUDE_DIR}/view/afinne_data.h
   ${INCLUDE_DIR}/view/scene_data.h
   ${INCLUDE_DIR}/view/object_data.h
-  ${INCLUDE_DIR}/view/object_scene.h
+  ${INCLUDE_DIR}/view/scene_view.h
   ${INCLUDE_DIR}/view/path_reader.h
   ${INCLUDE_DIR}/view/function.h
   ${INCLUDE_DIR}/view/color_button.h
