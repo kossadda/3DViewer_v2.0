@@ -11,7 +11,6 @@
 
 #include "include/model/qt_scene_drawer.h"
 
-#include <iostream>
 namespace s21 {
 
 QtSceneDrawer::QtSceneDrawer() : QOpenGLWidget{} {
@@ -61,6 +60,8 @@ void QtSceneDrawer::initializeGL() {
 
   coeff_matrix_ = program_->uniformLocation("coeff_matrix");
   color_ = program_->uniformLocation("color");
+  camera_.setToIdentity();
+  camera_.translate(0.0f, 0.0f, -3.0f);
 }
 
 void QtSceneDrawer::paintGL() {
@@ -92,7 +93,7 @@ void QtSceneDrawer::paintGL() {
         glDisable(GL_POINT_SMOOTH);
       }
 
-      glDrawArrays(GL_POINTS, 0, vbo_->size());
+      glDrawArrays(GL_POINTS, 0, vbo_size_);
     }
 
     if (data_.facet_type != FacetType::None) {
@@ -109,7 +110,7 @@ void QtSceneDrawer::paintGL() {
         glDisable(GL_LINE_STIPPLE);
       }
 
-      glDrawElements(GL_LINES, ebo_->size(), GL_UNSIGNED_INT, nullptr);
+      glDrawElements(GL_LINES, ebo_size_, GL_UNSIGNED_INT, nullptr);
     }
 
     vao_->release();
@@ -124,11 +125,9 @@ void QtSceneDrawer::setupProjection(int w, int h) {
     h = height();
   }
 
-  camera_.setToIdentity();
   projection_.setToIdentity();
 
   if (data_.projection_type == ProjectionType::Centrall) {
-    camera_.translate(0.0f, 0.0f, -3.0f);
     projection_.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
   } else {
     float top, bottom, right, left;
@@ -156,44 +155,39 @@ void QtSceneDrawer::initBuffers(Scene *scene) {
 
   const std::vector<Vertex> &vertices{scene->vertices()};
   const std::vector<int> &indices{scene->indices()};
-
   const float *vptr{vertices.begin()->position().base()};
   const int *eptr{indices.begin().base()};
+  vbo_size_ = vertices.size();
+  ebo_size_ = indices.size();
 
-  if (!vao_->isCreated()) {
-    vao_->create();
-    vao_->bind();
+  vao_->create();
+  vbo_->create();
+  ebo_->create();
+  vao_->bind();
+  vbo_->bind();
+  ebo_->bind();
 
-    if (vbo_->isCreated() == false) {
-      vbo_->create();
-      vbo_->bind();
-      vbo_->setUsagePattern(QOpenGLBuffer::DynamicDraw);
-      if (vertices.size()) {
-        vbo_->allocate(vptr, vertices.size() * sizeof(Vertex));
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-                              nullptr);
-        glEnableVertexAttribArray(0);
-      }
-    }
-
-    if (!ebo_->isCreated()) {
-      ebo_->create();
-      ebo_->bind();
-      ebo_->setUsagePattern(QOpenGLBuffer::StaticDraw);
-      if (indices.size()) {
-        ebo_->allocate(eptr, indices.size() * sizeof(GLuint));
-      }
-    }
-
-    vao_->release();
+  if (vbo_size_) {
+    vbo_->setUsagePattern(QOpenGLBuffer::DynamicDraw);
+    vbo_->allocate(vptr, vbo_size_ * sizeof(Vertex));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
+    glEnableVertexAttribArray(0);
   }
+
+  if (ebo_size_) {
+    ebo_->setUsagePattern(QOpenGLBuffer::StaticDraw);
+    ebo_->allocate(eptr, ebo_size_ * sizeof(GLuint));
+  }
+
+  vao_->release();
 }
 
 void QtSceneDrawer::updateBuffer(Scene *scene, const TransformMatrix &matrix) {
   scene->Transform(matrix);
+  const float *vbo_ptr{scene->vertices().begin()->position().base()};
+
   vbo_->bind();
-  vbo_->write(0, scene->vertices().begin()->position().base(),
-              scene->vertices().size() * sizeof(Vertex));
+  vbo_->write(0, vbo_ptr, vbo_size_ * sizeof(Vertex));
   vbo_->release();
 }
 
