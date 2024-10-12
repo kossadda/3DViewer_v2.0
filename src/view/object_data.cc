@@ -34,8 +34,7 @@ void ObjectData::allocateMemory() {
 }
 
 void ObjectData::initView() {
-  QVector<QLabel *> labels{ltype_, lsize_, lcolor_,
-                           lvertex_, lfacet_};
+  QVector<QLabel *> labels{ltype_, lsize_, lcolor_, lvertex_, lfacet_};
   QString label_font_up{QString{Style::kLabelStyle}.replace("14px", "16px")};
   QString border_font_up{label_font_up += "border-radius: 10px;"};
   border_font_up.replace("none", "1px solid #636363");
@@ -99,10 +98,14 @@ void ObjectData::initView() {
   ftype_->setStyleSheet(Style::kComboBoxStyle);
   fsize_->setStyleSheet(Style::kSpinBoxStyle);
 
-  connect(vtype_, &QComboBox::currentIndexChanged, this, &ObjectData::onDataChanged);
-  connect(ftype_, &QComboBox::currentIndexChanged, this, &ObjectData::onDataChanged);
-  connect(vcolor_, &ColorButton::colorChanged, this, &ObjectData::onDataChanged);
-  connect(fcolor_, &ColorButton::colorChanged, this, &ObjectData::onDataChanged);
+  connect(vtype_, &QComboBox::currentIndexChanged, this,
+          &ObjectData::onDataChanged);
+  connect(ftype_, &QComboBox::currentIndexChanged, this,
+          &ObjectData::onDataChanged);
+  connect(vcolor_, &ColorButton::colorChanged, this,
+          &ObjectData::onDataChanged);
+  connect(fcolor_, &ColorButton::colorChanged, this,
+          &ObjectData::onDataChanged);
   connect(vsize_, &QSpinBox::valueChanged, this, &ObjectData::onDataChanged);
   connect(fsize_, &QSpinBox::valueChanged, this, &ObjectData::onDataChanged);
 }

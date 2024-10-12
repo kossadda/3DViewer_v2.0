@@ -21,7 +21,10 @@ class TransformMatrixBuilder {
                                               float z) noexcept;
   static TransformMatrix CreateMoveMatrix(float x, float y, float z) noexcept;
   static TransformMatrix CreateScaleMatrix(float x, float y, float z) noexcept;
+
+ private:
   static const float kRadian;
+  static const float kMoveScale;
 };
 }  // namespace s21
 

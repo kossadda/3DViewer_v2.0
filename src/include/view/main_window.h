@@ -19,9 +19,9 @@
 #include "include/view/afinne_data.h"
 #include "include/view/function.h"
 #include "include/view/object_data.h"
-#include "include/view/scene_view.h"
 #include "include/view/path_reader.h"
 #include "include/view/scene_data.h"
+#include "include/view/scene_view.h"
 #include "include/view/style.h"
 
 namespace s21 {

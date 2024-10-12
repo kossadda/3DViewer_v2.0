@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef SRC_INCLUDE_VIEW_OBJECT_SCENE_H_
-#define SRC_INCLUDE_VIEW_OBJECT_SCENE_H_
+#ifndef SRC_INCLUDE_VIEW_SCENE_VIEW_H_
+#define SRC_INCLUDE_VIEW_SCENE_VIEW_H_
 
 #include <QPoint>
 
@@ -56,4 +56,4 @@ class SceneView : public BaseWidget {
 
 }  // namespace s21
 
-#endif  // SRC_INCLUDE_VIEW_OBJECT_SCENE_H_
+#endif  // SRC_INCLUDE_VIEW_SCENE_VIEW_H_

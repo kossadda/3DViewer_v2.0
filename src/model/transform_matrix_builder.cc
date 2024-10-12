@@ -14,6 +14,7 @@
 #include <cmath>
 
 namespace s21 {
+
 TransformMatrix TransformMatrixBuilder::CreateRotationMatrix(float x, float y,
                                                              float z) noexcept {
   TransformMatrix rot_x, rot_y, rot_z;
@@ -44,9 +45,9 @@ TransformMatrix TransformMatrixBuilder::CreateMoveMatrix(float x, float y,
                                                          float z) noexcept {
   TransformMatrix res;
 
-  x /= 50.f;
-  y /= 50.f;
-  z /= 50.f;
+  x /= kMoveScale;
+  y /= kMoveScale;
+  z /= kMoveScale;
 
   res.set_element(0, 3, x);
   res.set_element(1, 3, y);
@@ -66,5 +67,8 @@ TransformMatrix TransformMatrixBuilder::CreateScaleMatrix(float x, float y,
   return matrix;
 }
 
-const float TransformMatrixBuilder::kRadian = 0.0174533;
+const float TransformMatrixBuilder::kRadian = 0.0174533f;
+
+const float TransformMatrixBuilder::kMoveScale = 50.0f;
+
 }  // namespace s21

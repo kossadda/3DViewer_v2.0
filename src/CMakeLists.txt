@@ -20,7 +20,6 @@ set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(MODEL
   ${MODEL_DIR}/3d_point.cc
-  ${MODEL_DIR}/edge.cc
   ${MODEL_DIR}/file_reader.cc
   ${MODEL_DIR}/qt_scene_drawer.cc
   ${MODEL_DIR}/scene.cc
@@ -62,7 +61,6 @@ set(HEADERS
   ${INCLUDE_DIR}/view/style.h
   ${INCLUDE_DIR}/model/3d_point.h
   ${INCLUDE_DIR}/model/base_file_reader.h
-  ${INCLUDE_DIR}/model/edge.h
   ${INCLUDE_DIR}/model/file_reader.h
   ${INCLUDE_DIR}/model/qt_scene_drawer.h
   ${INCLUDE_DIR}/model/scene_drawer_base.h

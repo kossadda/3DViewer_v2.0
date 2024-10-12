@@ -60,8 +60,10 @@ void SceneData::initView() {
     projection_combo_->addItem(name);
   }
 
-  calculate_combo_->setCurrentIndex(static_cast<int>(Data::data().calculate_type));
-  projection_combo_->setCurrentIndex(static_cast<int>(Data::data().projection_type));
+  calculate_combo_->setCurrentIndex(
+      static_cast<int>(Data::data().calculate_type));
+  projection_combo_->setCurrentIndex(
+      static_cast<int>(Data::data().projection_type));
 
   calculate_combo_->setFixedSize(145, 35);
   projection_combo_->setFixedSize(145, 35);

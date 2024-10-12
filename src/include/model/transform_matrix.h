@@ -23,7 +23,7 @@ class TransformMatrix {
   void set_element(const int row, const int col, float value) noexcept;
 
  private:
-  static constexpr int kSize = 4;
+  static const int kSize = 4;
   float m_[kSize][kSize];
 };
 }  // namespace s21

@@ -14,7 +14,6 @@
 
 #include <vector>
 
-#include "include/model/edge.h"
 #include "include/model/vertex.h"
 
 namespace s21 {
