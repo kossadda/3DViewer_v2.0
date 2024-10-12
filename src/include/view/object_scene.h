@@ -15,7 +15,7 @@
 #include <QPoint>
 
 #include "include/controller/data.h"
-#include "include/model/qt_scene_drawer.h"
+#include "include/controller/facade.h"
 #include "include/view/base_widget.h"
 
 namespace s21 {
@@ -25,9 +25,10 @@ class ObjectScene : public BaseWidget {
 
  public:
   ObjectScene();
+  ~ObjectScene();
 
-  // void drawScene(const QString &path);
-  void drawScene();  // drawScene without path is temporary
+  void loadScene(const QString &path);
+  void drawScene();
   void imageSave(const QString &path, const QString &format);
   void gifSave(const QString &path);
   void clearScene();
@@ -50,7 +51,7 @@ class ObjectScene : public BaseWidget {
   bool rightMouse;
   QPoint startPos;
 
-  QtSceneDrawer *scene_;
+  Facade *controller_;
 };
 
 }  // namespace s21

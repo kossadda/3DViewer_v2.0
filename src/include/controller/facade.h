@@ -12,13 +12,28 @@
 #ifndef SRC_INCLUDE_CONTROLLER_FACADE_H_
 #define SRC_INCLUDE_CONTROLLER_FACADE_H_
 
+#include <string>
+
+#include "include/model/base_file_reader.h"
+#include "include/model/file_reader.h"
+#include "include/model/qt_scene_drawer.h"
 #include "include/model/scene.h"
+#include "include/model/scene_drawer_base.h"
 
 namespace s21 {
 class Facade {
  public:
+  Facade();
+  ~Facade();
+
+  void loadScene(const std::string &path);
+  void drawScene();
+  inline QtSceneDrawer *getSceneWidget() { return scene_drawer_; }
+
  private:
-  Scene scene_;
+  QtSceneDrawer *scene_drawer_;
+  BaseFileReader *file_reader_;
+  Scene *scene_{};
 };
 }  // namespace s21
 

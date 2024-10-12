@@ -11,6 +11,7 @@
 
 #include "include/model/qt_scene_drawer.h"
 
+#include <iostream>
 namespace s21 {
 
 QtSceneDrawer::QtSceneDrawer() : QOpenGLWidget{} {
@@ -32,14 +33,20 @@ void QtSceneDrawer::allocateMemory() {
   vao_ = new QOpenGLVertexArrayObject;
 }
 
-void QtSceneDrawer::initModel(Scene *scene) {
-  (void)scene;
-  scene_ = testModel();
-  destroyBuffers();
-  initBuffers();
-  setupProjection(width(), height());
+void QtSceneDrawer::drawScene(Scene *scene) {
+  if (vbo_->isCreated()) {
+    if (data_.calculate_type == CalculateType::CPU) {
+      updateBuffer(scene, afinneCPU());
+    }
+  } else {
+    destroyBuffers();
+    initBuffers(scene);
+  }
+
   update();
 }
+
+void QtSceneDrawer::clearScene() { destroyBuffers(); }
 
 void QtSceneDrawer::initializeGL() {
   initializeOpenGLFunctions();
@@ -57,13 +64,13 @@ void QtSceneDrawer::initializeGL() {
 }
 
 void QtSceneDrawer::paintGL() {
-  if (!scene_) return;
+  setupProjection(width(), height());
+
   glClearColor(data_.background_color.redF(), data_.background_color.greenF(),
                data_.background_color.blueF(), 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   if (data_.calculate_type == CalculateType::CPU) {
-    updateBuffer(afinneCPU());
     program_->setUniformValue(coeff_matrix_, projection_ * camera_);
   } else {
     program_->setUniformValue(coeff_matrix_, afinneGPU());
@@ -71,6 +78,22 @@ void QtSceneDrawer::paintGL() {
 
   if (vao_->isCreated() && vbo_->isCreated() && ebo_->isCreated()) {
     vao_->bind();
+
+    if (data_.vertex_type != VertexType::None) {
+      program_->setUniformValue(
+          "color",
+          QVector4D(data_.vertex_color.redF(), data_.vertex_color.greenF(),
+                    data_.vertex_color.blueF(), data_.vertex_color.alphaF()));
+      glPointSize(data_.vertex_size);
+
+      if (data_.vertex_type == VertexType::Circle) {
+        glEnable(GL_POINT_SMOOTH);
+      } else {
+        glDisable(GL_POINT_SMOOTH);
+      }
+
+      glDrawArrays(GL_POINTS, 0, vbo_->size());
+    }
 
     if (data_.facet_type != FacetType::None) {
       program_->setUniformValue(
@@ -86,24 +109,7 @@ void QtSceneDrawer::paintGL() {
         glDisable(GL_LINE_STIPPLE);
       }
 
-      glDrawElements(GL_LINES, scene_->indices().size(), GL_UNSIGNED_INT,
-                     nullptr);
-    }
-
-    if (data_.vertex_type != VertexType::None) {
-      program_->setUniformValue(
-          "color",
-          QVector4D(data_.vertex_color.redF(), data_.vertex_color.greenF(),
-                    data_.vertex_color.blueF(), data_.vertex_color.alphaF()));
-      glPointSize(data_.vertex_size);
-
-      if (data_.vertex_type == VertexType::Circle) {
-        glEnable(GL_POINT_SMOOTH);
-      } else {
-        glDisable(GL_POINT_SMOOTH);
-      }
-
-      glDrawArrays(GL_POINTS, 0, scene_->vertices().size() * 3);
+      glDrawElements(GL_LINES, ebo_->size(), GL_UNSIGNED_INT, nullptr);
     }
 
     vao_->release();
@@ -122,7 +128,7 @@ void QtSceneDrawer::setupProjection(int w, int h) {
   projection_.setToIdentity();
 
   if (data_.projection_type == ProjectionType::Centrall) {
-    camera_.translate(0.0f, 0.0f, -10.0f);
+    camera_.translate(0.0f, 0.0f, -3.0f);
     projection_.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
   } else {
     float top, bottom, right, left;
@@ -145,11 +151,11 @@ void QtSceneDrawer::setupProjection(int w, int h) {
   }
 }
 
-void QtSceneDrawer::initBuffers() {
+void QtSceneDrawer::initBuffers(Scene *scene) {
   makeCurrent();
 
-  const std::vector<Vertex> &vertices{scene_->vertices()};
-  const std::vector<int> &indices{scene_->indices()};
+  const std::vector<Vertex> &vertices{scene->vertices()};
+  const std::vector<int> &indices{scene->indices()};
 
   const float *vptr{vertices.begin()->position().base()};
   const int *eptr{indices.begin().base()};
@@ -183,11 +189,11 @@ void QtSceneDrawer::initBuffers() {
   }
 }
 
-void QtSceneDrawer::updateBuffer(const TransformMatrix &matrix) {
-  scene_->Transform(matrix);
+void QtSceneDrawer::updateBuffer(Scene *scene, const TransformMatrix &matrix) {
+  scene->Transform(matrix);
   vbo_->bind();
-  vbo_->write(0, scene_->vertices().begin()->position().base(),
-              scene_->vertices().size() * sizeof(Vertex));
+  vbo_->write(0, scene->vertices().begin()->position().base(),
+              scene->vertices().size() * sizeof(Vertex));
   vbo_->release();
 }
 
@@ -252,24 +258,5 @@ const char *QtSceneDrawer::kFragmentShader =
     "void main() {\n"
     "  gl_FragColor = color;\n"
     "}\n";
-
-Scene *QtSceneDrawer::testModel() {
-  std::vector<Vertex> vertices;
-  std::vector<int> indices = {
-      0, 1, 1, 2, 2, 0, 2, 1, 1, 3, 3, 2, 2, 3, 3, 4, 4, 2, 4, 3, 3, 5, 5, 4,
-      4, 5, 5, 6, 6, 4, 6, 5, 5, 7, 7, 6, 6, 7, 7, 0, 0, 6, 0, 7, 7, 1, 1, 0,
-      1, 7, 7, 3, 3, 1, 3, 7, 7, 5, 5, 3, 6, 0, 0, 4, 4, 6, 4, 0, 0, 2, 2, 4};
-
-  vertices.push_back({-1.f, -1.f, 2.f});
-  vertices.push_back({1.f, -1.f, 2.f});
-  vertices.push_back({-1.f, 1.f, 2.f});
-  vertices.push_back({1.f, 1.f, 2.f});
-  vertices.push_back({-1.f, 1.f, 0.f});
-  vertices.push_back({1.f, 1.f, 0.f});
-  vertices.push_back({-1.f, -1.f, 0.f});
-  vertices.push_back({1.f, -1.f, 0.f});
-
-  return new Scene{indices, vertices};
-}
 
 }  // namespace s21

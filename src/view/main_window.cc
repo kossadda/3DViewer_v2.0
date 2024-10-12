@@ -63,7 +63,8 @@ void MainWindow::initView() {
   connect(move_, &AfinneData::dataChanged, this, &MainWindow::recordData);
   connect(figure_, &ObjectData::dataChanged, this, &MainWindow::recordData);
   connect(setting_, &SceneData::dataChanged, this, &MainWindow::recordData);
-  // connect(path_, &PathReader::valid, scene_, &ObjectScene::initModel);
+  connect(path_, &PathReader::valid, scene_, &ObjectScene::loadScene);
+  connect(path_, &PathReader::valid, this, &MainWindow::resetData);
   connect(function_, &Function::imageSave, scene_, &ObjectScene::imageSave);
   connect(function_, &Function::gifSave, scene_, &ObjectScene::gifSave);
   connect(function_, &Function::clear, scene_, &ObjectScene::clearScene);

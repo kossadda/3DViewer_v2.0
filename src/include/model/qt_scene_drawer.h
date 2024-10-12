@@ -21,6 +21,7 @@
 
 #include "include/controller/data.h"
 #include "include/model/scene.h"
+#include "include/model/scene_drawer_base.h"
 #include "include/model/transform_matrix_builder.h"
 
 namespace s21 {
@@ -32,7 +33,8 @@ class QtSceneDrawer : public QOpenGLWidget, public QOpenGLFunctions {
   QtSceneDrawer();
   ~QtSceneDrawer();
 
-  void initModel(Scene *scene);
+  void drawScene(Scene *scene);
+  void clearScene();
 
  signals:
   void mousePress(QMouseEvent *event);
@@ -50,18 +52,16 @@ class QtSceneDrawer : public QOpenGLWidget, public QOpenGLFunctions {
  private:
   void allocateMemory();
   void setupProjection(int w, int h);
-  void initBuffers();
-  void updateBuffer(const TransformMatrix &matrix);
+  void initBuffers(Scene *scene);
+  void updateBuffer(Scene *scene, const TransformMatrix &matrix);
   void destroyBuffers();
   TransformMatrix afinneCPU();
   QMatrix4x4 afinneGPU();
-  Scene *testModel();  // temp
 
   static const char *kVertexShader;
   static const char *kFragmentShader;
 
   Data &data_{Data::data()};
-  Scene *scene_{};
 
   int coeff_matrix_;
   int color_;

@@ -18,19 +18,25 @@ ObjectScene::ObjectScene() : BaseWidget{} {
   initView();
 }
 
-void ObjectScene::allocateMemory() { scene_ = new QtSceneDrawer; }
+ObjectScene::~ObjectScene() { delete controller_; }
+
+void ObjectScene::allocateMemory() { controller_ = new Facade; }
 
 void ObjectScene::initView() {
-  scene_->setMinimumSize(1000, 800);
-  grid_->addWidget(scene_);
+  setMinimumSize(1000, 800);
+  auto widget{controller_->getSceneWidget()};
+  grid_->addWidget(widget);
 
-  connect(scene_, &QtSceneDrawer::mousePress, this, &ObjectScene::onMousePress);
-  connect(scene_, &QtSceneDrawer::mouseMove, this, &ObjectScene::onMouseMove);
-  connect(scene_, &QtSceneDrawer::mouseWheel, this, &ObjectScene::onMouseWheel);
+  connect(widget, &QtSceneDrawer::mousePress, this, &ObjectScene::onMousePress);
+  connect(widget, &QtSceneDrawer::mouseMove, this, &ObjectScene::onMouseMove);
+  connect(widget, &QtSceneDrawer::mouseWheel, this, &ObjectScene::onMouseWheel);
 }
 
-// void ObjectScene::drawScene(const QString &path) {
-void ObjectScene::drawScene() { scene_->initModel(nullptr); }
+void ObjectScene::loadScene(const QString &path) {
+  controller_->loadScene(path.toStdString());
+}
+
+void ObjectScene::drawScene() { controller_->drawScene(); }
 
 void ObjectScene::imageSave(const QString &path, const QString &format) {
   (void)path;

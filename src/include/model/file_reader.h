@@ -20,18 +20,13 @@
 namespace s21 {
 class FileReader : public BaseFileReader {
  public:
-  Scene ReadScene(const std::string& path,
-                  const NormalizationParameters& params) override;
+  Scene* ReadScene(const std::string& path) override;
 
  private:
   Vertex ParseVertex(const std::string& line) noexcept;
   std::vector<int> ParseFace(const std::string& line) noexcept;
-  std::vector<Edge> CreateEdgesFromIndices(
-      const std::vector<int>& vertex_indices,
-      const std::vector<Vertex>& vertices);
 
-  float Normalize(float value, const NormalizationParameters& params,
-                  const bool is_x_axis);
+  float normalize_param_;
 };
 }  // namespace s21
 

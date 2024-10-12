@@ -15,15 +15,13 @@
 #include <string>
 
 #include "include/model/base_file_reader.h"
-#include "include/model/normalization.h"
 #include "include/model/scene.h"
 
 namespace s21 {
 class BaseFileReader {
  public:
   virtual ~BaseFileReader() = default;
-  virtual Scene ReadScene(const std::string& path,
-                          const NormalizationParameters& params) = 0;
+  virtual Scene* ReadScene(const std::string& path) = 0;
 };
 }  // namespace s21
 

@@ -24,9 +24,9 @@ class Vertex {
 
   inline const Point3D &position() const noexcept { return position_; }
   inline void set_position(const Point3D &point) noexcept { position_ = point; }
-  // void Transform(const TransformMatrix &matrix) override;
 
   Vertex Transform(const TransformMatrix &matrix) const noexcept;
+  Vertex &Normalize(float normalize_param);
 
   bool operator==(const Vertex &other) const noexcept;
 

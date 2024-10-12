@@ -28,6 +28,14 @@ Vertex Vertex::Transform(const TransformMatrix &matrix) const noexcept {
   return transformed_vertex;
 }
 
+Vertex &Vertex::Normalize(float normalize_param) {
+  position_.x /= normalize_param;
+  position_.y /= normalize_param;
+  position_.z /= normalize_param;
+
+  return *this;
+}
+
 bool Vertex::operator==(const Vertex &other) const noexcept {
   return position_ == other.position_;
 }

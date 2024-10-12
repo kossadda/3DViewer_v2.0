@@ -18,13 +18,12 @@
 
 namespace s21 {
 
-Scene FileReader::ReadScene(const std::string& path,
-                            const NormalizationParameters& params) {
+Scene* FileReader::ReadScene(const std::string& path) {
   std::ifstream file{path};
   std::string line;
   std::vector<Vertex> vertices;
   std::vector<int> indices;
-  (void)params;
+  normalize_param_ = 1.0f;
 
   if (!file.is_open()) {
     std::cerr << "Error: Unable to open file " << path << std::endl;
@@ -34,13 +33,14 @@ Scene FileReader::ReadScene(const std::string& path,
     if (line.compare(0, 2, "v ") == 0) {
       vertices.emplace_back(ParseVertex(line));
     } else if (line.compare(0, 2, "f ") == 0) {
-      indices = ParseFace(line);
+      std::vector<int> face{ParseFace(line)};
+      indices.insert(indices.end(), face.begin(), face.end());
     }
   }
 
   file.close();
 
-  return Scene{indices, vertices};
+  return new Scene{indices, vertices, normalize_param_};
 }
 
 Vertex FileReader::ParseVertex(const std::string& line) noexcept {
@@ -49,6 +49,18 @@ Vertex FileReader::ParseVertex(const std::string& line) noexcept {
   iss.ignore(2);
 
   if (iss >> x >> y >> z) {
+    if (std::abs(x) > normalize_param_) {
+      normalize_param_ = x;
+    }
+
+    if (std::abs(y) > normalize_param_) {
+      normalize_param_ = y;
+    }
+
+    if (std::abs(z) > normalize_param_) {
+      normalize_param_ = z;
+    }
+
     return Vertex{x, y, z};
   }
 
@@ -58,40 +70,21 @@ Vertex FileReader::ParseVertex(const std::string& line) noexcept {
 std::vector<int> FileReader::ParseFace(const std::string& line) noexcept {
   std::istringstream iss{line};
   std::vector<int> vertex_indices;
-
   iss.ignore(2);
 
   std::string vertex_info;
   while (iss >> vertex_info) {
-    size_t delimiter_pos = vertex_info.find('/');
-    std::string tmp = vertex_info.substr(0, delimiter_pos);
+    vertex_indices.emplace_back(std::stoi(vertex_info) - 1);
+    if (vertex_indices.size() > 1) {
+      vertex_indices.emplace_back(vertex_indices.back());
+    }
+  }
 
-    vertex_indices.emplace_back(std::stoi(tmp));
+  if (vertex_indices.size()) {
+    vertex_indices.emplace_back(vertex_indices.front());
   }
 
   return vertex_indices;
-}
-
-// std::vector<Edge> FileReader::CreateEdgesFromIndices(
-//     const std::vector<int>& vertex_indices,
-//     const std::vector<Vertex>& vertices) {
-//   std::vector<Edge> edges;
-
-//   for (size_t i = 0; i < vertex_indices.size(); ++i) {
-//     int current_index = vertex_indices[i] - 1;
-//     int next_index = vertex_indices[(i + 1) % vertex_indices.size()] - 1;
-//     edges.emplace_back(Edge{vertices[current_index], vertices[next_index]});
-//   }
-
-//   return edges;
-// }
-
-float FileReader::Normalize(float value, const NormalizationParameters& params,
-                            const bool is_x_axis) {
-  float step = (is_x_axis) ? params.dx_step_ : params.dy_step_;
-  (void)params;
-
-  return ((value - params.min_) / (params.max_ - params.min_)) * step;
 }
 
 }  // namespace s21

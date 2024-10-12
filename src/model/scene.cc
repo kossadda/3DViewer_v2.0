@@ -13,8 +13,15 @@
 
 namespace s21 {
 Scene::Scene(const std::vector<int>& indices,
-             const std::vector<Vertex>& vertices) noexcept
-    : indices_{indices}, vertices_{vertices}, data_{vertices} {}
+             const std::vector<Vertex>& vertices,
+             float normalize_param) noexcept
+    : indices_{indices} {
+  for (Vertex vertex : vertices) {
+    data_.emplace_back(vertex.Normalize(normalize_param));
+  }
+
+  vertices_ = data_;
+}
 
 void Scene::Transform(const TransformMatrix& matrix) noexcept {
   for (std::size_t i{}; i < data_.size(); ++i) {

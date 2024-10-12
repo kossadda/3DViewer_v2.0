@@ -17,7 +17,8 @@
 namespace s21 {
 class SceneDrawerBase {
  public:
-  virtual void drawScene(const Scene &scene) = 0;
+  virtual void drawScene(Scene *scene) = 0;
+  virtual void clearScene() = 0;
 };
 }  // namespace s21
 

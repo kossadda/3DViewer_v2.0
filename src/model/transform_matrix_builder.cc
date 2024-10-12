@@ -44,6 +44,10 @@ TransformMatrix TransformMatrixBuilder::CreateMoveMatrix(float x, float y,
                                                          float z) noexcept {
   TransformMatrix res;
 
+  x /= 50.f;
+  y /= 50.f;
+  z /= 50.f;
+
   res.set_element(0, 3, x);
   res.set_element(1, 3, y);
   res.set_element(2, 3, z);

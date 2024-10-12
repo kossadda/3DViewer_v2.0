@@ -21,8 +21,8 @@ namespace s21 {
 class Scene {
  public:
   Scene() = default;
-  Scene(const std::vector<int>& indices,
-        const std::vector<Vertex>& vertices) noexcept;
+  Scene(const std::vector<int>& indices, const std::vector<Vertex>& vertices,
+        float normalize_param) noexcept;
 
   inline const std::vector<int>& indices() const noexcept { return indices_; }
 

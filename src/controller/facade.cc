@@ -11,4 +11,30 @@
 
 #include "include/controller/facade.h"
 
-namespace s21 {}
+namespace s21 {
+
+Facade::Facade() {
+  file_reader_ = new FileReader;
+  scene_drawer_ = new QtSceneDrawer;
+}
+
+Facade::~Facade() {
+  delete file_reader_;
+  delete scene_drawer_;
+  delete scene_;
+}
+
+void Facade::loadScene(const std::string &path) {
+  scene_drawer_->clearScene();
+  delete scene_;
+  scene_ = file_reader_->ReadScene(path);
+  drawScene();
+}
+
+void Facade::drawScene() {
+  if (scene_) {
+    scene_drawer_->drawScene(scene_);
+  }
+}
+
+}  // namespace s21
