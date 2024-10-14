@@ -13,6 +13,7 @@
 #define SRC_INCLUDE_VIEW_MAIN_WINDOW_H_
 
 #include <QGridLayout>
+#include <QSettings>
 #include <QWidget>
 
 #include "include/controller/data.h"
@@ -33,10 +34,15 @@ class MainWindow : public QWidget {
   MainWindow();
   void resetData();
 
+ protected:
+  void closeEvent(QCloseEvent *event) override;
+
  private:
   void allocateMemory();
   void initView();
   void recordData();
+  void saveSettings();
+  void loadSettings();
 
   QGridLayout *left_menu;
   PathReader *path_;

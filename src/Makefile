@@ -75,6 +75,7 @@ install:
 
 uninstall: clean
 	rm -rf $(BIN_DIR)
+	rm -rf ~/.config/3DViewer
 
 test: $(OBJ_DIR)/tests/modules $(TESTS_O) $(MODEL_LIB)
 	$(CXX) $(MAIN_TEST) $(TESTS_O) $(MODEL_LIB) $(LDFLAGS) -o $@

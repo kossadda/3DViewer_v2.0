@@ -14,6 +14,7 @@
 namespace s21 {
 
 MainWindow::MainWindow() : QWidget{} {
+  loadSettings();
   allocateMemory();
   initView();
 }
@@ -31,7 +32,7 @@ void MainWindow::allocateMemory() {
 }
 
 void MainWindow::initView() {
-  QGridLayout *grid{new QGridLayout};
+  QGridLayout* grid{new QGridLayout};
   setLayout(grid);
   setStyleSheet(Style::kWindowStyle);
   setWindowIcon(QIcon{":main"});
@@ -58,6 +59,7 @@ void MainWindow::initView() {
   connect(scene_, &SceneView::mouseEvent, rotate_, &AfinneData::setData);
   connect(scene_, &SceneView::mouseEvent, scale_, &AfinneData::setData);
   connect(scene_, &SceneView::mouseEvent, move_, &AfinneData::setData);
+  connect(scene_, &SceneView::drawInfo, path_, &PathReader::setInfo);
   connect(rotate_, &AfinneData::dataChanged, this, &MainWindow::recordData);
   connect(scale_, &AfinneData::dataChanged, this, &MainWindow::recordData);
   connect(move_, &AfinneData::dataChanged, this, &MainWindow::recordData);
@@ -65,7 +67,6 @@ void MainWindow::initView() {
   connect(setting_, &SceneData::dataChanged, this, &MainWindow::recordData);
   connect(path_, &PathReader::valid, scene_, &SceneView::loadScene);
   connect(path_, &PathReader::valid, this, &MainWindow::resetData);
-  connect(scene_, &SceneView::drawInfo, path_, &PathReader::setInfo);
   connect(function_, &Function::imageSave, scene_, &SceneView::imageSave);
   connect(function_, &Function::gifSave, scene_, &SceneView::gifSave);
   connect(function_, &Function::clear, scene_, &SceneView::clearScene);
@@ -89,6 +90,51 @@ void MainWindow::resetData() {
   move_->reset();
 
   scene_->drawScene();
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+  saveSettings();
+  QWidget::closeEvent(event);
+}
+
+void MainWindow::saveSettings() {
+  QSettings settings("3DViewer", "3DViewerApp");
+  Data& data = Data::data();
+
+  settings.setValue("geometry", saveGeometry());
+  settings.setValue("background_color", data.background_color);
+  settings.setValue("vertex_color", data.vertex_color);
+  settings.setValue("facet_color", data.facet_color);
+  settings.setValue("vertex_size", data.vertex_size);
+  settings.setValue("facet_size", data.facet_size);
+  settings.setValue("vertex_type", static_cast<int>(data.vertex_type));
+  settings.setValue("facet_type", static_cast<int>(data.facet_type));
+  settings.setValue("calculate_type", static_cast<int>(data.calculate_type));
+  settings.setValue("projection_type", static_cast<int>(data.projection_type));
+  settings.setValue("file_path", QString::fromStdString(data.path));
+}
+
+void MainWindow::loadSettings() {
+  QSettings settings("3DViewer", "3DViewerApp");
+
+  if (settings.contains("geometry")) {
+    Data& data = Data::data();
+    restoreGeometry(settings.value("geometry").toByteArray());
+    data.background_color = settings.value("background_color").value<QColor>();
+    data.vertex_color = settings.value("vertex_color").value<QColor>();
+    data.facet_color = settings.value("facet_color").value<QColor>();
+    data.vertex_size = settings.value("vertex_size").value<int>();
+    data.facet_size = settings.value("facet_size").value<int>();
+    data.vertex_type =
+        static_cast<VertexType>(settings.value("vertex_type").value<int>());
+    data.facet_type =
+        static_cast<FacetType>(settings.value("facet_type").value<int>());
+    data.calculate_type = static_cast<CalculateType>(
+        settings.value("calculate_type").value<int>());
+    data.projection_type = static_cast<ProjectionType>(
+        settings.value("projection_type").value<int>());
+    data.path = settings.value("file_path").value<QString>().toStdString();
+  }
 }
 
 }  // namespace s21

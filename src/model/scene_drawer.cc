@@ -26,13 +26,15 @@ SceneDrawer::SceneDrawer() : gl{new OpenGL} {
 SceneDrawer::~SceneDrawer() { delete gl; }
 
 void SceneDrawer::drawScene(Scene *scene) {
-  if (gl->isBufferAllocate()) {
-    if (Data::data().calculate_type == CalculateType::CPU) {
-      gl->updateBuffer(scene);
+  if (scene) {
+    if (gl->isBufferAllocate()) {
+      if (Data::data().calculate_type == CalculateType::CPU) {
+        gl->updateBuffer(scene);
+      }
+    } else {
+      gl->destroyBuffers();
+      gl->initBuffers(scene);
     }
-  } else {
-    gl->destroyBuffers();
-    gl->initBuffers(scene);
   }
 
   gl->update();

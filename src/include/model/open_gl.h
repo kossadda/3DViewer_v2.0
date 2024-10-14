@@ -64,8 +64,8 @@ class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
   int coeff_matrix_;
   int color_;
 
-  int vbo_size_;
-  int ebo_size_;
+  int vbo_size_{};
+  int ebo_size_{};
 
   QOpenGLShaderProgram *program_;
   QOpenGLBuffer *vbo_;

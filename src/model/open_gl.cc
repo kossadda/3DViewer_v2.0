@@ -51,16 +51,10 @@ void OpenGL::initializeGL() {
 
   coeff_matrix_ = program_->uniformLocation("coeff_matrix");
   color_ = program_->uniformLocation("color");
-  camera_.setToIdentity();
-  camera_.translate(0.0f, 0.0f, -3.0f);
 }
 
 void OpenGL::paintGL() {
   setupProjection(width(), height());
-
-  glClearColor(data_.background_color.redF(), data_.background_color.greenF(),
-               data_.background_color.blueF(), 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   if (data_.calculate_type == CalculateType::CPU) {
     program_->setUniformValue(coeff_matrix_, projection_ * camera_);
@@ -117,9 +111,11 @@ void OpenGL::setupProjection(int w, int h) {
   }
 
   projection_.setToIdentity();
+  camera_.setToIdentity();
 
   if (data_.projection_type == ProjectionType::Centrall) {
     projection_.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
+    camera_.translate(0.0f, 0.0f, -3.0f);
   } else {
     float top, bottom, right, left;
     float aspect = static_cast<GLfloat>(w) / h;
@@ -139,6 +135,10 @@ void OpenGL::setupProjection(int w, int h) {
 
     camera_.ortho(left, right, bottom, top, -100.0f, 100.0f);
   }
+
+  glClearColor(data_.background_color.redF(), data_.background_color.greenF(),
+               data_.background_color.blueF(), 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void OpenGL::initBuffers(Scene *scene) {

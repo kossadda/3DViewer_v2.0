@@ -31,14 +31,14 @@ void Facade::loadScene(const std::string &path) {
   drawScene();
 }
 
-void Facade::drawScene() {
-  if (scene_) {
-    scene_drawer_->drawScene(scene_);
-  }
+void Facade::drawScene() { scene_drawer_->drawScene(scene_); }
+
+std::size_t Facade::numberOfVerticies() {
+  return (scene_) ? scene_->vertices().size() : 0;
 }
 
-std::size_t Facade::numberOfVerticies() { return scene_->vertices().size(); }
-
-std::size_t Facade::numberOfEdges() { return scene_->indices().size(); }
+std::size_t Facade::numberOfEdges() {
+  return (scene_) ? scene_->indices().size() : 0;
+}
 
 }  // namespace s21
