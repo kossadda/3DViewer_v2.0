@@ -37,4 +37,8 @@ void Facade::drawScene() {
   }
 }
 
+std::size_t Facade::numberOfVerticies() { return scene_->vertices().size(); }
+
+std::size_t Facade::numberOfEdges() { return scene_->indices().size(); }
+
 }  // namespace s21

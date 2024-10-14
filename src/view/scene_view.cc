@@ -41,7 +41,10 @@ void SceneView::loadScene(const QString &path) {
   controller_->loadScene(path.toStdString());
 }
 
-void SceneView::drawScene() { controller_->drawScene(); }
+void SceneView::drawScene() {
+  controller_->drawScene();
+  emit drawInfo(controller_->numberOfVerticies(), controller_->numberOfEdges());
+}
 
 void SceneView::imageSave(const QString &path, const QString &format) {
   (void)path;

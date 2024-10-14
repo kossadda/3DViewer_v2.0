@@ -31,7 +31,7 @@ class PathReader : public BaseWidget {
  public:
   PathReader();
 
-  void setInfo(int vertex_count, int facet_count);
+  void setInfo(int vertex_count, int edge_count);
   void recordData();
 
  private slots:
@@ -48,7 +48,7 @@ class PathReader : public BaseWidget {
   QPushButton *path_button_;
   QLineEdit *path_edit_;
   QLabel *vertex_info_;
-  QLabel *facet_info_;
+  QLabel *edge_info_;
   QFileDialog *dialog_;
 };
 

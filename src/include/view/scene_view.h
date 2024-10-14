@@ -35,6 +35,7 @@ class SceneView : public BaseWidget {
 
  signals:
   void mouseEvent();
+  void drawInfo(int vertex_count, int edge_count);
 
  private slots:
   void onMousePress(QMouseEvent *event);

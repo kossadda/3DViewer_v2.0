@@ -65,6 +65,7 @@ void MainWindow::initView() {
   connect(setting_, &SceneData::dataChanged, this, &MainWindow::recordData);
   connect(path_, &PathReader::valid, scene_, &SceneView::loadScene);
   connect(path_, &PathReader::valid, this, &MainWindow::resetData);
+  connect(scene_, &SceneView::drawInfo, path_, &PathReader::setInfo);
   connect(function_, &Function::imageSave, scene_, &SceneView::imageSave);
   connect(function_, &Function::gifSave, scene_, &SceneView::gifSave);
   connect(function_, &Function::clear, scene_, &SceneView::clearScene);

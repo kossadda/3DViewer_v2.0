@@ -29,6 +29,8 @@ class Facade {
 
   void loadScene(const std::string &path);
   void drawScene();
+  std::size_t numberOfVerticies();
+  std::size_t numberOfEdges();
   inline SceneDrawerBase *getView() { return scene_drawer_; }
 
  private:
