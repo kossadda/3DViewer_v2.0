@@ -1,5 +1,5 @@
 /**
- * @file open_gl.h
+ * @file scene_drawer.h
  * @author kossadda (https://github.com/kossadda)
  * @brief
  * @version 1.0
@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef SRC_INCLUDE_MODEL_QT_SCENE_DRAWER_H_
-#define SRC_INCLUDE_MODEL_QT_SCENE_DRAWER_H_
+#ifndef SRC_INCLUDE_MODEL_SCENE_DRAWER_H_
+#define SRC_INCLUDE_MODEL_SCENE_DRAWER_H_
 
 #include <QGridLayout>
 #include <QMouseEvent>
@@ -22,10 +22,10 @@
 
 namespace s21 {
 
-class QtSceneDrawer : public SceneDrawerBase {
+class SceneDrawer : public SceneDrawerBase {
  public:
-  QtSceneDrawer();
-  ~QtSceneDrawer();
+  SceneDrawer();
+  ~SceneDrawer();
 
   void drawScene(Scene *scene) override;
   void clearScene() override;
@@ -41,4 +41,4 @@ class QtSceneDrawer : public SceneDrawerBase {
 
 }  // namespace s21
 
-#endif  // SRC_INCLUDE_MODEL_QT_SCENE_DRAWER_H_
+#endif  // SRC_INCLUDE_MODEL_SCENE_DRAWER_H_

@@ -15,6 +15,7 @@
 #include "include/model/transform_matrix.h"
 
 namespace s21 {
+
 class TransformMatrixBuilder {
  public:
   static TransformMatrix CreateRotationMatrix(float x, float y,
@@ -26,6 +27,7 @@ class TransformMatrixBuilder {
   static const float kRadian;
   static const float kMoveScale;
 };
+
 }  // namespace s21
 
 #endif  // SRC_INCLUDE_MODEL_TRANSFORM_MATRIX_BUILDER_H_

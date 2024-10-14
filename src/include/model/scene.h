@@ -17,6 +17,7 @@
 #include "include/model/vertex.h"
 
 namespace s21 {
+
 class Scene {
  public:
   Scene() = default;
@@ -36,6 +37,7 @@ class Scene {
   std::vector<Vertex> vertices_;
   std::vector<Vertex> data_;
 };
+
 }  // namespace s21
 
 #endif  // SRC_INCLUDE_MODEL_SCENE_H_

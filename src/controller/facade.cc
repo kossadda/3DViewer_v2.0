@@ -15,7 +15,7 @@ namespace s21 {
 
 Facade::Facade() {
   file_reader_ = new FileReader;
-  scene_drawer_ = new QtSceneDrawer;
+  scene_drawer_ = new SceneDrawer;
 }
 
 Facade::~Facade() {

@@ -15,10 +15,11 @@
 #include <string>
 #include <vector>
 
-#include "include/model/base_file_reader.h"
+#include "include/model/file_reader_base.h"
 
 namespace s21 {
-class FileReader : public BaseFileReader {
+
+class FileReader : public FileReaderBase {
  public:
   Scene* ReadScene(const std::string& path) override;
 
@@ -28,6 +29,7 @@ class FileReader : public BaseFileReader {
 
   float normalize_param_;
 };
+
 }  // namespace s21
 
 #endif  // SRC_INCLUDE_MODEL_FILE_READER_H_

@@ -1,5 +1,5 @@
 /**
- * @file 3d_point.h
+ * @file point_3D.h
  * @author emmonbea (moskaleviluak@icloud.com)
  * @brief Definition of a class representing a point in 3D space
  * @version 1.0
@@ -9,10 +9,11 @@
  *
  */
 
-#ifndef SRC_INCLUDE_MODEL_3D_POINT_H_
-#define SRC_INCLUDE_MODEL_3D_POINT_H_
+#ifndef SRC_INCLUDE_MODEL_POINT_3D_H_
+#define SRC_INCLUDE_MODEL_POINT_3D_H_
 
 namespace s21 {
+
 struct Point3D {
  public:
   Point3D() noexcept = default;
@@ -22,6 +23,7 @@ struct Point3D {
   bool operator==(const Point3D& other) const noexcept;
   float x{}, y{}, z{};
 };
+
 }  // namespace s21
 
-#endif  // SRC_INCLUDE_MODEL_3D_POINT_H_
+#endif  // SRC_INCLUDE_MODEL_POINT_3D_H_

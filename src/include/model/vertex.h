@@ -12,10 +12,11 @@
 #ifndef SRC_INCLUDE_MODEL_VERTEX_H_
 #define SRC_INCLUDE_MODEL_VERTEX_H_
 
-#include "include/model/3d_point.h"
-#include "include/model/scene_object.h"
+#include "include/model/point_3D.h"
+#include "include/model/transform_matrix.h"
 
 namespace s21 {
+
 class Vertex {
  public:
   Vertex() = default;
@@ -33,6 +34,7 @@ class Vertex {
  private:
   Point3D position_;
 };
+
 }  // namespace s21
 
 #endif  // SRC_INCLUDE_MODEL_VERTEX_H_

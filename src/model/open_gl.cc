@@ -1,5 +1,5 @@
 /**
- * @file qt_scene_drawer.cc
+ * @file open_gl.cc
  * @author kossadda (https://github.com/kossadda)
  * @brief
  * @version 1.0

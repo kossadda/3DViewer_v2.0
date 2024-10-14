@@ -1,5 +1,5 @@
 /**
- * @file base_file_reader.h
+ * @file file_reader_base.h
  * @author emmonbea (moskaleviluak@icloud.com)
  * @brief
  * @version 1.0
@@ -9,20 +9,21 @@
  *
  */
 
-#ifndef SRC_INCLUDE_MODEL_BASE_FILE_READER_H_
-#define SRC_INCLUDE_MODEL_BASE_FILE_READER_H_
+#ifndef SRC_INCLUDE_MODEL_FILE_READER_BASE_H_
+#define SRC_INCLUDE_MODEL_FILE_READER_BASE_H_
 
 #include <string>
 
-#include "include/model/base_file_reader.h"
 #include "include/model/scene.h"
 
 namespace s21 {
-class BaseFileReader {
+
+class FileReaderBase {
  public:
-  virtual ~BaseFileReader() = default;
+  virtual ~FileReaderBase() = default;
   virtual Scene* ReadScene(const std::string& path) = 0;
 };
+
 }  // namespace s21
 
-#endif  // SRC_INCLUDE_MODEL_BASE_FILE_READER_H_
+#endif  // SRC_INCLUDE_MODEL_FILE_READER_BASE_H_

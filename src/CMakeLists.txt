@@ -19,60 +19,64 @@ set(CONTROLLER_DIR ${CMAKE_SOURCE_DIR}/controller)
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(MODEL
-  ${MODEL_DIR}/3d_point.cc
-  ${MODEL_DIR}/file_reader.cc
-  ${MODEL_DIR}/qt_scene_drawer.cc
-  ${MODEL_DIR}/scene.cc
   ${MODEL_DIR}/transform_matrix_builder.cc
   ${MODEL_DIR}/transform_matrix.cc
-  ${MODEL_DIR}/vertex.cc
-  ${MODEL_DIR}/qt_scene_drawer.cc
+  ${MODEL_DIR}/scene_drawer.cc
+  ${MODEL_DIR}/file_reader.cc
+  ${MODEL_DIR}/point_3D.cc
   ${MODEL_DIR}/open_gl.cc
+  ${MODEL_DIR}/vertex.cc
+  ${MODEL_DIR}/scene.cc
+)
+
+set(MODEL_HEADERS
+  ${INCLUDE_DIR}/model/transform_matrix_builder.h
+  ${INCLUDE_DIR}/model/scene_drawer_base.h
+  ${INCLUDE_DIR}/model/file_reader_base.h
+  ${INCLUDE_DIR}/model/transform_matrix.h
+  ${INCLUDE_DIR}/model/scene_drawer.h
+  ${INCLUDE_DIR}/model/file_reader.h
+  ${INCLUDE_DIR}/model/point_3D.h
+  ${INCLUDE_DIR}/model/open_gl.h
+  ${INCLUDE_DIR}/model/vertex.h
+  ${INCLUDE_DIR}/model/scene.h
 )
 
 set(VIEW
+  ${VIEW_DIR}/color_button.cc
   ${VIEW_DIR}/main_window.cc
   ${VIEW_DIR}/base_widget.cc
   ${VIEW_DIR}/afinne_data.cc
-  ${VIEW_DIR}/scene_data.cc
   ${VIEW_DIR}/object_data.cc
-  ${VIEW_DIR}/scene_view.cc
   ${VIEW_DIR}/path_reader.cc
+  ${VIEW_DIR}/scene_data.cc
+  ${VIEW_DIR}/scene_view.cc
   ${VIEW_DIR}/function.cc
-  ${VIEW_DIR}/color_button.cc
   ${VIEW_DIR}/slider.cc
   ${VIEW_DIR}/style.cc
+)
+
+set(VIEW_HEADERS
+  ${INCLUDE_DIR}/view/color_button.h
+  ${INCLUDE_DIR}/view/main_window.h
+  ${INCLUDE_DIR}/view/base_widget.h
+  ${INCLUDE_DIR}/view/afinne_data.h
+  ${INCLUDE_DIR}/view/object_data.h
+  ${INCLUDE_DIR}/view/path_reader.h
+  ${INCLUDE_DIR}/view/scene_data.h
+  ${INCLUDE_DIR}/view/scene_view.h
+  ${INCLUDE_DIR}/view/function.h
+  ${INCLUDE_DIR}/view/slider.h
+  ${INCLUDE_DIR}/view/style.h  
 )
 
 set(CONTROLLER
   ${CONTROLLER_DIR}/facade.cc
 )
 
-set(HEADERS
-  ${INCLUDE_DIR}/view/main_window.h
-  ${INCLUDE_DIR}/view/base_widget.h
-  ${INCLUDE_DIR}/view/afinne_data.h
-  ${INCLUDE_DIR}/view/scene_data.h
-  ${INCLUDE_DIR}/view/object_data.h
-  ${INCLUDE_DIR}/view/scene_view.h
-  ${INCLUDE_DIR}/view/path_reader.h
-  ${INCLUDE_DIR}/view/function.h
-  ${INCLUDE_DIR}/view/color_button.h
-  ${INCLUDE_DIR}/view/slider.h
-  ${INCLUDE_DIR}/view/style.h
-  ${INCLUDE_DIR}/model/3d_point.h
-  ${INCLUDE_DIR}/model/base_file_reader.h
-  ${INCLUDE_DIR}/model/file_reader.h
-  ${INCLUDE_DIR}/model/open_gl.h
-  ${INCLUDE_DIR}/model/qt_scene_drawer.h
-  ${INCLUDE_DIR}/model/scene_drawer_base.h
-  ${INCLUDE_DIR}/model/scene_object.h
-  ${INCLUDE_DIR}/model/scene.h
-  ${INCLUDE_DIR}/model/transform_matrix_builder.h
-  ${INCLUDE_DIR}/model/transform_matrix.h
-  ${INCLUDE_DIR}/model/vertex.h
-  ${INCLUDE_DIR}/controller/data.h
+set(CONTROLLER_HEADERS
   ${INCLUDE_DIR}/controller/facade.h
+  ${INCLUDE_DIR}/controller/data.h
 )
 
 set(MAIN
@@ -85,9 +89,11 @@ set(RESOURCE
 
 set(PROJECT_SOURCES
   ${MODEL}
+  ${MODEL_HEADERS}
   ${CONTROLLER}
+  ${CONTROLLER_HEADERS}
   ${VIEW}
-  ${HEADERS}
+  ${VIEW_HEADERS}
   ${MAIN}
   ${RESOURCE}
 )
