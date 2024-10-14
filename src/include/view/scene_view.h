@@ -44,6 +44,8 @@ class SceneView : public BaseWidget {
  private:
   void allocateMemory();
   void initView();
+  template <typename View>
+  void connectSignals(View *view);
 
   Data &data_{Data::data()};
 

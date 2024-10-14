@@ -26,6 +26,8 @@ set(MODEL
   ${MODEL_DIR}/transform_matrix_builder.cc
   ${MODEL_DIR}/transform_matrix.cc
   ${MODEL_DIR}/vertex.cc
+  ${MODEL_DIR}/qt_scene_drawer.cc
+  ${MODEL_DIR}/open_gl.cc
 )
 
 set(VIEW
@@ -40,7 +42,6 @@ set(VIEW
   ${VIEW_DIR}/color_button.cc
   ${VIEW_DIR}/slider.cc
   ${VIEW_DIR}/style.cc
-  ${MODEL_DIR}/qt_scene_drawer.cc
 )
 
 set(CONTROLLER
@@ -62,6 +63,7 @@ set(HEADERS
   ${INCLUDE_DIR}/model/3d_point.h
   ${INCLUDE_DIR}/model/base_file_reader.h
   ${INCLUDE_DIR}/model/file_reader.h
+  ${INCLUDE_DIR}/model/open_gl.h
   ${INCLUDE_DIR}/model/qt_scene_drawer.h
   ${INCLUDE_DIR}/model/scene_drawer_base.h
   ${INCLUDE_DIR}/model/scene_object.h

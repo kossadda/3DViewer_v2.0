@@ -28,10 +28,10 @@ class Facade {
 
   void loadScene(const std::string &path);
   void drawScene();
-  inline QtSceneDrawer *getSceneWidget() { return scene_drawer_; }
+  inline SceneDrawerBase *getView() { return scene_drawer_; }
 
  private:
-  QtSceneDrawer *scene_drawer_;
+  SceneDrawerBase *scene_drawer_;
   BaseFileReader *file_reader_;
   Scene *scene_{};
 };

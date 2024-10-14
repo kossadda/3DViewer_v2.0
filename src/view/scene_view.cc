@@ -24,12 +24,17 @@ void SceneView::allocateMemory() { controller_ = new Facade; }
 
 void SceneView::initView() {
   setMinimumSize(1000, 800);
-  auto widget{controller_->getSceneWidget()};
-  grid_->addWidget(widget);
+  auto *view{controller_->getView()};
+  grid_->addWidget(view);
 
-  connect(widget, &QtSceneDrawer::mousePress, this, &SceneView::onMousePress);
-  connect(widget, &QtSceneDrawer::mouseMove, this, &SceneView::onMouseMove);
-  connect(widget, &QtSceneDrawer::mouseWheel, this, &SceneView::onMouseWheel);
+  connectSignals(view);
+}
+
+template <typename View>
+void SceneView::connectSignals(View *view) {
+  connect(view, &View::mousePress, this, &SceneView::onMousePress);
+  connect(view, &View::mouseMove, this, &SceneView::onMouseMove);
+  connect(view, &View::mouseWheel, this, &SceneView::onMouseWheel);
 }
 
 void SceneView::loadScene(const QString &path) {

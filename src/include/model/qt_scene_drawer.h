@@ -1,9 +1,9 @@
 /**
- * @file qt_scene_drawer.h
+ * @file open_gl.h
  * @author kossadda (https://github.com/kossadda)
  * @brief
  * @version 1.0
- * @date 2024-10-07
+ * @date 2024-10-14
  *
  * @copyright Copyright (c) 2024
  *
@@ -12,70 +12,31 @@
 #ifndef SRC_INCLUDE_MODEL_QT_SCENE_DRAWER_H_
 #define SRC_INCLUDE_MODEL_QT_SCENE_DRAWER_H_
 
+#include <QGridLayout>
 #include <QMouseEvent>
-#include <QOpenGLBuffer>
-#include <QOpenGLFunctions>
-#include <QOpenGLShaderProgram>
-#include <QOpenGLVertexArrayObject>
-#include <QOpenGLWidget>
 
 #include "include/controller/data.h"
+#include "include/model/open_gl.h"
 #include "include/model/scene.h"
 #include "include/model/scene_drawer_base.h"
-#include "include/model/transform_matrix_builder.h"
 
 namespace s21 {
 
-class QtSceneDrawer : public QOpenGLWidget, public QOpenGLFunctions {
-  Q_OBJECT
-
+class QtSceneDrawer : public SceneDrawerBase {
  public:
   QtSceneDrawer();
   ~QtSceneDrawer();
 
-  void drawScene(Scene *scene);
-  void clearScene();
+  void drawScene(Scene *scene) override;
+  void clearScene() override;
 
- signals:
-  void mousePress(QMouseEvent *event);
-  void mouseMove(QMouseEvent *event);
-  void mouseWheel(QWheelEvent *event);
-
- protected:
-  void initializeGL() override;
-  void paintGL() override;
-  void resizeGL(int w, int h) override;
-  void mousePressEvent(QMouseEvent *event) override;
-  void mouseMoveEvent(QMouseEvent *event) override;
-  void wheelEvent(QWheelEvent *event) override;
+ private slots:
+  void mousePressEvent(QMouseEvent *event);
+  void mouseMoveEvent(QMouseEvent *event);
+  void wheelEvent(QWheelEvent *event);
 
  private:
-  void allocateMemory();
-  void setupProjection(int w, int h);
-  void initBuffers(Scene *scene);
-  void updateBuffer(Scene *scene, const TransformMatrix &matrix);
-  void destroyBuffers();
-  TransformMatrix afinneCPU();
-  QMatrix4x4 afinneGPU();
-
-  static const char *kVertexShader;
-  static const char *kFragmentShader;
-
-  Data &data_{Data::data()};
-
-  int coeff_matrix_;
-  int color_;
-
-  int vbo_size_;
-  int ebo_size_;
-
-  QOpenGLShaderProgram *program_;
-  QOpenGLBuffer *vbo_;
-  QOpenGLBuffer *ebo_;
-  QOpenGLVertexArrayObject *vao_;
-
-  QMatrix4x4 projection_;
-  QMatrix4x4 camera_;
+  OpenGL *gl;
 };
 
 }  // namespace s21
