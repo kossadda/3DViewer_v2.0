@@ -12,12 +12,15 @@
 #ifndef SRC_INCLUDE_MODEL_OPEN_GL_H_
 #define SRC_INCLUDE_MODEL_OPEN_GL_H_
 
+#include <QDir>
 #include <QMouseEvent>
 #include <QOpenGLBuffer>
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLWidget>
+#include <QTimer>
+#include <string>
 
 #include "include/controller/data.h"
 #include "include/model/scene.h"
@@ -36,11 +39,14 @@ class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
   void initBuffers(Scene *scene);
   void updateBuffer(Scene *scene);
   void destroyBuffers();
+  void createImage(const std::string &path, const std::string &format);
+  void createGif(const std::string &path);
 
  signals:
   void mousePress(QMouseEvent *event);
   void mouseMove(QMouseEvent *event);
   void mouseWheel(QWheelEvent *event);
+  void recorded();
 
  protected:
   void initializeGL() override;
@@ -55,15 +61,17 @@ class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
   void setupProjection(int w, int h);
   TransformMatrix afinneCPU();
   QMatrix4x4 afinneGPU();
+  void createSnapshot();
+  void snapshotsToGif();
 
   static const char *kVertexShader;
   static const char *kFragmentShader;
+  static const int kGifFPS{10};
+  static const int kGifLength{5};
 
   Data &data_{Data::data()};
-
   int coeff_matrix_;
   int color_;
-
   int vbo_size_{};
   int ebo_size_{};
 
@@ -74,6 +82,11 @@ class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
 
   QMatrix4x4 projection_;
   QMatrix4x4 camera_;
+
+  QString abs_dir_;
+  QTimer *periodic_;
+  std::string path_;
+  int snapshot_count_{};
 };
 
 }  // namespace s21

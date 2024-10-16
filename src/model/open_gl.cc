@@ -11,11 +11,15 @@
 
 #include "include/model/open_gl.h"
 
+#include "include/model/gif.h"
+
 namespace s21 {
 
 OpenGL::OpenGL() : QOpenGLWidget{} {
   allocateMemory();
   setlocale(LC_NUMERIC, "C");
+  abs_dir_ = QFileInfo{__FILE__}.absoluteDir().absolutePath() + "/.images/";
+  connect(periodic_, &QTimer::timeout, this, &OpenGL::createSnapshot);
 }
 
 OpenGL::~OpenGL() {
@@ -24,12 +28,14 @@ OpenGL::~OpenGL() {
   delete vbo_;
   delete ebo_;
   delete vao_;
+  delete periodic_;
 }
 
 void OpenGL::allocateMemory() {
   vbo_ = new QOpenGLBuffer{QOpenGLBuffer::VertexBuffer};
   ebo_ = new QOpenGLBuffer{QOpenGLBuffer::IndexBuffer};
   vao_ = new QOpenGLVertexArrayObject;
+  periodic_ = new QTimer;
 }
 
 bool OpenGL::isBufferAllocate() {
@@ -219,6 +225,69 @@ QMatrix4x4 OpenGL::afinneGPU() {
   scale.scale(data_.scale, data_.scale, data_.scale);
 
   return projection_ * camera_ * rotate * scale * move;
+}
+
+void OpenGL::createImage(const std::string &path, const std::string &format) {
+  makeCurrent();
+  grabFramebuffer().save(path.c_str(), format.c_str());
+  doneCurrent();
+}
+
+void OpenGL::createGif(const std::string &path) {
+  path_ = path;
+
+  if (!snapshot_count_) {
+    QDir{}.mkpath(abs_dir_);
+    periodic_->start(1000 / kGifFPS);
+  } else {
+    snapshotsToGif();
+    snapshot_count_ = 0;
+    QDir{abs_dir_}.removeRecursively();
+    emit recorded();
+  }
+}
+
+void OpenGL::createSnapshot() {
+  ++snapshot_count_;
+
+  createImage(
+      (abs_dir_ + QString::number(snapshot_count_) + ".bmp").toStdString(),
+      "BMP");
+
+  if (snapshot_count_ == kGifFPS * kGifLength) {
+    periodic_->stop();
+    createGif(path_);
+  }
+}
+
+void OpenGL::snapshotsToGif() {
+  bool correct = true;
+
+  GifWriter writer = {};
+  if (!GifBegin(&writer, path_.c_str(), 640, 480, kGifFPS)) {
+    correct = false;
+  }
+
+  for (int count = 1; count <= snapshot_count_ && correct; count++) {
+    QImage frame(abs_dir_ + QString::number(count) + ".bmp");
+
+    if (frame.isNull()) {
+      correct = false;
+      break;
+    }
+
+    QImage convertedFrame = frame.convertToFormat(QImage::Format_RGBA8888);
+    if (convertedFrame.width() != 640 || convertedFrame.height() != 480) {
+      convertedFrame = convertedFrame.scaled(640, 480);
+    }
+
+    if (!GifWriteFrame(&writer, convertedFrame.bits(), 640, 480, kGifFPS)) {
+      correct = false;
+      break;
+    }
+  }
+
+  GifEnd(&writer);
 }
 
 void OpenGL::mousePressEvent(QMouseEvent *event) { emit mousePress(event); }

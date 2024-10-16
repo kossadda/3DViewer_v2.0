@@ -60,6 +60,7 @@ void MainWindow::initView() {
   connect(scene_, &SceneView::mouseEvent, scale_, &AfinneData::setData);
   connect(scene_, &SceneView::mouseEvent, move_, &AfinneData::setData);
   connect(scene_, &SceneView::drawInfo, path_, &PathReader::setInfo);
+  connect(scene_, &SceneView::recorded, function_, &Function::changeStatus);
   connect(rotate_, &AfinneData::dataChanged, this, &MainWindow::recordData);
   connect(scale_, &AfinneData::dataChanged, this, &MainWindow::recordData);
   connect(move_, &AfinneData::dataChanged, this, &MainWindow::recordData);

@@ -13,36 +13,43 @@
 
 namespace s21 {
 
-SceneDrawer::SceneDrawer() : gl{new OpenGL} {
+SceneDrawer::SceneDrawer() : gl_{new OpenGL} {
   QGridLayout *grid{new QGridLayout};
-  grid->addWidget(gl);
+  grid->addWidget(gl_);
   setLayout(grid);
 
-  connect(gl, &OpenGL::mousePress, this, &SceneDrawer::mousePressEvent);
-  connect(gl, &OpenGL::mouseMove, this, &SceneDrawer::mouseMoveEvent);
-  connect(gl, &OpenGL::mouseWheel, this, &SceneDrawer::wheelEvent);
+  connect(gl_, &OpenGL::mousePress, this, &SceneDrawer::mousePressEvent);
+  connect(gl_, &OpenGL::mouseMove, this, &SceneDrawer::mouseMoveEvent);
+  connect(gl_, &OpenGL::mouseWheel, this, &SceneDrawer::wheelEvent);
+  connect(gl_, &OpenGL::recorded, this, &SceneDrawer::onRecorded);
 }
 
-SceneDrawer::~SceneDrawer() { delete gl; }
+SceneDrawer::~SceneDrawer() { delete gl_; }
 
 void SceneDrawer::drawScene(Scene *scene) {
   if (scene) {
-    if (gl->isBufferAllocate()) {
+    if (gl_->isBufferAllocate()) {
       if (Data::data().calculate_type == CalculateType::CPU) {
-        gl->updateBuffer(scene);
+        gl_->updateBuffer(scene);
       }
     } else {
-      gl->destroyBuffers();
-      gl->initBuffers(scene);
+      gl_->destroyBuffers();
+      gl_->initBuffers(scene);
     }
   }
 
-  gl->update();
+  gl_->update();
 }
 
+void SceneDrawer::saveImage(const std::string &path, const std::string format) {
+  gl_->createImage(path, format);
+}
+
+void SceneDrawer::saveGif(const std::string &path) { gl_->createGif(path); }
+
 void SceneDrawer::clearScene() {
-  gl->destroyBuffers();
-  gl->update();
+  gl_->destroyBuffers();
+  gl_->update();
 }
 
 void SceneDrawer::mousePressEvent(QMouseEvent *event) {
@@ -52,5 +59,7 @@ void SceneDrawer::mousePressEvent(QMouseEvent *event) {
 void SceneDrawer::mouseMoveEvent(QMouseEvent *event) { emit mouseMove(event); }
 
 void SceneDrawer::wheelEvent(QWheelEvent *event) { emit mouseWheel(event); }
+
+void SceneDrawer::onRecorded() { emit recorded(); }
 
 }  // namespace s21

@@ -14,6 +14,7 @@
 
 #include <QGridLayout>
 #include <QMouseEvent>
+#include <string>
 
 #include "include/controller/data.h"
 #include "include/model/open_gl.h"
@@ -28,15 +29,18 @@ class SceneDrawer : public SceneDrawerBase {
   ~SceneDrawer();
 
   void drawScene(Scene *scene) override;
+  void saveImage(const std::string &path, const std::string format) override;
+  void saveGif(const std::string &path) override;
   void clearScene() override;
 
  private slots:
   void mousePressEvent(QMouseEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
   void wheelEvent(QWheelEvent *event);
+  void onRecorded();
 
  private:
-  OpenGL *gl;
+  OpenGL *gl_;
 };
 
 }  // namespace s21

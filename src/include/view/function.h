@@ -15,6 +15,7 @@
 #include <QFileDialog>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QTimer>
 #include <QVector>
 #include <QWidget>
 
@@ -27,6 +28,7 @@ class Function : public QWidget {
 
  public:
   Function();
+  ~Function();
 
  signals:
   void imageSave(const QString &path, const QString &format);
@@ -34,9 +36,15 @@ class Function : public QWidget {
   void clear();
   void reset();
 
+ public slots:
+  void changeStatus();
+
+ private slots:
+  void onCountDown();
+
  private:
-  void onImageSaveClicked();
-  void onGifSaveClicked();
+  void onImageClicked();
+  void onGifClicked();
   void onClearClicked();
   void onResetClicked();
 
@@ -50,6 +58,12 @@ class Function : public QWidget {
   QPushButton *reset_;
   QFileDialog *img_dialog_;
   QFileDialog *gif_dialog_;
+
+  QTimer *count_down_;
+  QString path_;
+
+  int count_;
+  bool recording_{false};
 };
 
 }  // namespace s21

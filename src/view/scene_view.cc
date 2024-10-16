@@ -35,6 +35,7 @@ void SceneView::connectSignals(View *view) {
   connect(view, &View::mousePress, this, &SceneView::onMousePress);
   connect(view, &View::mouseMove, this, &SceneView::onMouseMove);
   connect(view, &View::mouseWheel, this, &SceneView::onMouseWheel);
+  connect(view, &View::recorded, this, &SceneView::onRecorded);
 }
 
 void SceneView::loadScene(const QString &path) {
@@ -47,11 +48,12 @@ void SceneView::drawScene() {
 }
 
 void SceneView::imageSave(const QString &path, const QString &format) {
-  (void)path;
-  (void)format;
+  controller_->saveImage(path.toStdString(), format.toStdString());
 }
 
-void SceneView::gifSave(const QString &path) { (void)path; }
+void SceneView::gifSave(const QString &path) {
+  controller_->saveGif(path.toStdString());
+}
 
 void SceneView::clearScene() {}
 
@@ -124,5 +126,7 @@ void SceneView::onMouseWheel(QWheelEvent *event) {
 
   emit mouseEvent();
 }
+
+void SceneView::onRecorded() { emit recorded(); }
 
 }  // namespace s21

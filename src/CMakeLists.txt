@@ -40,6 +40,7 @@ set(MODEL_HEADERS
   ${INCLUDE_DIR}/model/open_gl.h
   ${INCLUDE_DIR}/model/vertex.h
   ${INCLUDE_DIR}/model/scene.h
+  ${INCLUDE_DIR}/model/gif.h
 )
 
 set(VIEW

@@ -14,6 +14,7 @@
 
 #include <QMouseEvent>
 #include <QWidget>
+#include <string>
 
 #include "include/model/scene.h"
 
@@ -26,11 +27,14 @@ class SceneDrawerBase : public QWidget {
   virtual ~SceneDrawerBase() = default;
   virtual void drawScene(Scene *scene) = 0;
   virtual void clearScene() = 0;
+  virtual void saveImage(const std::string &path, const std::string format) = 0;
+  virtual void saveGif(const std::string &path) = 0;
 
  signals:
   void mousePress(QMouseEvent *event);
   void mouseMove(QMouseEvent *event);
   void mouseWheel(QWheelEvent *event);
+  void recorded();
 };
 
 }  // namespace s21

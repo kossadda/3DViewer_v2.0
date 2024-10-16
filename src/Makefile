@@ -50,7 +50,8 @@ TESTS_CC              := $(shell find $(TESTS_DIR)/modules -type f -name "*.cc")
 TESTS_H               := $(shell find $(TESTS_DIR) -type f -name "*.h")
 TESTS_O               := $(TESTS_CC:$(TESTS_DIR)/%.cc=$(OBJ_DIR)/tests/%.o)
 
-ALL_FILES             := $(shell find . -type f \( -name "*.h" -o -name "*.cc" \))
+EXCLUDE := gif.h
+ALL_FILES := $(shell find . -type f \( -name "*.h" -o -name "*.cc" \) | grep -v '/$(EXCLUDE)')
 
 #============================== OBJECTIVE TARGETS ==============================
 $(OBJ_DIR)/model/%.o: $(MODEL_DIR)/%.cc $(MODEL_H)

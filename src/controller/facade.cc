@@ -16,6 +16,8 @@ namespace s21 {
 Facade::Facade() {
   file_reader_ = new FileReader;
   scene_drawer_ = new SceneDrawer;
+
+  connect(scene_drawer_, &SceneDrawerBase::recorded, this, &Facade::onRecorded);
 }
 
 Facade::~Facade() {
@@ -32,6 +34,14 @@ void Facade::loadScene(const std::string &path) {
 }
 
 void Facade::drawScene() { scene_drawer_->drawScene(scene_); }
+
+void Facade::saveImage(const std::string &path, const std::string format) {
+  scene_drawer_->saveImage(path, format);
+}
+
+void Facade::saveGif(const std::string &path) { scene_drawer_->saveGif(path); }
+
+void Facade::onRecorded() { emit recorded(); }
 
 std::size_t Facade::numberOfVerticies() {
   return (scene_) ? scene_->vertices().size() : 0;

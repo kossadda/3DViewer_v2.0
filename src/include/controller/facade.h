@@ -12,6 +12,7 @@
 #ifndef SRC_INCLUDE_CONTROLLER_FACADE_H_
 #define SRC_INCLUDE_CONTROLLER_FACADE_H_
 
+#include <QObject>
 #include <string>
 
 #include "include/model/file_reader.h"
@@ -22,16 +23,27 @@
 
 namespace s21 {
 
-class Facade {
+class Facade : public QObject {
+  Q_OBJECT
+
  public:
   Facade();
   ~Facade();
 
   void loadScene(const std::string &path);
   void drawScene();
+  void saveImage(const std::string &path, const std::string format);
+  void saveGif(const std::string &path);
+
   std::size_t numberOfVerticies();
   std::size_t numberOfEdges();
   inline SceneDrawerBase *getView() { return scene_drawer_; }
+
+ signals:
+  void recorded();
+
+ private slots:
+  void onRecorded();
 
  private:
   SceneDrawerBase *scene_drawer_;
