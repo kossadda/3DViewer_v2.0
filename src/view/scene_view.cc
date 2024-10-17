@@ -116,7 +116,7 @@ void SceneView::onMouseMove(QMouseEvent *event) {
 }
 
 void SceneView::onMouseWheel(QWheelEvent *event) {
-  if (event->angleDelta().y()) {
+  if (event->angleDelta().y() > 0) {
     Data::data().scale += 0.05;
   } else {
     Data::data().scale -= 0.05;

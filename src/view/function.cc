@@ -88,7 +88,7 @@ void Function::onImageClicked() {
 }
 
 void Function::onGifClicked() {
-  if (gif_dialog_->exec() == QFileDialog::Accepted) {
+  if (!recording_ && gif_dialog_->exec() == QFileDialog::Accepted) {
     path_ = gif_dialog_->selectedFiles().first();
 
     if (!path_.endsWith(".gif", Qt::CaseInsensitive)) {
@@ -98,7 +98,7 @@ void Function::onGifClicked() {
     count_ = 3;
     recording_ = true;
     save_gif_->setStyleSheet(
-        save_gif_->styleSheet().replace("#636363", "#1a3d63"));
+        save_gif_->styleSheet().replace("#636363", "#ffffff"));
     count_down_->start(1000);
   }
 }
