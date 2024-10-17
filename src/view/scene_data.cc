@@ -88,19 +88,25 @@ void SceneData::onDataChanged(int value) {
 void SceneData::recordData() {
   Data &data{Data::data()};
 
-  if (calculate_combo_->currentText() == "CPU") {
+  if (calculate_combo_->currentIndex() == 0) {
     data.calculate_type = CalculateType::CPU;
   } else {
     data.calculate_type = CalculateType::GPU;
   }
 
-  if (projection_combo_->currentText() == "Central") {
+  if (projection_combo_->currentIndex() == 0) {
     data.projection_type = ProjectionType::Centrall;
   } else {
     data.projection_type = ProjectionType::Parallel;
   }
 
   data.background_color = color_button_->getColor();
+}
+
+void SceneData::reset() {
+  calculate_combo_->setCurrentIndex(0);
+  projection_combo_->setCurrentIndex(0);
+  color_button_->setColor(Qt::black);
 }
 
 }  // namespace s21

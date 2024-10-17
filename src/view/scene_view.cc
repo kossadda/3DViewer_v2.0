@@ -55,8 +55,6 @@ void SceneView::gifSave(const QString &path) {
   controller_->saveGif(path.toStdString());
 }
 
-void SceneView::clearScene() {}
-
 void SceneView::onMousePress(QMouseEvent *event) {
   startPos = event->pos();
 

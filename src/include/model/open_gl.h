@@ -66,6 +66,7 @@ class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
 
   static const char *kVertexShader;
   static const char *kFragmentShader;
+  static const float kMoveScale;
   static const int kGifFPS{10};
   static const int kGifLength{5};
 

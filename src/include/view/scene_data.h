@@ -29,6 +29,7 @@ class SceneData : public BaseWidget {
   explicit SceneData(QLabel *title);
 
   void recordData();
+  void reset();
 
  signals:
   void dataChanged();

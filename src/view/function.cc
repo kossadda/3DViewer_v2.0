@@ -24,7 +24,7 @@ void Function::allocateMemory() {
   grid_ = new QGridLayout;
   save_img_ = new QPushButton{"Save image"};
   save_gif_ = new QPushButton{"Save gif"};
-  clear_ = new QPushButton{"Clear scene"};
+  clear_ = new QPushButton{"Reset all"};
   reset_ = new QPushButton{"Reset"};
   img_dialog_ = new QFileDialog(this, "Save image as", QDir::homePath());
   gif_dialog_ = new QFileDialog(this, "Save gif as", QDir::homePath());

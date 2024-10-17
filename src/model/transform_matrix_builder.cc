@@ -45,10 +45,6 @@ TransformMatrix TransformMatrixBuilder::CreateMoveMatrix(float x, float y,
                                                          float z) noexcept {
   TransformMatrix res;
 
-  x /= kMoveScale;
-  y /= kMoveScale;
-  z /= kMoveScale;
-
   res.set_element(0, 3, x);
   res.set_element(1, 3, y);
   res.set_element(2, 3, z);
@@ -68,7 +64,5 @@ TransformMatrix TransformMatrixBuilder::CreateScaleMatrix(float x, float y,
 }
 
 const float TransformMatrixBuilder::kRadian = 0.0174533f;
-
-const float TransformMatrixBuilder::kMoveScale = 50.0f;
 
 }  // namespace s21

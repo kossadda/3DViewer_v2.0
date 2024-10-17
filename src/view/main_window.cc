@@ -70,7 +70,7 @@ void MainWindow::initView() {
   connect(path_, &PathReader::valid, this, &MainWindow::resetData);
   connect(function_, &Function::imageSave, scene_, &SceneView::imageSave);
   connect(function_, &Function::gifSave, scene_, &SceneView::gifSave);
-  connect(function_, &Function::clear, scene_, &SceneView::clearScene);
+  connect(function_, &Function::clear, this, &MainWindow::resetAll);
   connect(function_, &Function::reset, this, &MainWindow::resetData);
 }
 
@@ -93,6 +93,16 @@ void MainWindow::resetData() {
   scene_->drawScene();
 }
 
+void MainWindow::resetAll() {
+  rotate_->reset();
+  scale_->reset();
+  move_->reset();
+  setting_->reset();
+  figure_->reset();
+
+  scene_->drawScene();
+}
+
 void MainWindow::closeEvent(QCloseEvent* event) {
   saveSettings();
   QWidget::closeEvent(event);
@@ -100,41 +110,39 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
 void MainWindow::saveSettings() {
   QSettings settings("3DViewer", "3DViewerApp");
-  Data& data = Data::data();
 
   settings.setValue("geometry", saveGeometry());
-  settings.setValue("background_color", data.background_color);
-  settings.setValue("vertex_color", data.vertex_color);
-  settings.setValue("facet_color", data.facet_color);
-  settings.setValue("vertex_size", data.vertex_size);
-  settings.setValue("facet_size", data.facet_size);
-  settings.setValue("vertex_type", static_cast<int>(data.vertex_type));
-  settings.setValue("facet_type", static_cast<int>(data.facet_type));
-  settings.setValue("calculate_type", static_cast<int>(data.calculate_type));
-  settings.setValue("projection_type", static_cast<int>(data.projection_type));
-  settings.setValue("file_path", QString::fromStdString(data.path));
+  settings.setValue("background_color", data_.background_color);
+  settings.setValue("vertex_color", data_.vertex_color);
+  settings.setValue("facet_color", data_.facet_color);
+  settings.setValue("vertex_size", data_.vertex_size);
+  settings.setValue("facet_size", data_.facet_size);
+  settings.setValue("vertex_type", static_cast<int>(data_.vertex_type));
+  settings.setValue("facet_type", static_cast<int>(data_.facet_type));
+  settings.setValue("calculate_type", static_cast<int>(data_.calculate_type));
+  settings.setValue("projection_type", static_cast<int>(data_.projection_type));
+  settings.setValue("file_path", QString::fromStdString(data_.path));
 }
 
 void MainWindow::loadSettings() {
   QSettings settings("3DViewer", "3DViewerApp");
 
   if (settings.contains("geometry")) {
-    Data& data = Data::data();
     restoreGeometry(settings.value("geometry").toByteArray());
-    data.background_color = settings.value("background_color").value<QColor>();
-    data.vertex_color = settings.value("vertex_color").value<QColor>();
-    data.facet_color = settings.value("facet_color").value<QColor>();
-    data.vertex_size = settings.value("vertex_size").value<int>();
-    data.facet_size = settings.value("facet_size").value<int>();
-    data.vertex_type =
+    data_.background_color = settings.value("background_color").value<QColor>();
+    data_.vertex_color = settings.value("vertex_color").value<QColor>();
+    data_.facet_color = settings.value("facet_color").value<QColor>();
+    data_.vertex_size = settings.value("vertex_size").value<int>();
+    data_.facet_size = settings.value("facet_size").value<int>();
+    data_.vertex_type =
         static_cast<VertexType>(settings.value("vertex_type").value<int>());
-    data.facet_type =
+    data_.facet_type =
         static_cast<FacetType>(settings.value("facet_type").value<int>());
-    data.calculate_type = static_cast<CalculateType>(
+    data_.calculate_type = static_cast<CalculateType>(
         settings.value("calculate_type").value<int>());
-    data.projection_type = static_cast<ProjectionType>(
+    data_.projection_type = static_cast<ProjectionType>(
         settings.value("projection_type").value<int>());
-    data.path = settings.value("file_path").value<QString>().toStdString();
+    data_.path = settings.value("file_path").value<QString>().toStdString();
   }
 }
 

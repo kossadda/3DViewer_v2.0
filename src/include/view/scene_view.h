@@ -31,7 +31,6 @@ class SceneView : public BaseWidget {
   void drawScene();
   void imageSave(const QString &path, const QString &format);
   void gifSave(const QString &path);
-  void clearScene();
 
  signals:
   void mouseEvent();

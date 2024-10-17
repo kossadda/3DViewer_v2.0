@@ -36,13 +36,13 @@ struct Data {
   int rotate_x{}, rotate_y{}, rotate_z{};
   float scale{1.0f};
   int move_x{}, move_y{}, move_z{};
-  CalculateType calculate_type{CalculateType::CPU};
-  ProjectionType projection_type{ProjectionType::Centrall};
-  QColor background_color{Qt::black};
-  VertexType vertex_type{VertexType::None};
-  FacetType facet_type{FacetType::Solid};
   int vertex_size{1};
   int facet_size{1};
+  CalculateType calculate_type{CalculateType::CPU};
+  ProjectionType projection_type{ProjectionType::Centrall};
+  VertexType vertex_type{VertexType::None};
+  FacetType facet_type{FacetType::Solid};
+  QColor background_color{Qt::black};
   QColor vertex_color{20, 20, 200};
   QColor facet_color{200, 20, 20};
 

@@ -33,6 +33,7 @@ class MainWindow : public QWidget {
  public:
   MainWindow();
   void resetData();
+  void resetAll();
 
  protected:
   void closeEvent(QCloseEvent *event) override;
@@ -43,6 +44,8 @@ class MainWindow : public QWidget {
   void recordData();
   void saveSettings();
   void loadSettings();
+
+  Data &data_{Data::data()};
 
   QGridLayout *left_menu;
   PathReader *path_;

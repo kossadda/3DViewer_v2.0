@@ -140,4 +140,13 @@ void ObjectData::recordData() {
   data.facet_color = fcolor_->getColor();
 }
 
+void ObjectData::reset() {
+  vtype_->setCurrentIndex(2);
+  ftype_->setCurrentIndex(0);
+  vsize_->setValue(1);
+  fsize_->setValue(1);
+  vcolor_->setColor({20, 20, 200});
+  fcolor_->setColor({200, 20, 20});
+}
+
 }  // namespace s21

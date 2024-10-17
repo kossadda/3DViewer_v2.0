@@ -208,7 +208,8 @@ TransformMatrix OpenGL::afinneCPU() {
   TransformMatrix scale{TransformMatrixBuilder::CreateScaleMatrix(
       data_.scale, data_.scale, data_.scale)};
   TransformMatrix move{TransformMatrixBuilder::CreateMoveMatrix(
-      data_.move_x, data_.move_y, data_.move_z)};
+      data_.move_x / kMoveScale, data_.move_y / kMoveScale,
+      data_.move_z / kMoveScale)};
 
   return rotate * scale * move;
 }
@@ -221,8 +222,9 @@ QMatrix4x4 OpenGL::afinneGPU() {
   rotate.rotate(data_.rotate_x, 1, 0, 0);
   rotate.rotate(data_.rotate_y, 0, 1, 0);
   rotate.rotate(data_.rotate_z, 0, 0, 1);
-  move.translate(data_.move_x, data_.move_y, data_.move_z);
   scale.scale(data_.scale, data_.scale, data_.scale);
+  move.translate(data_.move_x / kMoveScale, data_.move_y / kMoveScale,
+                 data_.move_z / kMoveScale);
 
   return projection_ * camera_ * rotate * scale * move;
 }
@@ -308,5 +310,7 @@ const char *OpenGL::kFragmentShader =
     "void main() {\n"
     "  gl_FragColor = color;\n"
     "}\n";
+
+const float OpenGL::kMoveScale = 50.0f;
 
 }  // namespace s21

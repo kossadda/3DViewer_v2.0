@@ -32,6 +32,7 @@ class ObjectData : public BaseWidget {
   ObjectData();
 
   void recordData();
+  void reset();
 
  signals:
   void dataChanged();
