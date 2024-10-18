@@ -1,5 +1,5 @@
 /**
- * @file main.test.h
+ * @file main_test.h
  * @author emmonbea (moskaleviluak@icloud.com)
  * @brief
  * @version 1.0
@@ -12,8 +12,6 @@
 #ifndef SRC_TESTS_INCLUDE_MAIN_TEST_H_
 #define SRC_TESTS_INCLUDE_MAIN_TEST_H_
 
-#include <gtest/gtest.h>
-
-#include "../../include/model/3d_point.h"
+#include "tests/include/file_reader_test.h"
 
 #endif  // SRC_TESTS_INCLUDE_MAIN_TEST_H_

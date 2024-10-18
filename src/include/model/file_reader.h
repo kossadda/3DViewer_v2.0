@@ -24,8 +24,8 @@ class FileReader : public FileReaderBase {
   Scene* ReadScene(const std::string& path) override;
 
  private:
-  Vertex ParseVertex(const std::string& line) noexcept;
-  std::vector<int> ParseFace(const std::string& line) noexcept;
+  Vertex ParseVertex(const std::string& line);
+  std::vector<int> ParseFace(const std::string& line);
 
   float normalize_param_;
 };

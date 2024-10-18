@@ -40,10 +40,14 @@ Scene* FileReader::ReadScene(const std::string& path) {
 
   file.close();
 
+  if (!vertices.size()) {
+    throw std::invalid_argument("Empty file");
+  }
+
   return new Scene{indices, vertices, normalize_param_};
 }
 
-Vertex FileReader::ParseVertex(const std::string& line) noexcept {
+Vertex FileReader::ParseVertex(const std::string& line) {
   std::istringstream iss{line};
   float x, y, z;
   iss.ignore(2);
@@ -60,21 +64,30 @@ Vertex FileReader::ParseVertex(const std::string& line) noexcept {
     if (std::abs(z) > normalize_param_) {
       normalize_param_ = z;
     }
-
-    return Vertex{x, y, z};
+  } else {
+    throw std::invalid_argument("Invalid file");
   }
 
-  return Vertex{};
+  if (!(iss >> std::ws).eof()) {
+    throw std::invalid_argument("Invalid vertex format");
+  }
+
+  return Vertex{x, y, z};
 }
 
-std::vector<int> FileReader::ParseFace(const std::string& line) noexcept {
+std::vector<int> FileReader::ParseFace(const std::string& line) {
   std::istringstream iss{line};
   std::vector<int> vertex_indices;
   iss.ignore(2);
 
   std::string vertex_info;
   while (iss >> vertex_info) {
-    vertex_indices.emplace_back(std::stoi(vertex_info) - 1);
+    try {
+      vertex_indices.emplace_back(std::stoi(vertex_info) - 1);
+    } catch (const std::invalid_argument&) {
+      throw std::invalid_argument("Invalid face format");
+    }
+
     if (vertex_indices.size() > 1) {
       vertex_indices.emplace_back(vertex_indices.back());
     }
@@ -82,6 +95,10 @@ std::vector<int> FileReader::ParseFace(const std::string& line) noexcept {
 
   if (vertex_indices.size()) {
     vertex_indices.emplace_back(vertex_indices.front());
+  }
+
+  if (!(iss >> std::ws).eof()) {
+    throw std::invalid_argument("Invalid face format");
   }
 
   return vertex_indices;

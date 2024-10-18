@@ -12,6 +12,7 @@
 #ifndef SRC_INCLUDE_VIEW_SCENE_VIEW_H_
 #define SRC_INCLUDE_VIEW_SCENE_VIEW_H_
 
+#include <QMessageBox>
 #include <QPoint>
 
 #include "include/controller/data.h"

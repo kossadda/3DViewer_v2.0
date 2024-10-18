@@ -17,6 +17,7 @@ CONTROLLER_LIB        := controller.a
 
 #=============================== DIRECTORY NAMES ===============================
 BIN_DIR               := ../bin
+TEST_BIN_DIR          := ./test_bin
 INCLUDE_DIR           := ./include
 MODEL_DIR             := ./model
 CONTROLLER_DIR        := ./controller
@@ -78,9 +79,10 @@ uninstall: clean
 	rm -rf $(BIN_DIR)
 	rm -rf ~/.config/3DViewer
 
-test: $(OBJ_DIR)/tests/modules $(TESTS_O) $(MODEL_LIB)
-	$(CXX) $(MAIN_TEST) $(TESTS_O) $(MODEL_LIB) $(LDFLAGS) -o $@
-	./$@
+test:
+	mkdir -p $(TEST_BIN_DIR)
+	cd $(TEST_BIN_DIR) && cmake ../tests && make
+	valgrind $(VALGRIND) ./$(TEST_BIN_DIR)/tests
 
 gcov_report: $(REPORT_DIR) $(OBJ_DIR)/tests/modules $(TESTS_O) $(MODEL_GCOVR_LIB)
 	$(CXX) $(MAIN_TEST) $(TESTS_O) $(MODEL_GCOVR_LIB) $(LDFLAGS) $(COVERAGE_FLAGS) -o $(OBJ_DIR_COV)/report
@@ -96,13 +98,14 @@ report_open:
 	xdg-open $(REPORT_DIR)/coverage.html
 
 clean:
-	rm -rf $(OBJ_DIR)
-	rm -rf $(OBJ_DIR_COV)
-	rm -f $(MODEL_LIB)
-	rm -f $(MODEL_GCOVR_LIB)
-	rm -f test
-	rm -rf $(REPORT_DIR)
 	rm -rf $(CONTROLLER_LIB)
+	rm -rf $(TEST_BIN_DIR)
+	rm -rf $(OBJ_DIR_COV)
+	rm -rf $(REPORT_DIR)
+	rm -rf $(OBJ_DIR)
+	rm -f $(MODEL_GCOVR_LIB)
+	rm -f $(MODEL_LIB)
+	rm -f test
 
 run:
 	./$(BIN_DIR)/viewer

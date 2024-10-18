@@ -39,7 +39,11 @@ void SceneView::connectSignals(View *view) {
 }
 
 void SceneView::loadScene(const QString &path) {
-  controller_->loadScene(path.toStdString());
+  try {
+    controller_->loadScene(path.toStdString());
+  } catch (const std::invalid_argument &exception) {
+    QMessageBox::warning(this, "Error", exception.what());
+  }
 }
 
 void SceneView::drawScene() {

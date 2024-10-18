@@ -9,122 +9,70 @@
  *
  */
 
-#define private public
-#include "include/model/file_reader.h"
-#undef private
+#include "tests/include/file_reader_test.h"
 
-#include <fstream>
-#include <iostream>
-#include <sstream>
+namespace s21 {
 
-#include "../include/main.test.h"
+TEST_F(FileReaderTest, test_1) {
+  add_scene("./tests/data/test_1.obj");
 
-TEST(FileReaderTest, ParseVertexCorrect) {
-  s21::FileReader reader;
-  std::string line{"v 0.288236 0.185213 1.545897"};
-  s21::Vertex vertex = reader.ParseVertex(line);
+  add_vertex(1, 2, 3);
+  add_vertex(4, 5, 6);
 
-  EXPECT_FLOAT_EQ(vertex.position().x, 0.288236);
-  EXPECT_FLOAT_EQ(vertex.position().y, 0.185213);
-  EXPECT_FLOAT_EQ(vertex.position().z, 1.545897);
+  add_face({1, 2, 3});
+
+  compare_scene();
 }
 
-TEST(FileReaderTest, ParseVertexIncorrect1) {
-  s21::FileReader reader;
-  std::string line{"v 0.185213 5.545897"};
-  s21::Vertex vertex = reader.ParseVertex(line);
+TEST_F(FileReaderTest, test_2) {
+  add_scene("./tests/data/test_2.obj");
 
-  EXPECT_FLOAT_EQ(vertex.position().x, 0);
-  EXPECT_FLOAT_EQ(vertex.position().y, 0);
-  EXPECT_FLOAT_EQ(vertex.position().z, .0);
+  add_vertex(1, 2, 3);
+  add_vertex(4, 5, 6);
+  add_vertex(7, 8, 9);
+  add_vertex(10, 11, 12);
+
+  add_face({1, 2, 3});
+  add_face({2, 3, 4});
+  add_face({3, 4, 1});
+
+  compare_scene();
 }
 
-TEST(FileReaderTest, ParseFaceCorrect) {
-  s21::FileReader reader;
-  std::string line{"f 224/107/30 189/108/29 299/109/56"};
+TEST_F(FileReaderTest, test_3) {
+  add_scene("./tests/data/test_3.obj");
 
-  std::vector<int> indices = reader.ParseFace(line);
+  add_vertex(-1, -2, -3);
+  add_vertex(-4, -5, -6);
+  add_vertex(-7, -8, -9);
 
-  EXPECT_EQ(indices[0], 224);
-  EXPECT_EQ(indices[1], 189);
-  EXPECT_EQ(indices[2], 299);
+  add_face({1, 2, 3});
+
+  compare_scene();
 }
 
-// TEST(FileReaderTest, CreateFromIndices) {
-//   s21::FileReader reader;
-//   std::vector<std::string> lines{
-//       "v 0.288236 0.185213 1.545897", "v 0.257309 0.009730 1.185200",
-//       "v 0.289416 0.128668 1.506040", "f 245/48/1 244/23/1 284/24/1
-//       179/49/1"};
+TEST_F(FileReaderTest, test_4) {
+  add_scene("./tests/data/test_4.obj");
 
-//   std::vector<s21::Vertex> vertices;
+  add_vertex(0.1, 0.2, 0.3);
+  add_vertex(0.4, 0.5, 0.6);
+  add_vertex(0.7, 0.8, 0.9);
 
-//   for (auto line : lines) {
-//   }
-// }
+  add_face({1, 2, 3});
 
-// TEST(FileReaderTest, ReadSceneOneFigure) {
-//   s21::FileReader reader;
-//   s21::NormalizationParameters params;
-//   std::string path{"tests/data/test.obj"};
-//   std::vector<std::string> lines{
-//       "v 0.288236 0.185213 1.545897", "v 0.257309 0.009730 1.185200",
-//       "v 0.289416 0.128668 1.506040", "f 1/48/1 2/23/1 3/24/1"};
+  compare_scene();
+}
 
-//   std::ofstream test_file(path);
-//   for (const auto& line : lines) {
-//     test_file << line << std::endl;
-//   }
+TEST_F(FileReaderTest, invalid_1) {
+  EXPECT_THROW(add_scene("./tests/data/invalid_1.obj"), std::invalid_argument);
+}
 
-//   test_file.close();
-//   s21::Scene scene = reader.ReadScene(path, params);
+TEST_F(FileReaderTest, invalid_2) {
+  EXPECT_THROW(add_scene("./tests/data/invalid_2.obj"), std::invalid_argument);
+}
 
-//   auto edge = scene.figures().front().edges();
-//   auto vertex = scene.figures().front().vertices();
+TEST_F(FileReaderTest, invalid_3) {
+  EXPECT_THROW(add_scene("./tests/data/invalid_3.obj"), std::invalid_argument);
+}
 
-//   scene.figures();
-//   EXPECT_EQ(edge[0].begin(), vertex[0]);
-//   EXPECT_EQ(edge[0].end(), vertex[1]);
-
-//   EXPECT_EQ(edge[1].begin(), vertex[1]);
-//   EXPECT_EQ(edge[1].end(), vertex[2]);
-
-//   EXPECT_EQ(edge[2].begin(), vertex[2]);
-//   EXPECT_EQ(edge[2].end(), vertex[0]);
-
-//   std::remove(path.c_str());
-// }
-
-// TEST(FileReaderTest, ReadSceneTwoFigure) {
-//   s21::FileReader reader;
-//   s21::NormalizationParameters params;
-//   std::string path{"tests/data/test.obj"};
-//   std::vector<std::string> lines{
-//       "v 0.288236 0.185213 1.545897",  "v 0.257309 0.009730 1.185200",
-//       "v 0.289416 0.128668 1.506040",  "v 0.128494 0.067700 -1.630105",
-//       "v -1.999521 0.069781 1.518724", "v -1.983809 0.019215 -1.563283",
-//       "f 1/48/1 2/23/1 3/24/1",        "f 4/12/9 5/11/8 6/17/14 "};
-
-//   std::ofstream test_file(path);
-//   for (const auto& line : lines) {
-//     test_file << line << std::endl;
-//   }
-
-//   test_file.close();
-//   s21::Scene scene = reader.ReadScene(path, params);
-
-//   auto edge1 = scene.figures()[0].edges();
-//   auto vertex1 = scene.figures()[0].vertices();
-//   auto edge2 = scene.figures()[1].edges();
-//   auto vertex2 = scene.figures()[1].vertices();
-
-//   scene.figures();
-//   EXPECT_EQ(edge1[0].begin(), vertex1[0]);
-//   EXPECT_EQ(edge1[0].end(), vertex1[1]);
-//   EXPECT_EQ(edge1[1].begin(), vertex1[1]);
-//   EXPECT_EQ(edge1[1].end(), vertex1[2]);
-//   EXPECT_EQ(edge1[2].begin(), vertex1[2]);
-//   EXPECT_EQ(edge1[2].end(), vertex1[0]);
-
-//   std::remove(path.c_str());
-// }
+}  // namespace s21
