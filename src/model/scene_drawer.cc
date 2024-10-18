@@ -27,10 +27,19 @@ SceneDrawer::SceneDrawer() : gl_{new OpenGL} {
 SceneDrawer::~SceneDrawer() { delete gl_; }
 
 void SceneDrawer::drawScene(Scene *scene) {
+  static CalculateType prev_mode{CalculateType::CPU};
+
   if (scene) {
+    if (prev_mode != Data::data().calculate_type) {
+      gl_->destroyBuffers();
+    }
+
     if (gl_->isBufferAllocate()) {
       if (Data::data().calculate_type == CalculateType::CPU) {
         gl_->updateBuffer(scene);
+        prev_mode = CalculateType::CPU;
+      } else {
+        prev_mode = CalculateType::GPU;
       }
     } else {
       gl_->destroyBuffers();

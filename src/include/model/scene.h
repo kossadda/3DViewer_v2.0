@@ -29,6 +29,9 @@ class Scene {
   inline const std::vector<Vertex>& vertices() const noexcept {
     return vertices_;
   }
+  inline const std::vector<Vertex>& base_vertices() const noexcept {
+    return data_;
+  }
 
   void Transform(const TransformMatrix& matrix) noexcept;
 

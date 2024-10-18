@@ -150,7 +150,7 @@ void OpenGL::setupProjection(int w, int h) {
 void OpenGL::initBuffers(Scene *scene) {
   makeCurrent();
 
-  const std::vector<Vertex> &vertices{scene->vertices()};
+  const std::vector<Vertex> &vertices{scene->base_vertices()};
   const std::vector<int> &indices{scene->indices()};
   const float *vptr{vertices.begin()->position().base()};
   const int *eptr{indices.begin().base()};
