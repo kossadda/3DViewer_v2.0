@@ -1,117 +1,202 @@
-# 3DViewer v2.0
+<a id="readme-top"></a>
 
-Implementation of 3DViewer v2.0
-
-The russian version of the task can be found in the repository.
-
-
-## Contents
-
-1. [Chapter I](#chapter-i) \
-   1.1. [Introduction](#introduction)
-2. [Chapter II](#chapter-ii) \
-   2.1. [Information](#information)
-3. [Chapter III](#chapter-iii) \
-   3.1. [Part 1](#part-1-3dviewer-v20) \
-   3.2. [Part 2](#part-2-bonus-settings) \
-   3.3. [Part 3](#part-3-bonus-record)
+ | [![Contributors][contributors-shield]][contributors-url] | [![Forks][forks-shield]][forks-url] | [![Stargazers][stars-shield]][stars-url] | [![Issues][issues-shield]][issues-url] | [![MIT License][license-shield]][license-url] | [![LinkedIn][linkedin-shield]][linkedin-url] |
+ |:--------------------------------------------------------:|:------------------------------------:|:--------------------------------------:|:--------------------------------------:|:----------------------------------------:|:----------------------------------------:|
 
 
-## Chapter I
+<br />
+<div align="center">
+  <a href="https://github.com/emmonbear/3DViewer">
+    <img src="misc/images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-![3dviewer2.0](misc/images/3dviewer2.0.PNG)
+  <h3 align="center">3DViewer</h3>
 
-Somewhere near a coffee machine in the 90s:
-
-*-- It's simple, my friend. It will be a cartoon about toys, like the short one that brought us the Oscar. The natural shape of the toys will fit perfectly with the low-poly 3d models we're able to animate. And these are toys after all, so poor facial expressions won't be critical. There's already a plot in my mind. Let's bring them to life! The story will be based on the relationship between the toys and a child.*
-
-*- Sounds familiar and interesting!*
-
-*-- It is. You should go to your team asap and start developing 3d modelling software. If we want to make this cartoon, we need our own software tools. The ones that on the market will only allow us to animate a wooden pyramid, and even then in the form of a cube.*
-
-*- You know, I think the same. I even have several ideas somewhere.*
-
-*-- I think we should start with the most important thing - the preview screen. Good luck!* - having said these words, Lasseter finished his coffee, washed his mug and left the break room, leaving you alone with your thoughts. The door closed slowly after he had gone, leaving only the painfully familiar white glow in the cracks.
-
-*- It would be convenient to prepare several rendering strategies in advance...* - you said thoughtfully out loud, - *And also hide all the business logic implementation behind some kind of facade, then it will be easier to work with the UI. And commands to handle user actions, right, right...* - the sudden sound of a dial-up modem somewhere in the distance distracted you from your thoughts. You had to urgently discuss the task with the team and design the architecture of the future application. Time waits for no one! \
-You opened the door and a bright light flooded your face. Your determination is unshakable; the planned cartoon is destined to make history!
-
-## Introduction
-
-In this project you’ll need to implement an application for viewing 3D wireframe models in C++ in the object-oriented programming paradigm, implementing the same functions as the previously developed application in 3DViewer v1.0 project.
+  <p align="center">
+    <br />
+    <a href="https://github.com/emmonbear/3DViewer"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/emmonbear/3DViewer">View Demo</a>
+    /
+    <a href="https://github.com/emmonbear/3DViewer/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    /
+    <a href="https://github.com/emmonbear/3DViewer/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
 
 
-## Chapter II
+<details>
+  <summary><strong>Table of Contents</strong></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#uml-class-diagram">UML class diagram</a></li>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#required-software">Required software</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-## Information
 
-### Design patterns
+## About The Project
 
-Each human activity, such as cooking or nuclear physics experiments, has a set of established practices that deal with basic elementary tasks. They do not require an individual approach and are usually resolved by well-established approaches developed over time, based on the experience of previous cooks or nuclear physicists. For example, baking a pie, even an unusual one, will most likely require dough whose cooking technology is known in advance and usually does not need some creativity. It's the same with programming, when designing you often have elementary tasks that a huge number of programmers have faced before you, and their experience has developed into established design patterns.
+![Appearance](./misc/images/program.png) <br>
 
-**Design pattern** describes a frequently repeated application design problem and its way of solving, which is universal to that problem.
-In other words, a design pattern for a programmer is nothing but a building block, an elementary unit that is implemented when a typical subtask occurs within a project.
+The goal of this project is to implement a program for viewing 3D models in wireframe form (3D Viewer) in the C++ programming language. The models themselves are loaded from .obj files, which makes it possible to view them on the screen with the ability to rotate, scale and move.
 
-Design patterns are usually divided into three groups: creational, structural and behavioral patterns. See materials for more information about design patterns. \
-You have already encountered the use of established practices (patterns) in application design in the SmartCalc v2.0 project (MVC pattern). Just as a reminder, MVC in some form or another is one of the most common solutions in terms of code structuring during UI application development.
-The user interface and the business logic with its controller are usually split into two different global domains: the interface domain and the business logic domain.
+- The program is developed in the C++ standard language using the gcc compiler. Additional libraries and Qt modules are used;
+- The program code is located in the src folder;
+- The program and test build is configured using CMake, which is launched using Makefile with a standard set of targets for a GNU program: all, install, uninstall, clean, dvi, dist, tests. Installation is carried out in the bin folder in the repository root;
+- The program is developed in accordance with the principles of object-oriented programming. The following development patterns are used: Facade, Singleton, Strategy, MVC;
+- The code is written in accordance with Google Style;
+- The modules related to model loading and affine transformations are covered by unit tests;
+- The program displays only one model on the screen at a time;
+- The program allows you to:
+    - Load a wireframe model from an `obj` file (supports only a list of vertices and surfaces);
+    - Move the model a given distance relative to the `X`, `Y`, `Z` axes;
+    - Rotate the model a given angle relative to its `X`, `Y`, `Z` axes;
+    - Scale the model by a given value;
+    - Perform affine transformations using the processor/video memory;
+    - Set up the projection type (parallel and central);
+    - Set up the edge type (none, solid, dotted), color and thickness;
+    - Set up the vertex type (none, circle, square), color and size;
+    - Choose a background color;
+    - Save the resulting ("rendered") images to a file in the `bmp` and `jpeg` formats;
+    - Record small "screencasts" - current user affine transformations of the loaded object into `gif`-animation (640x480, 10`fps`, 5s);
+- The program has a graphical user interface based on the GUI libraries `QT` with `API` for `C++`.
+- The graphical user interface contains:
+    - A button for selecting a file with a model and a field for entering/outputting its name;
+    - A button for switching the affine transformation method (processor/video card);
+    - A button for switching the projection;
+    - Buttons for selecting the type, color and thickness of edges;
+    - Buttons for selecting the type, color and size of vertices;
+    - A button for selecting a background;
+    - Buttons for saving an image and a screencast;
+    - A wireframe model visualization area;
+    - Sliders and input fields for moving the model;
+    - Sliders and input fields for rotating the model;
+    - Slider and input field for scaling the model;
+- Information about the loaded model - file name, number of vertices and edges.
+- Settings are saved between program restarts;
+- Implementation class inside the `s21` namespace;
 
-The interface domain is only responsible for displaying the interface and passing commands to the business logic domain. Data loaded from a file should not be stored in the interface domain.
+### UML class diagram
 
-The business logic domain is responsible for the main functionality of the system. This is where the loaded data is stored and all the operations with it are performed. This domain is also where the rendering is done.
-
-You can see an example of a suggested class diagram for a business logic domain in materials.
+![Appearance](./misc/images/uml_diagram.png) <br>
 
 
-## Chapter III
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Part 1. 3DViewer v2.0
+### Built With
 
-Develop a program to visualise the 3D wireframe models.
+<p align="center">
+  <p>
+    <a href="https://www.cplusplus.com/">
+      <img src="https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" width="80" height="30">
+    </a>
+    <a href="https://cmake.org/">
+      <img src="https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white" width="80" height="30">
+    </a>
+    <a href="https://www.qt.io/">
+      <img src="https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white" width="80" height="30">
+    </a>
+    <a href="https://www.opengl.org/">
+      <img src="https://www.opengl.org/img/opengl_logo.jpg" width="80" height="30">
+    </a>
+  </p>
+</p>
 
-- The program must be developed in C++ language of C++17 standard
-- The program code must be located in the src folder
-- When writing code it is necessary to follow the Google style
-- The program must be built with Makefile which contains standard set of targets for GNU-programs: all, install, uninstall, clean, dvi, dist, tests. Installation directory could be arbitrary, except the building one
-- The program should be developed according to the principles of object-oriented programming; the structured programming approach is not allowed
-- Prepare full coverage of modules related to model loading and affine transformations with unit-tests
-- There should be only one model on the screen at a time
-- The program must provide the ability to:
-    - Load a wireframe model from an obj file (vertices and surfaces list support only).
-    - Translate the model by a given distance in relation to the X, Y, Z axes.
-    - Rotate the model by a given angle in relation to its X, Y, Z axes.
-    - Scale the model by a given value.
-- GUI implementation, based on any GUI library with API for C++ 
-  * For Linux: GTK+, CEF, Qt, JUCE
-  * For Mac: GTK+, CEF, Qt, JUCE, SFML, Nanogui, Nngui
-- The graphical user interface must contain:
-    - A button to select the model file and a field to output its name.
-    - A visualisation area for the wireframe model.
-    - Button/buttons and input fields for translating the model.
-    - Button/buttons and input fields for rotating the model.
-    - Button/buttons and input fields for scaling the model.
-    - Information about the uploaded model - file name, number of vertices and edges.
-- The program must correctly processes and allows user to view models with details up to 100, 1000, 10,000, 100,000, 1,000,000  vertices without freezing (a freeze is an interface inactivity of more than 0.5 seconds)
-- The program must be implemented using the MVC pattern, and also:
-    - there should be no business code in the view code
-    - there should be no interface code in the controller and the model
-    - controllers must be thin
-- There should be at least three different design patterns (e.g. facade, strategy and command)
-- Classes must be implemented within the `s21` namespace
-- To perform affine transformations, you can use the matrices from the library of the previous s21_matrix+ project
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-*Note:* **Don't upload heavy files (>10 mb) to git.**
 
-## Part 2. Bonus. Settings
+## Getting Started
 
-- The program must allow customizing the type of projection (parallel and central)
-- The program must allow setting up the type (solid, dashed), color and thickness of the edges, display method (none, circle, square), color and size of the vertices
-- The program must allow choosing the background color
-- Settings must be saved between program restarts
+To get a local copy and run it, follow these steps.
 
-## Part 3. Bonus. Record
+### Required software
 
-- The program must allow saving the captured (rendered) images as bmp and jpeg files.
-- The program must allow recording small screencasts - the current custom affine transformation of the loaded object into gif-animation (640x480, 10fps, 5s) by a special button
+* CMake
+  ```
+  sudo apt install cmake
+  ```
 
-💡 [Tap here](https://forms.yandex.ru/cloud/64181b3c69387223f9a12877/) **to leave your feedback on the project**. Product Team really tries to make your educational experience better.
+* Qt
+  ```
+  sudo apt install qt6-base-dev
+  ```
+
+* OpenGL
+  ```
+  sudo apt-get install build-essential libgl1-mesa-dev
+  ```
+
+### Installation
+
+1. Install the required software (if missing)
+2. Clone the repository
+    ```sh
+    git clone git@github.com:emmonbear/3DViewer.git
+    ```
+3. Run the installation program
+    ```sh
+    make install
+    ```
+4. Run the program manually (`3DViewer/bin/viewer`) or enter the command
+    ```
+    make run
+    ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Contributing:
+
+<a href="https://github.com/emmonbear/3DViewer/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=emmonbear/3DViewer" alt="contrib.rocks image" />
+</a>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Contact
+
+Pervin Gabilov - [Telegram](https://t.me/kossadda) / [e-mail](gabiov1997@gmail.com)
+
+Ilya Moskalev  - [Telegram](https://t.me/emmonbea) / [e-mail](moskaleviluak@icloud.com)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ССЫЛКИ И ИЗОБРАЖЕНИЯ MARKDOWN -->
+[contributors-shield]: https://img.shields.io/github/contributors/emmonbear/3DViewer.svg?style=for-the-badge
+[contributors-url]: https://github.com/emmonbear/3DViewer/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/emmonbear/3DViewer.svg?style=for-the-badge
+[forks-url]: https://github.com/emmonbear/3DViewer/network/members
+[stars-shield]: https://img.shields.io/github/stars/emmonbear/3DViewer.svg?style=for-the-badge
+[stars-url]: https://github.com/emmonbear/3DViewer/stargazers
+[issues-shield]: https://img.shields.io/github/issues/emmonbear/3DViewer.svg?style=for-the-badge
+[issues-url]: https://github.com/emmonbear/3DViewer/issues
+[license-shield]: https://img.shields.io/github/license/emmonbear/3DViewer.svg?style=for-the-badge
+[license-url]: https://github.com/emmonbear/3DViewer/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
