@@ -8,351 +8,120 @@
  * @copyright Copyright (c) 2024
  *
  */
-// #define private public
-// #include "../../include/model/transform_matrix.h"
 
-// #include "../../include/model/transform_matrix_builder.h"
-// #undef private
+#include "tests/include/transform_matrix_test.h"
 
-// #include <cmath>
+namespace s21 {
 
-// #include "../include/main.test.h"
+TEST_F(TransformMatrixTest, constructor) {
+  compare_matrix();
+}
 
-// namespace s21 {
-// TEST(TransformMatrixTest, Constructor) {
-//   TransformMatrix matrix;
-//   for (int i = 0; i < TransformMatrix::kSize; ++i) {
-//     for (int j = 0; j < TransformMatrix::kSize; ++j) {
-//       if (i == j) {
-//         EXPECT_FLOAT_EQ(matrix.m_[i][j], 1.f);
-//       } else {
-//         EXPECT_FLOAT_EQ(matrix.m_[i][j], 0.f);
-//       }
-//     }
-//   }
-// }
+TEST_F(TransformMatrixTest, multiplyWithIdentityMatrix) {
+  float matrix[4][4] = {{1.0f, 2.0f, 3.0f, 4.0f}, {5.f, 6.f, 7.f, 8.f}, {9.f, 10.f, 11.f, 12.f}, {13.f, 14.f, 15.f, 16.f}};
 
-// TEST(TransformMatrixTest, MultiplyWithIdentityMatrix) {
-//   TransformMatrix identity_matrix;
-//   TransformMatrix matrix;
+  expected_matrix(to_matrix(matrix));
+  result_matrix(to_matrix(matrix) * TransformMatrix{});
 
-//   matrix.m_[0][0] = 1.0f;
-//   matrix.m_[0][1] = 2.0f;
-//   matrix.m_[0][2] = 3.0f;
-//   matrix.m_[0][3] = 4.0f;
-//   matrix.m_[1][0] = 5.0f;
-//   matrix.m_[1][1] = 6.0f;
-//   matrix.m_[1][2] = 7.0f;
-//   matrix.m_[1][3] = 8.0f;
-//   matrix.m_[2][0] = 9.0f;
-//   matrix.m_[2][1] = 10.0f;
-//   matrix.m_[2][2] = 11.0f;
-//   matrix.m_[2][3] = 12.0f;
-//   matrix.m_[3][0] = 13.0f;
-//   matrix.m_[3][1] = 14.0f;
-//   matrix.m_[3][2] = 15.0f;
-//   matrix.m_[3][3] = 16.0f;
+  compare_matrix();
+}
 
-//   TransformMatrix result = matrix * identity_matrix;
+TEST_F(TransformMatrixTest, multiplyTwoMatrices) {
+  float first[4][4] = {{1.0f, 2.0f, 3.0f, 4.0f}, {5.0f, 6.0f, 7.0f, 8.0f}, {9.0f, 10.0f, 11.0f, 12.0f}, {13.0f, 14.0f, 15.0f, 16.0f}};
+  float second[4][4] = {{1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f}};
 
-//   for (int i = 0; i < TransformMatrix::kSize; ++i) {
-//     for (int j = 0; j < TransformMatrix::kSize; ++j) {
-//       EXPECT_FLOAT_EQ(matrix.m_[i][j], result.m_[i][j]);
-//     }
-//   }
-// }
+  expected_matrix(to_matrix(first));
+  result_matrix(to_matrix(first) * to_matrix(second));
 
-// TEST(TransformMatrixTest, MultiplyTwoMatrices) {
-//   TransformMatrix matrix1;
-//   TransformMatrix matrix2;
+  compare_matrix();
+}
 
-//   matrix1.m_[0][0] = 1.0f;
-//   matrix1.m_[0][1] = 2.0f;
-//   matrix1.m_[0][2] = 3.0f;
-//   matrix1.m_[0][3] = 4.0f;
-//   matrix1.m_[1][0] = 5.0f;
-//   matrix1.m_[1][1] = 6.0f;
-//   matrix1.m_[1][2] = 7.0f;
-//   matrix1.m_[1][3] = 8.0f;
-//   matrix1.m_[2][0] = 9.0f;
-//   matrix1.m_[2][1] = 10.0f;
-//   matrix1.m_[2][2] = 11.0f;
-//   matrix1.m_[2][3] = 12.0f;
-//   matrix1.m_[3][0] = 13.0f;
-//   matrix1.m_[3][1] = 14.0f;
-//   matrix1.m_[3][2] = 15.0f;
-//   matrix1.m_[3][3] = 16.0f;
+TEST_F(TransformMatrixTest, multiplyWithZeroMatrix) {
+  float first[4][4] = {{1.0f, 2.0f, 3.0f, 4.0f}, {5.0f, 6.0f, 7.0f, 8.0f}, {9.0f, 10.0f, 11.0f, 12.0f}, {13.0f, 14.0f, 15.0f, 16.0f}};
+  float second[4][4] = {{0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f}};
 
-//   matrix2.m_[0][0] = 1.0f;
-//   matrix2.m_[0][1] = 0.0f;
-//   matrix2.m_[0][2] = 0.0f;
-//   matrix2.m_[0][3] = 0.0f;
-//   matrix2.m_[1][0] = 0.0f;
-//   matrix2.m_[1][1] = 1.0f;
-//   matrix2.m_[1][2] = 0.0f;
-//   matrix2.m_[1][3] = 0.0f;
-//   matrix2.m_[2][0] = 0.0f;
-//   matrix2.m_[2][1] = 0.0f;
-//   matrix2.m_[2][2] = 1.0f;
-//   matrix2.m_[2][3] = 0.0f;
-//   matrix2.m_[3][0] = 0.0f;
-//   matrix2.m_[3][1] = 0.0f;
-//   matrix2.m_[3][2] = 0.0f;
-//   matrix2.m_[3][3] = 1.0f;
+  expected_matrix(to_matrix(second));
+  result_matrix(to_matrix(first) * to_matrix(second));
 
-//   TransformMatrix result = matrix1 * matrix2;
-//   std::vector<std::vector<float>> expected = {{1.0f, 2.0f, 3.0f, 4.0f},
-//                                               {5.0f, 6.0f, 7.0f, 8.0f},
-//                                               {9.0f, 10.0f, 11.0f, 12.0f},
-//                                               {13.0f, 14.0f, 15.0f, 16.0f}};
+  compare_matrix();
+}
 
-//   for (int i = 0; i < TransformMatrix::kSize; ++i) {
-//     for (int j = 0; j < TransformMatrix::kSize; ++j) {
-//       EXPECT_FLOAT_EQ(result.m_[i][j], expected[i][j]);
-//     }
-//   }
-// }
+TEST_F(TransformMatrixTest, multiplyWithDiagonalMatrix) {
+  float first[4][4] = {{2.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 3.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 4.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 5.0f}};
+  float second[4][4] = {{1.0f, 2.0f, 3.0f, 4.0f}, {5.0f, 6.0f, 7.0f, 8.0f}, {9.0f, 10.0f, 11.0f, 12.0f}, {13.0f, 14.0f, 15.0f, 16.0f}};
+  float exp[4][4] = {{2.0f, 4.0f, 6.0f, 8.0f}, {15.0f, 18.0f, 21.0f, 24.0f}, {36.0f, 40.0f, 44.0f, 48.0f}, {65.0f, 70.0f, 75.0f, 80.0f}};
 
-// TEST(TransformMatrixTest, MultiplyWithZeroMatrix) {
-//   TransformMatrix zero_matrix;
-//   TransformMatrix matrix;
+  expected_matrix(to_matrix(exp));
+  result_matrix(to_matrix(first) * to_matrix(second));
 
-//   for (int i = 0; i < TransformMatrix::kSize; ++i) {
-//     for (int j = 0; j < TransformMatrix::kSize; ++j) {
-//       zero_matrix.m_[i][j] = 0.0f;
-//     }
-//   }
+  compare_matrix();
+}
 
-//   matrix.m_[0][0] = 1.0f;
-//   matrix.m_[0][1] = 2.0f;
-//   matrix.m_[0][2] = 3.0f;
-//   matrix.m_[0][3] = 4.0f;
-//   matrix.m_[1][0] = 5.0f;
-//   matrix.m_[1][1] = 6.0f;
-//   matrix.m_[1][2] = 7.0f;
-//   matrix.m_[1][3] = 8.0f;
-//   matrix.m_[2][0] = 9.0f;
-//   matrix.m_[2][1] = 10.0f;
-//   matrix.m_[2][2] = 11.0f;
-//   matrix.m_[2][3] = 12.0f;
-//   matrix.m_[3][0] = 13.0f;
-//   matrix.m_[3][1] = 14.0f;
-//   matrix.m_[3][2] = 15.0f;
-//   matrix.m_[3][3] = 16.0f;
+TEST_F(TransformMatrixTest, multiplySymmetricMatrices) {
+  float first[4][4] = {{2.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 3.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 4.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 5.0f}};
+  float second[4][4] = {{1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 2.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 3.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 4.0f}};
+  float exp[4][4] = {{2.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 6.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 12.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 20.0f}};
 
-//   TransformMatrix result = matrix * zero_matrix;
+  expected_matrix(to_matrix(exp));
+  result_matrix(to_matrix(first) * to_matrix(second));
 
-//   for (int i = 0; i < TransformMatrix::kSize; ++i) {
-//     for (int j = 0; j < TransformMatrix::kSize; ++j) {
-//       EXPECT_FLOAT_EQ(result.m_[i][j], 0.0f);
-//     }
-//   }
-// }
+  compare_matrix();
+}
 
-// TEST(TransformMatrixTest, MultiplyWithDiagonalMatrix) {
-//   TransformMatrix matrix1;
-//   TransformMatrix matrix2;
+TEST_F(TransformMatrixTest, multiplyWithNegativeValues) {
+  float first[4][4] = {{-1.0f, 2.0f, -3.0f, 4.0f}, {-5.0f, 6.0f, -7.0f, 8.0f}, {-9.0f, 10.0f, -11.0f, 12.0f}, {-13.0f, 14.0f, -15.0f, 16.0f}};
+  float second[4][4] = {{-1.0f, -2.0f, -3.0f, -4.0f}, {-5.0f, -6.0f, -7.0f, -8.0f}, {-9.0f, -10.0f, -11.0f, -12.0f}, {-13.0f, -14.0f, -15.0f, -16.0f}};
+  float exp[4][4] = {{-34.0f, -36.0f, -38.0f, -40.0f}, {-66.0f, -68.0f, -70.0f, -72.0f}, {-98.0f, -100.0f, -102.0f, -104.0f}, {-130.0f, -132.0f, -134.0f, -136.0f}};
 
-//   matrix1.m_[0][0] = 2.0f;
-//   matrix1.m_[1][1] = 3.0f;
-//   matrix1.m_[2][2] = 4.0f;
-//   matrix1.m_[3][3] = 5.0f;
+  expected_matrix(to_matrix(exp));
+  result_matrix(to_matrix(first) * to_matrix(second));
 
-//   matrix2.m_[0][0] = 1.0f;
-//   matrix2.m_[0][1] = 2.0f;
-//   matrix2.m_[0][2] = 3.0f;
-//   matrix2.m_[0][3] = 4.0f;
-//   matrix2.m_[1][0] = 5.0f;
-//   matrix2.m_[1][1] = 6.0f;
-//   matrix2.m_[1][2] = 7.0f;
-//   matrix2.m_[1][3] = 8.0f;
-//   matrix2.m_[2][0] = 9.0f;
-//   matrix2.m_[2][1] = 10.0f;
-//   matrix2.m_[2][2] = 11.0f;
-//   matrix2.m_[2][3] = 12.0f;
-//   matrix2.m_[3][0] = 13.0f;
-//   matrix2.m_[3][1] = 14.0f;
-//   matrix2.m_[3][2] = 15.0f;
-//   matrix2.m_[3][3] = 16.0f;
+  compare_matrix();
+}
 
-//   std::vector<std::vector<float>> expected = {{2.0f, 4.0f, 6.0f, 8.0f},
-//                                               {15.0f, 18.0f, 21.0f, 24.0f},
-//                                               {36.0f, 40.0f, 44.0f, 48.0f},
-//                                               {65.0f, 70.0f, 75.0f, 80.0f}};
+TEST_F(TransformMatrixTest, transformPoint) {
+  float matrix[4][4] = {{1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f}};
 
-//   TransformMatrix result = matrix1 * matrix2;
+  expected_point({1.0f, 2.0f, 3.0f});
+  result_point(to_matrix(matrix).TransformPoint({1.0f, 2.0f, 3.0f}));
 
-//   for (int i = 0; i < TransformMatrix::kSize; ++i) {
-//     for (int j = 0; j < TransformMatrix::kSize; ++j) {
-//       EXPECT_FLOAT_EQ(result.m_[i][j], expected[i][j]);
-//     }
-//   }
-// }
+  compare_point();  
+}
 
-// TEST(TransformMatrixTest, MultiplySymmetricMatrices) {
-//   TransformMatrix matrix1;
-//   TransformMatrix matrix2;
+TEST_F(TransformMatrixTest, transformPointRandom_1) {
+  float matrix[4][4] = {{2.0f, 3.0f, 4.0f, 0.0f}, {5.0f, 6.0f, 1.0f, 0.0f}, {2.0f, 3.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f}};
 
-//   matrix1.m_[0][0] = 2.0f;
-//   matrix1.m_[1][1] = 3.0f;
-//   matrix1.m_[2][2] = 4.0f;
-//   matrix1.m_[3][3] = 5.0f;
-//   matrix2.m_[0][0] = 1.0f;
-//   matrix2.m_[1][1] = 2.0f;
-//   matrix2.m_[2][2] = 3.0f;
-//   matrix2.m_[3][3] = 4.0f;
+  expected_point({68.0f, 113.0f, 56.0f});
+  result_point(to_matrix(matrix).TransformPoint({5.0f, 14.0f, 4.0f}));
 
-//   std::vector<std::vector<float>> expected = {{2.0f, 0.0f, 0.0f, 0.0f},
-//                                               {0.0f, 6.0f, 0.0f, 0.0f},
-//                                               {0.0f, 0.0f, 12.0f, 0.0f},
-//                                               {0.0f, 0.0f, 0.0f, 20.0f}};
+  compare_point();
+}
 
-//   TransformMatrix result = matrix1 * matrix2;
+TEST_F(TransformMatrixTest, MoveMatrixTest) {
+  float exp[4][4] = {{1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 2.0f}, {0.0f, 0.0f, 1.0f, 3.0f}, {0.0f, 0.0f, 0.0f, 1.0f}};
 
-//   for (int i = 0; i < TransformMatrix::kSize; ++i) {
-//     for (int j = 0; j < TransformMatrix::kSize; ++j) {
-//       EXPECT_FLOAT_EQ(result.m_[i][j], expected[i][j]);
-//     }
-//   }
-// }
+  expected_matrix(to_matrix(exp));
+  result_matrix(TransformMatrixBuilder::CreateMoveMatrix(1.0f, 2.0f, 3.0f));
 
-// TEST(TransformMatrixTest, MultiplyWithNegativeValues) {
-//   TransformMatrix matrix1;
-//   TransformMatrix matrix2;
+  compare_matrix();
+}
 
-//   matrix1.m_[0][0] = -1.0f;
-//   matrix1.m_[0][1] = 2.0f;
-//   matrix1.m_[0][2] = -3.0f;
-//   matrix1.m_[0][3] = 4.0f;
-//   matrix1.m_[1][0] = -5.0f;
-//   matrix1.m_[1][1] = 6.0f;
-//   matrix1.m_[1][2] = -7.0f;
-//   matrix1.m_[1][3] = 8.0f;
-//   matrix1.m_[2][0] = -9.0f;
-//   matrix1.m_[2][1] = 10.0f;
-//   matrix1.m_[2][2] = -11.0f;
-//   matrix1.m_[2][3] = 12.0f;
-//   matrix1.m_[3][0] = -13.0f;
-//   matrix1.m_[3][1] = 14.0f;
-//   matrix1.m_[3][2] = -15.0f;
-//   matrix1.m_[3][3] = 16.0f;
+TEST_F(TransformMatrixTest, ScaleMatrixTest) {
+  float exp[4][4] = {{2.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 3.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 4.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f}};
 
-//   matrix2.m_[0][0] = -1.0f;
-//   matrix2.m_[0][1] = -2.0f;
-//   matrix2.m_[0][2] = -3.0f;
-//   matrix2.m_[0][3] = -4.0f;
-//   matrix2.m_[1][0] = -5.0f;
-//   matrix2.m_[1][1] = -6.0f;
-//   matrix2.m_[1][2] = -7.0f;
-//   matrix2.m_[1][3] = -8.0f;
-//   matrix2.m_[2][0] = -9.0f;
-//   matrix2.m_[2][1] = -10.0f;
-//   matrix2.m_[2][2] = -11.0f;
-//   matrix2.m_[2][3] = -12.0f;
-//   matrix2.m_[3][0] = -13.0f;
-//   matrix2.m_[3][1] = -14.0f;
-//   matrix2.m_[3][2] = -15.0f;
-//   matrix2.m_[3][3] = -16.0f;
+  expected_matrix(to_matrix(exp));
+  result_matrix(TransformMatrixBuilder::CreateScaleMatrix(2.0f, 3.0f, 4.0f));
 
-//   std::vector<std::vector<float>> expected = {
-//       {-34.0f, -36.0f, -38.0f, -40.0f},
-//       {-66.0f, -68.0f, -70.0f, -72.0f},
-//       {-98.0f, -100.0f, -102.0f, -104.0f},
-//       {-130.0f, -132.0f, -134.0f, -136.0f}};
+  compare_matrix();
+}
 
-//   TransformMatrix result = matrix1 * matrix2;
+TEST_F(TransformMatrixTest, RotationMatrixTest) {
+  float exp[4][4] = {{0.999624193f, -0.0274121445f, 0.0f, 0.0f}, {0.0274121445f, 0.999624193f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f}};
 
-//   for (int i = 0; i < TransformMatrix::kSize; ++i) {
-//     for (int j = 0; j < TransformMatrix::kSize; ++j) {
-//       EXPECT_FLOAT_EQ(result.m_[i][j], expected[i][j]);
-//     }
-//   }
-// }
+  expected_matrix(to_matrix(exp));
+  result_matrix(TransformMatrixBuilder::CreateRotationMatrix(0.0f, 0.0f, M_PI_2));
 
-// TEST(TransformMatrixTest, TransformPoint) {
-//   TransformMatrix matrix;
+  compare_matrix();
+}
 
-//   matrix.m_[0][0] = 1.0;
-//   matrix.m_[1][1] = 1.0;
-//   matrix.m_[2][2] = 1.0;
-//   matrix.m_[3][3] = 1.0;
-
-//   Point3D point(1.0, 2.0, 3.0);
-
-//   Point3D result = matrix.TransformPoint(point);
-
-//   EXPECT_EQ(result.x, 1.0);
-//   EXPECT_EQ(result.y, 2.0);
-//   EXPECT_EQ(result.z, 3.0);
-// }
-
-// TEST(TransformMatrixTest, TransformPointRandom1) {
-//   TransformMatrix matrix;
-
-//   matrix.m_[0][0] = 2.0f;
-//   matrix.m_[0][1] = 3.0f;
-//   matrix.m_[0][2] = 4.0f;
-//   matrix.m_[0][3] = 0.0f;
-//   matrix.m_[1][0] = 5.0f;
-//   matrix.m_[1][1] = 6.0f;
-//   matrix.m_[1][2] = 1.0f;
-//   matrix.m_[1][3] = 0.0f;
-//   matrix.m_[2][0] = 2.0f;
-//   matrix.m_[2][1] = 3.0f;
-//   matrix.m_[2][2] = 1.0f;
-//   matrix.m_[2][3] = 0.0f;
-//   matrix.m_[3][0] = 0.0f;
-//   matrix.m_[3][1] = 0.0f;
-//   matrix.m_[3][2] = 0.0f;
-//   matrix.m_[3][3] = 1.0f;
-
-//   Point3D point(5.0, 14.0, 4.0);
-
-//   Point3D result = matrix.TransformPoint(point);
-
-//   EXPECT_EQ(result.x, 68.0);
-//   EXPECT_EQ(result.y, 113.0);
-//   EXPECT_EQ(result.z, 56.0);
-// }
-
-// TEST(TransformMatrixTest, MoveMatrixTest) {
-//   TransformMatrix move_matrix =
-//       TransformMatrixBuilder::CreateMoveMatrix(1.0f, 2.0f, 3.0f);
-
-//   EXPECT_FLOAT_EQ(move_matrix.m_[0][3], 1.0f);
-//   EXPECT_FLOAT_EQ(move_matrix.m_[1][3], 2.0f);
-//   EXPECT_FLOAT_EQ(move_matrix.m_[2][3], 3.0f);
-// }
-
-// TEST(TransformMatrixTest, ScaleMatrixTest) {
-//   TransformMatrix scale_matrix =
-//       TransformMatrixBuilder::CreateScaleMatrix(2.0f, 3.0f, 4.0f);
-
-//   EXPECT_FLOAT_EQ(scale_matrix.m_[0][0], 2.0f);
-//   EXPECT_FLOAT_EQ(scale_matrix.m_[1][1], 3.0f);
-//   EXPECT_FLOAT_EQ(scale_matrix.m_[2][2], 4.0f);
-// }
-
-// TEST(TransformMatrixTest, RotationMatrixTest) {
-//   float angle = M_PI / 2;
-//   TransformMatrix rot_matrix =
-//       TransformMatrixBuilder::CreateRotationMatrix(0.0f, 0.0f, angle);
-
-//   EXPECT_NEAR(rot_matrix.m_[0][0], 0.0f, 1e-5);
-//   EXPECT_NEAR(rot_matrix.m_[0][1], -1.0f, 1e-5);
-//   EXPECT_NEAR(rot_matrix.m_[1][0], 1.0f, 1e-5);
-//   EXPECT_NEAR(rot_matrix.m_[1][1], 0.0f, 1e-5);
-// }
-
-// TEST(TransformMatrixTest, TransformPointTest) {
-//   TransformMatrix move_matrix =
-//       TransformMatrixBuilder::CreateMoveMatrix(1.0f, 2.0f, 3.0f);
-//   Point3D point = {1.0f, 1.0f, 1.0f};
-
-//   Point3D result = move_matrix.TransformPoint(point);
-
-//   EXPECT_FLOAT_EQ(result.x, 2.0f);
-//   EXPECT_FLOAT_EQ(result.y, 3.0f);
-//   EXPECT_FLOAT_EQ(result.z, 4.0f);
-// }
-// }  // namespace s21
+}  // namespace s21

@@ -13,5 +13,6 @@
 #define SRC_TESTS_INCLUDE_MAIN_TEST_H_
 
 #include "tests/include/file_reader_test.h"
+#include "tests/include/transform_matrix_test.h"
 
 #endif  // SRC_TESTS_INCLUDE_MAIN_TEST_H_

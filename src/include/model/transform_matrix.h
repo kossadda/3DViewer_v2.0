@@ -21,7 +21,8 @@ class TransformMatrix {
   TransformMatrix() noexcept;
   TransformMatrix operator*(const TransformMatrix &other) const noexcept;
   Point3D TransformPoint(const Point3D &other) const noexcept;
-  void set_element(const int row, const int col, float value) noexcept;
+  void set_element(int row, int col, float value) noexcept;
+  float element(int row, int col);
 
  private:
   static const int kSize = 4;
