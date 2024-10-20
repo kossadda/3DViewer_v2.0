@@ -5,7 +5,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/emmonbear/3DViewer">
-    <img src=".misc/images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./misc/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">3DViewer</h3>
