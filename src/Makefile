@@ -8,6 +8,7 @@ VALGRIND              := --leak-check=full
 BIN_DIR               := ../bin
 TEST_BIN_DIR          := ./test_bin
 SETTING_DIR           := ~/.config/3DViewer
+DOCS_DIR              := ../docs
 
 #================================== FILE LIST ==================================
 EXCLUDE               := gif.h
@@ -22,6 +23,7 @@ install: $(BIN_DIR)
 uninstall: clean
 	rm -rf $(SETTING_DIR)
 	rm -rf $(BIN_DIR)
+	rm -rf $(DOCS_DIR)
 
 test: $(TEST_BIN_DIR)
 	cd $(TEST_BIN_DIR) && cmake ../tests && make
@@ -51,3 +53,11 @@ $(BIN_DIR):
 
 $(TEST_BIN_DIR):
 	mkdir -p $(TEST_BIN_DIR)
+
+$(DOCS_DIR):
+	mkdir $(DOCS_DIR)
+
+#=========================== GENERATE DOCUMENTATION ============================
+dvi: $(DOCS_DIR)
+	doxygen Doxyfile
+	xdg-open $(DOCS_DIR)/html/index.html

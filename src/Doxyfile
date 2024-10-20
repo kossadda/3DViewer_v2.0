@@ -18,11 +18,11 @@ GENERATE_TODOLIST      = YES
 
 QUIET                  = NO
 
-WARNINGS               = YES
+WARNINGS               = YNO
 
-WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_UNDOCUMENTED   = NO
 
-WARN_IF_DOC_ERROR      = YES
+WARN_IF_DOC_ERROR      = NO
 
 WARN_NO_PARAMDOC       = NO
 
@@ -35,6 +35,10 @@ FILE_PATTERNS          = *.cc \
                          *.c
 
 RECURSIVE              = YES
+
+IMAGE_PATH             = ../misc/images
+
+PROJECT_LOGO           = ../misc/images/logo.png
 
 EXCLUDE                = ./tests
 
