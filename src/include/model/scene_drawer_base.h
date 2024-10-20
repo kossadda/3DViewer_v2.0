@@ -1,7 +1,7 @@
 /**
  * @file scene_drawer_base.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the abstract base class SceneDrawerBase
  * @version 1.0
  * @date 2024-10-07
  *
@@ -20,6 +20,14 @@
 
 namespace s21 {
 
+/**
+ * @class SceneDrawerBase
+ * @brief An abstract base class for 3D scene rendering and interaction.
+ *
+ * SceneDrawerBase provides an interface for rendering a 3D scene,
+ * clearing the scene, and saving the rendered scene as images or GIFs. It
+ * also includes signals for handling user interactions via mouse events.
+ */
 class SceneDrawerBase : public QWidget {
   Q_OBJECT
 

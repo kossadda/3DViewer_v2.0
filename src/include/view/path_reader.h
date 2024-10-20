@@ -1,7 +1,8 @@
 /**
  * @file path_reader.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the PathReader class, which provides a user interface
+ * for selecting file paths
  * @version 1.0
  * @date 2024-10-04
  *
@@ -25,6 +26,15 @@
 
 namespace s21 {
 
+/**
+ * @class PathReader
+ * @brief A widget for selecting file paths and displaying related information.
+ *
+ * The PathReader class provides an interface for users to select file paths,
+ * display information about the selected vertices and edges, and validate
+ * the selected path. It emits a signal when a valid path is chosen, which can
+ * be connected to other components for further processing.
+ */
 class PathReader : public BaseWidget {
   Q_OBJECT
 

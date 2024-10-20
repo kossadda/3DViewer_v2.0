@@ -1,7 +1,7 @@
 /**
  * @file scene.h
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief
+ * @brief Header file for the Scene class.
  * @version 1.0
  * @date 2024-09-23
  *
@@ -18,6 +18,14 @@
 
 namespace s21 {
 
+/**
+ * @class Scene
+ * @brief A class representing a 3D scene composed of vertices and indices.
+ *
+ * The Scene class encapsulates a 3D object in terms of its vertices and their
+ * relationships (represented by indices). It also supports transforming the
+ * vertices using a transformation matrix.
+ */
 class Scene {
  public:
   Scene() = default;

@@ -1,7 +1,8 @@
 /**
  * @file slider.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file that declares the Slider class for creating a customizable
+ * slider widget
  * @version 1.0
  * @date 2024-10-04
  *
@@ -21,6 +22,11 @@
 
 namespace s21 {
 
+/**
+ * @class Slider
+ * @brief A customizable slider widget for adjusting numerical values.
+ *
+ */
 class Slider : public QWidget {
   Q_OBJECT
 

@@ -16,6 +16,15 @@
 
 namespace s21 {
 
+/**
+ * @class TransformMatrix
+ * @brief A class for representing and manipulating 4x4 transformation matrices.
+ *
+ * The TransformMatrix class provides functionality for working with 4x4
+ * matrices commonly used in 3D transformations, such as translation, rotation,
+ * and scaling. It includes matrix multiplication and point transformation
+ * methods.
+ */
 class TransformMatrix {
  public:
   TransformMatrix() noexcept;

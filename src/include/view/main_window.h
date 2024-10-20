@@ -1,7 +1,8 @@
 /**
  * @file main_window.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the MainWindow class, providing the main application
+ * interface
  * @version 1.0
  * @date 2024-10-04
  *
@@ -27,6 +28,16 @@
 
 namespace s21 {
 
+/**
+ * @class MainWindow
+ * @brief The main application window for managing data and visual
+ * representation.
+ *
+ * The MainWindow class serves as the primary interface for users to interact
+ * with the application. It allows users to manipulate data, view scenes, and
+ * configure settings. The class integrates various components to facilitate
+ * user interaction with the application's functionalities.
+ */
 class MainWindow : public QWidget {
   Q_OBJECT
 

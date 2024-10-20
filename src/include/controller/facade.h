@@ -1,7 +1,7 @@
 /**
  * @file facade.h
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief
+ * @brief Declaration of the Facade class for managing 3D scenes
  * @version 1.0
  * @date 2024-09-23
  *
@@ -23,6 +23,17 @@
 
 namespace s21 {
 
+/**
+ * @class Facade
+ * @brief Provides a simplified interface to manage the loading, drawing, and
+ * saving of 3D scenes.
+ *
+ * The Facade class hides the complexity of interacting with the underlying
+ * scene, file readers, and rendering logic. It provides high-level methods to
+ * load a scene from a file, draw the scene, save the resulting image, and
+ * export it as a GIF. This class follows the Facade design pattern to simplify
+ * the interface for the user.
+ */
 class Facade : public QObject {
   Q_OBJECT
 

@@ -1,7 +1,7 @@
 /**
  * @file object_data.cc
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Implementation of the ObjectData class
  * @version 1.0
  * @date 2024-10-04
  *
@@ -13,11 +13,22 @@
 
 namespace s21 {
 
+/**
+ * @brief Construct a new ObjectData object.
+ *
+ * Initializes the object properties UI components.
+ */
 ObjectData::ObjectData() : BaseWidget{} {
   allocateMemory();
   initView();
 }
 
+/**
+ * @brief Allocates memory for UI components.
+ *
+ * This method initializes member variables and allocates necessary resources
+ * for the ObjectData object.
+ */
 void ObjectData::allocateMemory() {
   data_grid_ = new QGridLayout;
   lvertex_ = new QLabel{"  Vertex"};
@@ -33,6 +44,12 @@ void ObjectData::allocateMemory() {
   fcolor_ = new ColorButton{Data::data().facet_color};
 }
 
+/**
+ * @brief Initializes the user interface components.
+ *
+ * This method sets up the layout and initializes the various UI elements
+ * within the ObjectData widget.
+ */
 void ObjectData::initView() {
   QVector<QLabel *> labels{ltype_, lsize_, lcolor_, lvertex_, lfacet_};
   QString label_font_up{QString{Style::kLabelStyle}.replace("14px", "16px")};
@@ -110,11 +127,25 @@ void ObjectData::initView() {
   connect(fsize_, &QSpinBox::valueChanged, this, &ObjectData::onDataChanged);
 }
 
+/**
+ * @brief Slot to handle data changes from UI components.
+ *
+ * This method is called whenever a value changes in the UI components
+ * related to object properties.
+ *
+ * @param value The new value set in the UI component.
+ */
 void ObjectData::onDataChanged(int value) {
   (void)value;
   emit dataChanged();
 }
 
+/**
+ * @brief Records the current object data settings.
+ *
+ * This method saves the current state of object properties for future
+ * retrieval or restoration.
+ */
 void ObjectData::recordData() {
   Data &data{Data::data()};
 
@@ -140,6 +171,11 @@ void ObjectData::recordData() {
   data.facet_color = fcolor_->getColor();
 }
 
+/**
+ * @brief Resets the object data to default values.
+ *
+ * This method clears the current object settings and restores default values.
+ */
 void ObjectData::reset() {
   vtype_->setCurrentIndex(2);
   ftype_->setCurrentIndex(0);

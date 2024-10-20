@@ -1,7 +1,8 @@
 /**
  * @file color_button.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the ColorButton class, a custom QPushButton for color
+ * selection
  * @version 1.0
  * @date 2024-10-06
  *
@@ -20,6 +21,14 @@
 
 namespace s21 {
 
+/**
+ * @class ColorButton
+ * @brief A QPushButton that allows color selection.
+ *
+ * The ColorButton class provides a button that, when clicked, opens a
+ * QColorDialog for the user to select a color. It allows getting and setting
+ * the selected color, as well as emitting a signal when the color changes.
+ */
 class ColorButton : public QPushButton {
   Q_OBJECT
 

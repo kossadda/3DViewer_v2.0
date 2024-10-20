@@ -1,7 +1,7 @@
 /**
  * @file function.cc
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Implementation of the Function class
  * @version 1.0
  * @date 2024-10-06
  *
@@ -13,13 +13,25 @@
 
 namespace s21 {
 
+/**
+ * @brief Construct a new Function object.
+ */
 Function::Function() : QWidget{} {
   allocateMemory();
   initView();
 }
 
+/**
+ * @brief Destroy the Function object.
+ */
 Function::~Function() { delete count_down_; }
 
+/**
+ * @brief Allocates memory for UI components.
+ *
+ * This method initializes member variables and allocates
+ * necessary resources for the Function object.
+ */
 void Function::allocateMemory() {
   grid_ = new QGridLayout;
   save_img_ = new QPushButton{"Save image"};
@@ -31,6 +43,12 @@ void Function::allocateMemory() {
   count_down_ = new QTimer;
 }
 
+/**
+ * @brief Initializes the user interface.
+ *
+ * This method sets up the layout and UI components for the
+ * Function object.
+ */
 void Function::initView() {
   QVector<QPushButton *> buttons{save_img_, save_gif_, clear_, reset_};
 
@@ -61,6 +79,11 @@ void Function::initView() {
   connect(reset_, &QPushButton::clicked, this, &Function::onResetClicked);
 }
 
+/**
+ * @brief Slot that handles image saving button click.
+ *
+ * Opens a file dialog for the user to choose where to save the image.
+ */
 void Function::onImageClicked() {
   if (!recording_) {
     if (img_dialog_->exec() == QFileDialog::Accepted) {
@@ -87,6 +110,11 @@ void Function::onImageClicked() {
   }
 }
 
+/**
+ * @brief Slot that handles GIF saving button click.
+ *
+ * Opens a file dialog for the user to choose where to save the GIF.
+ */
 void Function::onGifClicked() {
   if (!recording_ && gif_dialog_->exec() == QFileDialog::Accepted) {
     path_ = gif_dialog_->selectedFiles().first();
@@ -103,6 +131,12 @@ void Function::onGifClicked() {
   }
 }
 
+/**
+ * @brief Slot that handles the countdown timer.
+ *
+ * This slot is triggered when the countdown timer elapses,
+ * allowing for time-based operations within the Function class.
+ */
 void Function::onCountDown() {
   if (count_) {
     save_gif_->setText(QString::number(count_));
@@ -115,14 +149,29 @@ void Function::onCountDown() {
   --count_;
 }
 
+/**
+ * @brief Slot that handles clear button click.
+ *
+ * Emits the clear signal to clear the workspace.
+ */
 void Function::changeStatus() {
   save_gif_->setStyleSheet(Style::kButtonStyle);
   save_gif_->setText("Save gif");
   recording_ = false;
 }
 
+/**
+ * @brief Slot that handles GIF saving button click.
+ *
+ * Opens a file dialog for the user to choose where to save the GIF.
+ */
 void Function::onClearClicked() { emit clear(); }
 
+/**
+ * @brief Slot that handles reset button click.
+ *
+ * Emits the reset signal to reset the application state.
+ */
 void Function::onResetClicked() { emit reset(); }
 
 }  // namespace s21

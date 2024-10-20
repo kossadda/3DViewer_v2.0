@@ -17,6 +17,13 @@
 
 namespace s21 {
 
+/**
+ * @class Vertex
+ * @brief Represents a 3D vertex in space.
+ *
+ * The Vertex class encapsulates a point in 3D space using a Point3D object
+ * and provides functionality for transforming and normalizing vertices.
+ */
 class Vertex {
  public:
   Vertex() = default;

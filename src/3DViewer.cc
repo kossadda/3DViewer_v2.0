@@ -1,7 +1,7 @@
 /**
  * @file 3DViewer.cc
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief
+ * @brief Entry point for the 3D Viewer application
  * @version 1.0
  * @date 2024-09-17
  *

@@ -1,7 +1,8 @@
 /**
  * @file file_reader_base.h
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief
+ * @brief Defines the base class for file readers responsible for loading 3D
+ * scenes
  * @version 1.0
  * @date 2024-09-24
  *
@@ -18,6 +19,14 @@
 
 namespace s21 {
 
+/**
+ * @class FileReaderBase
+ * @brief Abstract base class for file readers that load 3D scenes from files.
+ *
+ * This class provides an interface for reading scene files and defines a
+ * pure virtual function that derived classes must implement to handle specific
+ * file formats.
+ */
 class FileReaderBase {
  public:
   virtual ~FileReaderBase() = default;

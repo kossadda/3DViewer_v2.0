@@ -1,7 +1,7 @@
 /**
  * @file open_gl.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief OpenGL widget for rendering 3D scenes and managing OpenGL buffers
  * @version 1.0
  * @date 2024-10-07
  *
@@ -28,6 +28,15 @@
 
 namespace s21 {
 
+/**
+ * @class OpenGL
+ * @brief A widget for rendering 3D scenes using OpenGL.
+ *
+ * The `OpenGL` class provides functionality for rendering 3D scenes within a
+ * Qt widget using OpenGL. It manages OpenGL buffers, shaders, and handles user
+ * input events such as mouse movement and wheel events. The class also supports
+ * saving rendered scenes as images and GIFs.
+ */
 class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
   Q_OBJECT
 

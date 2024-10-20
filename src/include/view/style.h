@@ -1,7 +1,8 @@
 /**
  * @file style.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file that declares the Style class containing various styles
+ * for the application
  * @version 1.0
  * @date 2024-10-05
  *
@@ -16,6 +17,11 @@
 
 namespace s21 {
 
+/**
+ * @class Style
+ * @brief A class that holds style definitions for UI components.
+ *
+ */
 class Style {
  public:
   static const QString kWindowTranparentStyle;

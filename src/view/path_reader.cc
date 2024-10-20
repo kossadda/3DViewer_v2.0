@@ -1,7 +1,7 @@
 /**
  * @file path_reader.cc
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Implementation of the PathReader class
  * @version 1.0
  * @date 2024-10-04
  *
@@ -13,11 +13,18 @@
 
 namespace s21 {
 
+/**
+ * @brief Constructs the PathReader object and initializes the UI components.
+ */
 PathReader::PathReader() : BaseWidget{} {
   allocateMemory();
   initView();
 }
 
+/**
+ * @brief Allocates memory for the necessary UI elements (buttons, text fields,
+ * labels, and file dialog).
+ */
 void PathReader::allocateMemory() {
   path_button_ = new QPushButton{"Load"};
   path_edit_ = new QLineEdit;
@@ -27,6 +34,10 @@ void PathReader::allocateMemory() {
                             "Wireframe obj (*.obj)"};
 }
 
+/**
+ * @brief Sets up the layout and applies styles to the UI components. Connects
+ * UI events to their handlers.
+ */
 void PathReader::initView() {
   grid_->setHorizontalSpacing(15);
 
@@ -54,6 +65,10 @@ void PathReader::initView() {
   connect(path_edit_, &QLineEdit::returnPressed, this, &PathReader::validPath);
 }
 
+/**
+ * @brief Opens a file dialog for selecting a wireframe file when the button is
+ * clicked.
+ */
 void PathReader::onButtonClicked() {
   if (dialog_->exec() == QDialog::Accepted) {
     path_edit_->setText(dialog_->selectedFiles().first());
@@ -61,6 +76,10 @@ void PathReader::onButtonClicked() {
   }
 }
 
+/**
+ * @brief Validates the entered file path, ensuring it is correct and exists.
+ * Emits a signal if valid.
+ */
 void PathReader::validPath() {
   QFileInfo info{path_edit_->text()};
   bool valid_path{true};
@@ -84,11 +103,19 @@ void PathReader::validPath() {
   }
 }
 
+/**
+ * @brief Updates the UI labels with the provided vertex and edge counts.
+ * @param vertex_count The number of vertices.
+ * @param edge_count The number of edges.
+ */
 void PathReader::setInfo(int vertex_count, int edge_count) {
   vertex_info_->setText("Vertex: " + QString::number(vertex_count));
   edge_info_->setText("Edge: " + QString::number(edge_count));
 }
 
+/**
+ * @brief Stores the selected file path for future use.
+ */
 void PathReader::recordData() {
   Data::data().path = path_edit_->text().toStdString();
 }

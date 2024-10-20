@@ -1,7 +1,7 @@
 /**
  * @file transform_matrix_builder.cc
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief
+ * @brief Implementation file for the TransformMatrixBuilder class
  * @version 1.0
  * @date 2024-09-19
  *
@@ -15,6 +15,19 @@
 
 namespace s21 {
 
+/**
+ * @brief Creates a rotation matrix.
+ *
+ * Generates a 4x4 rotation matrix based on the provided rotation angles
+ * (in radians) around the x, y, and z axes.
+ * This matrix can be used to apply a rotation transformation to a 3D object.
+ * The method is marked noexcept to ensure that no exceptions are thrown.
+ *
+ * @param x Rotation angle around the x-axis, in radians.
+ * @param y Rotation angle around the y-axis, in radians.
+ * @param z Rotation angle around the z-axis, in radians.
+ * @return A TransformMatrix representing the rotation.
+ */
 TransformMatrix TransformMatrixBuilder::CreateRotationMatrix(float x, float y,
                                                              float z) noexcept {
   TransformMatrix rot_x, rot_y, rot_z;
@@ -41,6 +54,18 @@ TransformMatrix TransformMatrixBuilder::CreateRotationMatrix(float x, float y,
   return rot_x * rot_y * rot_z;
 }
 
+/**
+ * @brief Creates a translation (move) matrix.
+ *
+ * Generates a 4x4 translation matrix that moves a 3D object by the specified
+ * amounts along the x, y, and z axes. The method is marked noexcept to ensure
+ * that no exceptions are thrown.
+ *
+ * @param x The amount to move along the x-axis.
+ * @param y The amount to move along the y-axis.
+ * @param z The amount to move along the z-axis.
+ * @return A TransformMatrix representing the translation.
+ */
 TransformMatrix TransformMatrixBuilder::CreateMoveMatrix(float x, float y,
                                                          float z) noexcept {
   TransformMatrix res;
@@ -52,6 +77,18 @@ TransformMatrix TransformMatrixBuilder::CreateMoveMatrix(float x, float y,
   return res;
 }
 
+/**
+ * @brief Creates a scaling matrix.
+ *
+ * Generates a 4x4 scaling matrix that scales a 3D object by the specified
+ * factors along the x, y, and z axes. The method is marked noexcept to ensure
+ * that no exceptions are thrown.
+ *
+ * @param x The scaling factor along the x-axis.
+ * @param y The scaling factor along the y-axis.
+ * @param z The scaling factor along the z-axis.
+ * @return A TransformMatrix representing the scaling transformation.
+ */
 TransformMatrix TransformMatrixBuilder::CreateScaleMatrix(float x, float y,
                                                           float z) noexcept {
   TransformMatrix matrix;

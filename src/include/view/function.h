@@ -1,7 +1,8 @@
 /**
  * @file function.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the Function class, providing UI components for image
+ * and GIF handling
  * @version 1.0
  * @date 2024-10-06
  *
@@ -23,6 +24,15 @@
 
 namespace s21 {
 
+/**
+ * @class Function
+ * @brief A widget for image and GIF handling operations.
+ *
+ * The Function class provides a user interface for saving images and GIFs,
+ * clearing the workspace, and resetting the application. It contains buttons
+ * for these operations and manages the interaction logic through signal-slot
+ * connections.
+ */
 class Function : public QWidget {
   Q_OBJECT
 
