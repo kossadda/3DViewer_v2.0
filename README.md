@@ -54,12 +54,12 @@
 
 The goal of this project is to implement a program for viewing 3D models in wireframe form (3D Viewer) in the C++ programming language. The models themselves are loaded from .obj files, which makes it possible to view them on the screen with the ability to rotate, scale and move.
 
-- The program is developed in the C++ standard language using the gcc compiler. Additional libraries and Qt modules are used;
-- The program code is located in the src folder;
-- The program and test build is configured using CMake, which is launched using Makefile with a standard set of targets for a GNU program: all, install, uninstall, clean, dvi, dist, tests. Installation is carried out in the bin folder in the repository root;
-- The program is developed in accordance with the principles of object-oriented programming. The following development patterns are used: Facade, Singleton, Strategy, MVC;
-- The code is written in accordance with Google Style;
-- The modules related to model loading and affine transformations are covered by unit tests;
+- The program is developed in the `C++` standard language using the `gcc` compiler. Additional libraries and `Qt` modules are used;
+- The program code is located in the `src` folder;
+- The program and test build is configured using `CMake`, which is launched using `Makefile` with a standard set of targets for a GNU program: `all`, `install`, `uninstall`, `clean`, `dvi`, `dist`, `tests`. Installation is carried out in the `bin` folder in the repository root;
+- The program is developed in accordance with the principles of object-oriented programming. The following development patterns are used: `Facade`, `Singleton`, `Strategy`, `MVC`;
+- The code is written in accordance with `Google Style`;
+- The modules related to model loading and affine transformations are covered by `unit` tests;
 - The program displays only one model on the screen at a time;
 - The program allows you to:
     - Load a wireframe model from an `obj` file (supports only a list of vertices and surfaces);
@@ -73,7 +73,7 @@ The goal of this project is to implement a program for viewing 3D models in wire
     - Choose a background color;
     - Save the resulting ("rendered") images to a file in the `bmp` and `jpeg` formats;
     - Record small "screencasts" - current user affine transformations of the loaded object into `gif`-animation (640x480, 10`fps`, 5s);
-- The program has a graphical user interface based on the GUI libraries `QT` with `API` for `C++`.
+- The program has a graphical user interface based on the GUI libraries `Qt` with `API` for `C++`.
 - The graphical user interface contains:
     - A button for selecting a file with a model and a field for entering/outputting its name;
     - A button for switching the affine transformation method (processor/video card);
