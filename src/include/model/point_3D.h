@@ -26,11 +26,11 @@ namespace s21 {
  */
 struct Point3D {
  public:
-  Point3D() noexcept = default;
+  Point3D() = default;
   Point3D(float x, float y, float z);
-  inline const float* base() const noexcept { return &x; }
+  inline const float* base() const { return &x; }
 
-  bool operator==(const Point3D& other) const noexcept;
+  bool operator==(const Point3D& other) const;
   float x{}, y{}, z{};
 };
 

@@ -33,7 +33,7 @@ class Slider : public QWidget {
  public:
   Slider(const QString &name, int min, int max);
 
-  int value();
+  int value() const;
   void setValue(int value);
 
  signals:

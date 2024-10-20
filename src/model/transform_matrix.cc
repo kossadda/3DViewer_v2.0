@@ -20,7 +20,7 @@ namespace s21 {
  * The constructor is marked noexcept to guarantee that it doesn't throw any
  * exceptions.
  */
-TransformMatrix::TransformMatrix() noexcept {
+TransformMatrix::TransformMatrix() {
   for (int i = 0; i < kSize; ++i) {
     for (int j = 0; j < kSize; ++j) {
       m_[i][j] = (i == j) ? 1.f : 0.f;
@@ -38,8 +38,7 @@ TransformMatrix::TransformMatrix() noexcept {
  * @param other The other TransformMatrix to multiply with.
  * @return A new TransformMatrix that is the result of the multiplication.
  */
-TransformMatrix TransformMatrix::operator*(
-    const TransformMatrix &other) const noexcept {
+TransformMatrix TransformMatrix::operator*(const TransformMatrix &other) const {
   TransformMatrix res;
 
   for (int i = 0; i < kSize; ++i) {
@@ -66,7 +65,7 @@ TransformMatrix TransformMatrix::operator*(
  * @param other A constant reference to the Point3D object to be transformed.
  * @return A new Point3D object representing the transformed point.
  */
-Point3D TransformMatrix::TransformPoint(const Point3D &other) const noexcept {
+Point3D TransformMatrix::TransformPoint(const Point3D &other) const {
   Point3D res;
 
   res.x =
@@ -90,11 +89,10 @@ Point3D TransformMatrix::TransformPoint(const Point3D &other) const noexcept {
  * @param col The column index of the element (0-based).
  * @param value The value to set in the specified position.
  */
-void TransformMatrix::set_element(const int row, const int col,
-                                  float value) noexcept {
+void TransformMatrix::set_element(const int row, const int col, float value) {
   m_[row][col] = value;
 }
 
-float TransformMatrix::element(int row, int col) { return m_[row][col]; }
+float TransformMatrix::element(int row, int col) const { return m_[row][col]; }
 
 }  // namespace s21

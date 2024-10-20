@@ -73,7 +73,9 @@ void BaseWidget::initView() {
  *
  * @return QString The title of the widget.
  */
-QString BaseWidget::title() { return (title_) ? title_->text() : QString{}; }
+QString BaseWidget::title() const {
+  return (title_) ? title_->text() : QString{};
+}
 
 /**
  * @brief Set an icon for the widget.

@@ -103,7 +103,7 @@ Vertex FileReader::ParseVertex(const std::string& line) {
  * @param line The line of text containing face data.
  * @return std::vector<int> A vector of vertex indices that define the face.
  */
-std::vector<int> FileReader::ParseFace(const std::string& line) {
+std::vector<int> FileReader::ParseFace(const std::string& line) const {
   std::istringstream iss{line};
   std::vector<int> vertex_indices;
   iss.ignore(2);

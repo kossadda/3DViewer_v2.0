@@ -28,8 +28,7 @@ namespace s21 {
  * @param normalize_param A float value used to normalize the vertices.
  */
 Scene::Scene(const std::vector<int>& indices,
-             const std::vector<Vertex>& vertices,
-             float normalize_param) noexcept
+             const std::vector<Vertex>& vertices, float normalize_param)
     : indices_{indices} {
   for (Vertex vertex : vertices) {
     data_.emplace_back(vertex.Normalize(normalize_param));
@@ -48,7 +47,7 @@ Scene::Scene(const std::vector<int>& indices,
  * @param matrix A constant reference to the TransformMatrix object to apply to
  * the vertices.
  */
-void Scene::Transform(const TransformMatrix& matrix) noexcept {
+void Scene::Transform(const TransformMatrix& matrix) {
   for (std::size_t i{}; i < data_.size(); ++i) {
     vertices_[i] = data_[i].Transform(matrix);
   }

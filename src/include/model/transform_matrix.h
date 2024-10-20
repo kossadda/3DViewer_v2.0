@@ -27,11 +27,13 @@ namespace s21 {
  */
 class TransformMatrix {
  public:
-  TransformMatrix() noexcept;
-  TransformMatrix operator*(const TransformMatrix &other) const noexcept;
-  Point3D TransformPoint(const Point3D &other) const noexcept;
-  void set_element(int row, int col, float value) noexcept;
-  float element(int row, int col);
+  TransformMatrix();
+
+  void set_element(int row, int col, float value);
+  float element(int row, int col) const;
+
+  TransformMatrix operator*(const TransformMatrix &other) const;
+  Point3D TransformPoint(const Point3D &other) const;
 
  private:
   static constexpr int kSize = 4;

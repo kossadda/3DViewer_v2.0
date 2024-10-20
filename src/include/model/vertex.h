@@ -28,15 +28,15 @@ class Vertex {
  public:
   Vertex() = default;
   Vertex(float x, float y, float z);
-  explicit Vertex(const Point3D &point) noexcept;
+  explicit Vertex(const Point3D &point);
 
-  inline const Point3D &position() const noexcept { return position_; }
-  inline void set_position(const Point3D &point) noexcept { position_ = point; }
+  const Point3D &position() const { return position_; }
+  void set_position(const Point3D &point) { position_ = point; }
 
-  Vertex Transform(const TransformMatrix &matrix) const noexcept;
+  Vertex Transform(const TransformMatrix &matrix) const;
   Vertex &Normalize(float normalize_param);
 
-  bool operator==(const Vertex &other) const noexcept;
+  bool operator==(const Vertex &other) const;
 
  private:
   Point3D position_;

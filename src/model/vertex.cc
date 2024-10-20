@@ -22,7 +22,7 @@ namespace s21 {
  * @param point A constant reference to a Point3D object representing the
  * position.
  */
-Vertex::Vertex(const Point3D &point) noexcept : position_{point} {}
+Vertex::Vertex(const Point3D &point) : position_{point} {}
 
 /**
  * @brief Constructor to initialize a Vertex with x, y, z coordinates.
@@ -43,7 +43,7 @@ Vertex::Vertex(float x, float y, float z) : position_{x, y, z} {}
  * @param matrix A constant reference to the transformation matrix.
  * @return A new Vertex object after applying the transformation.
  */
-Vertex Vertex::Transform(const TransformMatrix &matrix) const noexcept {
+Vertex Vertex::Transform(const TransformMatrix &matrix) const {
   return Vertex{matrix.TransformPoint(position_)};
 }
 
@@ -72,7 +72,7 @@ Vertex &Vertex::Normalize(float normalize_param) {
  * @param other The other Vertex object to compare.
  * @return True if the two vertices have the same position, false otherwise.
  */
-bool Vertex::operator==(const Vertex &other) const noexcept {
+bool Vertex::operator==(const Vertex &other) const {
   return position_ == other.position_;
 }
 

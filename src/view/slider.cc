@@ -88,6 +88,6 @@ void Slider::setValue(int value) { slider_->setValue(value); }
  * @brief Retrieves the current value of the slider.
  * @return The current value of the slider.
  */
-int Slider::value() { return slider_->value(); }
+int Slider::value() const { return slider_->value(); }
 
 }  // namespace s21

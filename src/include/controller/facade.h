@@ -48,7 +48,7 @@ class Facade : public QObject {
 
   std::size_t numberOfVerticies();
   std::size_t numberOfEdges();
-  inline SceneDrawerBase *getView() { return scene_drawer_; }
+  SceneDrawerBase *getView() { return scene_drawer_; }
 
  signals:
   void recorded();

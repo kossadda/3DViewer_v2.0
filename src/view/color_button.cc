@@ -46,7 +46,7 @@ void ColorButton::onButtonClicked() {
  *
  * @return QColor The currently selected color.
  */
-QColor ColorButton::getColor() { return dialog_->currentColor(); }
+QColor ColorButton::getColor() const { return dialog_->currentColor(); }
 
 /**
  * @brief Set a new color for the button.

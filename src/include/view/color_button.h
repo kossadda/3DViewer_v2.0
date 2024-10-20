@@ -36,7 +36,7 @@ class ColorButton : public QPushButton {
   explicit ColorButton(const QColor &color);
   ~ColorButton();
 
-  QColor getColor();
+  QColor getColor() const;
   void setColor(const QColor &color);
 
  signals:

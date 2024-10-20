@@ -44,7 +44,7 @@ class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
   OpenGL();
   ~OpenGL();
 
-  bool isBufferAllocate();
+  bool isBufferAllocate() const;
   void initBuffers(Scene *scene);
   void updateBuffer(Scene *scene);
   void destroyBuffers();
@@ -68,10 +68,10 @@ class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
  private:
   void allocateMemory();
   void setupProjection(int w, int h);
-  TransformMatrix afinneCPU();
-  QMatrix4x4 afinneGPU();
+  TransformMatrix afinneCPU() const;
+  QMatrix4x4 afinneGPU() const;
   void createSnapshot();
-  void snapshotsToGif();
+  void snapshotsToGif() const;
 
   static const char *kVertexShader;
   static const char *kFragmentShader;

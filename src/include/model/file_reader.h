@@ -35,7 +35,7 @@ class FileReader : public FileReaderBase {
 
  private:
   Vertex ParseVertex(const std::string& line);
-  std::vector<int> ParseFace(const std::string& line);
+  std::vector<int> ParseFace(const std::string& line) const;
 
   float normalize_param_;
 };

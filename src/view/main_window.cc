@@ -147,7 +147,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
  *
  * This method stores the current application settings using QSettings.
  */
-void MainWindow::saveSettings() {
+void MainWindow::saveSettings() const {
   QSettings settings("3DViewer", "3DViewerApp");
 
   settings.setValue("geometry", saveGeometry());

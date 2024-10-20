@@ -36,7 +36,7 @@ class BaseWidget : public QWidget {
  public:
   explicit BaseWidget(QLabel *title = nullptr);
 
-  QString title();
+  QString title() const;
   void setIcon(int w, int h);
 
  private:

@@ -30,18 +30,13 @@ class Scene {
  public:
   Scene() = default;
   Scene(const std::vector<int>& indices, const std::vector<Vertex>& vertices,
-        float normalize_param) noexcept;
+        float normalize_param);
 
-  inline const std::vector<int>& indices() const noexcept { return indices_; }
+  inline const std::vector<int>& indices() const { return indices_; }
+  inline const std::vector<Vertex>& vertices() const { return vertices_; }
+  inline const std::vector<Vertex>& base_vertices() const { return data_; }
 
-  inline const std::vector<Vertex>& vertices() const noexcept {
-    return vertices_;
-  }
-  inline const std::vector<Vertex>& base_vertices() const noexcept {
-    return data_;
-  }
-
-  void Transform(const TransformMatrix& matrix) noexcept;
+  void Transform(const TransformMatrix& matrix);
 
  private:
   std::vector<int> indices_;

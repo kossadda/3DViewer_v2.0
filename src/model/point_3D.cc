@@ -33,7 +33,7 @@ Point3D::Point3D(float x, float y, float z) : x{x}, y{y}, z{z} {}
  * @param other A constant reference to another `Point3D` object.
  * @return True if the points are equal, otherwise false.
  */
-bool Point3D::operator==(const Point3D& other) const noexcept {
+bool Point3D::operator==(const Point3D& other) const {
   return x == other.x && y == other.y && z == other.z;
 }
 

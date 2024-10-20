@@ -53,7 +53,7 @@ void OpenGL::allocateMemory() {
  *
  * @return True if buffers are allocated, otherwise false.
  */
-bool OpenGL::isBufferAllocate() {
+bool OpenGL::isBufferAllocate() const {
   return (!vbo_->isCreated() || !ebo_->isCreated() || !vao_->isCreated())
              ? false
              : true;
@@ -248,7 +248,7 @@ void OpenGL::destroyBuffers() {
  *
  * @return A `TransformMatrix` object representing the transformation.
  */
-TransformMatrix OpenGL::afinneCPU() {
+TransformMatrix OpenGL::afinneCPU() const {
   TransformMatrix rotate{TransformMatrixBuilder::CreateRotationMatrix(
       data_.rotate_x, data_.rotate_y, data_.rotate_z)};
   TransformMatrix scale{TransformMatrixBuilder::CreateScaleMatrix(
@@ -268,7 +268,7 @@ TransformMatrix OpenGL::afinneCPU() {
  *
  * @return A `QMatrix4x4` object representing the transformation.
  */
-QMatrix4x4 OpenGL::afinneGPU() {
+QMatrix4x4 OpenGL::afinneGPU() const {
   QMatrix4x4 rotate;
   QMatrix4x4 scale;
   QMatrix4x4 move;
@@ -327,7 +327,7 @@ void OpenGL::createSnapshot() {
  *
  * This function converts a series of snapshots into a GIF animation.
  */
-void OpenGL::snapshotsToGif() {
+void OpenGL::snapshotsToGif() const {
   bool correct = true;
 
   GifWriter writer = {};

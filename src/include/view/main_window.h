@@ -53,7 +53,7 @@ class MainWindow : public QWidget {
   void allocateMemory();
   void initView();
   void recordData();
-  void saveSettings();
+  void saveSettings() const;
   void loadSettings();
 
   Data &data_{Data::data()};
