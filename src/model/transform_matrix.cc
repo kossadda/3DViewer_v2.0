@@ -95,8 +95,6 @@ void TransformMatrix::set_element(const int row, const int col,
   m_[row][col] = value;
 }
 
-float TransformMatrix::element(int row, int col) {
-  return m_[row][col];
-}
+float TransformMatrix::element(int row, int col) { return m_[row][col]; }
 
 }  // namespace s21

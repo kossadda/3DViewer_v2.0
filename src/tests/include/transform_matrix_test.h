@@ -12,12 +12,12 @@
 #ifndef SRC_TESTS_INCLUDE_TRANSFORM_MATRIX_TEST_H_
 #define SRC_TESTS_INCLUDE_TRANSFORM_MATRIX_TEST_H_
 
-
 #include <gtest/gtest.h>
+
 #include <cmath>
 
-#include "include/model/transform_matrix_builder.h"
 #include "include/model/transform_matrix.h"
+#include "include/model/transform_matrix_builder.h"
 
 namespace s21 {
 
