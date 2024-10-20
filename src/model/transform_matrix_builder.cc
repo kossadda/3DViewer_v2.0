@@ -100,6 +100,4 @@ TransformMatrix TransformMatrixBuilder::CreateScaleMatrix(float x, float y,
   return matrix;
 }
 
-const float TransformMatrixBuilder::kRadian = 0.0174533f;
-
 }  // namespace s21

@@ -397,6 +397,4 @@ const char *OpenGL::kFragmentShader =
     "  gl_FragColor = color;\n"
     "}\n";
 
-const float OpenGL::kMoveScale = 50.0f;
-
 }  // namespace s21

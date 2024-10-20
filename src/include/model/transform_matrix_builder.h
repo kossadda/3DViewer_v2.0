@@ -33,8 +33,7 @@ class TransformMatrixBuilder {
   static TransformMatrix CreateScaleMatrix(float x, float y, float z) noexcept;
 
  private:
-  static const float kRadian;
-  static const float kMoveScale;
+  static constexpr float kRadian = 0.0174533f;
 };
 
 }  // namespace s21

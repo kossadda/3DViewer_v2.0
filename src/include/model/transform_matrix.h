@@ -34,7 +34,7 @@ class TransformMatrix {
   float element(int row, int col);
 
  private:
-  static const int kSize = 4;
+  static constexpr int kSize = 4;
   float m_[kSize][kSize];
 };
 

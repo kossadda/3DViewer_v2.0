@@ -75,9 +75,9 @@ class OpenGL : public QOpenGLWidget, public QOpenGLFunctions {
 
   static const char *kVertexShader;
   static const char *kFragmentShader;
-  static const float kMoveScale;
-  static const int kGifFPS{10};
-  static const int kGifLength{5};
+  static constexpr float kMoveScale{50.f};
+  static constexpr int kGifFPS{10};
+  static constexpr int kGifLength{5};
 
   Data &data_{Data::data()};
   int coeff_matrix_;
