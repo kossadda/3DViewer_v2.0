@@ -9,10 +9,13 @@ BIN_DIR               := ../bin
 TEST_BIN_DIR          := ./test_bin
 SETTING_DIR           := ~/.config/3DViewer
 DOCS_DIR              := ../docs
+DIST_DIR              := ../dist
 
 #================================== FILE LIST ==================================
 EXCLUDE               := gif.h
-ALL_FILES             := $(shell find . -type f \( -name "*.h" -o -name "*.cc" \) | grep -v '/$(EXCLUDE)')
+ALL_FILES             := $(shell find . -type f \( -name "*.h" -o -name "*.cc" \) \
+												 | grep -v '/$(EXCLUDE)')
+ARCHIVE_NAME          := $(PROJECT_NAME).tar.gz
 
 #=================================== TARGETS ===================================
 all: install run
@@ -24,6 +27,7 @@ uninstall: clean
 	rm -rf $(SETTING_DIR)
 	rm -rf $(BIN_DIR)
 	rm -rf $(DOCS_DIR)
+	rm -rf $(DIST_DIR)
 
 test: $(TEST_BIN_DIR)
 	cd $(TEST_BIN_DIR) && cmake ../tests && make
@@ -31,8 +35,6 @@ test: $(TEST_BIN_DIR)
 
 clean:
 	rm -rf $(TEST_BIN_DIR)
-	rm -rf $(REPORT_DIR)
-	rm -f test
 
 run:
 	./$(BIN_DIR)/viewer
@@ -57,7 +59,14 @@ $(TEST_BIN_DIR):
 $(DOCS_DIR):
 	mkdir $(DOCS_DIR)
 
+$(DIST_DIR):
+	mkdir $(DIST_DIR)
+
 #=========================== GENERATE DOCUMENTATION ============================
 dvi: $(DOCS_DIR)
 	doxygen Doxyfile
 	xdg-open $(DOCS_DIR)/html/index.html
+
+#=================================== ARCHIVE ===================================
+dist: clean $(DIST_DIR)
+	tar -czvf $(DIST_DIR)/$(ARCHIVE_NAME) -C .. src README.md README_RUS.md LICENSE.txt
