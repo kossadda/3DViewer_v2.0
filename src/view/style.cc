@@ -1,7 +1,7 @@
 /**
  * @file style.cc
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Implementation of the Style class
  * @version 1.0
  * @date 2024-10-05
  *

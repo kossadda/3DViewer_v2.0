@@ -1,7 +1,8 @@
 /**
  * @file afinne_data.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the AfinneData class that manages affine
+ * transformations
  * @version 1.0
  * @date 2024-10-04
  *

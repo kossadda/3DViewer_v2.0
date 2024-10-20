@@ -1,7 +1,7 @@
 /**
  * @file scene_data.cc
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Implementation of the SceneData class
  * @version 1.0
  * @date 2024-10-04
  *
@@ -13,11 +13,19 @@
 
 namespace s21 {
 
+/**
+ * @brief Constructs a SceneData object.
+ * @param title QLabel pointer for the widget title.
+ */
 SceneData::SceneData(QLabel *title) : BaseWidget{title} {
   allocateMemory();
   initView();
 }
 
+/**
+ * @brief Allocates memory for UI components such as labels, combo boxes, and
+ * color button.
+ */
 void SceneData::allocateMemory() {
   data_grid_ = new QGridLayout;
   calculate_label_ = new QLabel{"   Calculate"};
@@ -28,6 +36,10 @@ void SceneData::allocateMemory() {
   color_button_ = new ColorButton{Data::data().background_color};
 }
 
+/**
+ * @brief Initializes the layout and appearance of the UI components, and sets
+ * up signal connections.
+ */
 void SceneData::initView() {
   QVector<QLabel *> labels{calculate_label_, projection_label_, color_label_};
   QString label_font_up{QString{Style::kLabelStyle}.replace("14px", "16px")};
@@ -80,11 +92,20 @@ void SceneData::initView() {
           &SceneData::onDataChanged);
 }
 
+/**
+ * @brief Handles data change events, emitting a signal when the user modifies
+ * settings.
+ * @param value The new selected value (unused in this function).
+ */
 void SceneData::onDataChanged(int value) {
   (void)value;
   emit dataChanged();
 }
 
+/**
+ * @brief Records the current UI settings (calculation type, projection type,
+ * and color) into the Data singleton.
+ */
 void SceneData::recordData() {
   Data &data{Data::data()};
 
@@ -103,6 +124,9 @@ void SceneData::recordData() {
   data.background_color = color_button_->getColor();
 }
 
+/**
+ * @brief Resets the UI settings to their default values.
+ */
 void SceneData::reset() {
   calculate_combo_->setCurrentIndex(0);
   projection_combo_->setCurrentIndex(0);

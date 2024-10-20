@@ -1,7 +1,7 @@
 /**
  * @file transform_matrix_builder.h
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief
+ * @brief Header file for the TransformMatrixBuilder class.
  * @version 1.0
  * @date 2024-09-19
  *
@@ -16,6 +16,15 @@
 
 namespace s21 {
 
+/**
+ * @class TransformMatrixBuilder
+ * @brief A utility class for building common 3D transformation matrices.
+ *
+ * This class provides static methods for generating 4x4 matrices used for
+ * rotating, moving (translating), and scaling objects in 3D space. These
+ * methods return instances of the TransformMatrix class, ready for use in
+ * transformations.
+ */
 class TransformMatrixBuilder {
  public:
   static TransformMatrix CreateRotationMatrix(float x, float y,

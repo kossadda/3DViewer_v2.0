@@ -1,7 +1,8 @@
 /**
  * @file file_reader.h
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief
+ * @brief  Defines the FileReader class responsible for reading and parsing 3D
+ * scene files
  * @version 1.0
  * @date 2024-09-24
  *
@@ -19,6 +20,15 @@
 
 namespace s21 {
 
+/**
+ * @class FileReader
+ * @brief A class responsible for reading 3D scene files and parsing vertex and
+ * face data.
+ *
+ * Inherits from FileReaderBase and provides implementation for reading scenes
+ * from file paths. This class handles the parsing of vertices and faces and
+ * supports normalization of parameters.
+ */
 class FileReader : public FileReaderBase {
  public:
   Scene* ReadScene(const std::string& path) override;

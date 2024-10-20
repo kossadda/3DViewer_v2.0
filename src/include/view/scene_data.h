@@ -1,7 +1,8 @@
 /**
  * @file scene_data.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file that declares the SceneData class for managing 3D scene
+ * configuration settings.
  * @version 1.0
  * @date 2024-10-04
  *
@@ -22,6 +23,11 @@
 
 namespace s21 {
 
+/**
+ * @class SceneData
+ * @brief A UI component for configuring settings related to a 3D scene.
+ *
+ */
 class SceneData : public BaseWidget {
   Q_OBJECT
 

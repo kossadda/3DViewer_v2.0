@@ -1,7 +1,7 @@
 /**
  * @file gif.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for working with GIF images
  * @version 1.0
  * @date 2024-10-16
  *

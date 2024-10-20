@@ -1,7 +1,8 @@
 /**
  * @file base_widget.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the BaseWidget class that provides a base for custom
+ * widgets
  * @version 1.0
  * @date 2024-10-05
  *
@@ -21,6 +22,14 @@
 
 namespace s21 {
 
+/**
+ * @class BaseWidget
+ * @brief A base class for custom widgets.
+ *
+ * The BaseWidget class inherits from QWidget and provides a framework
+ * for creating custom widgets. It allows setting a title and an icon
+ * and includes basic layout management.
+ */
 class BaseWidget : public QWidget {
   Q_OBJECT
 

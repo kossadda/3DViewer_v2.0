@@ -1,7 +1,7 @@
 /**
  * @file scene_drawer.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the SceneDrawer class
  * @version 1.0
  * @date 2024-10-14
  *
@@ -23,6 +23,14 @@
 
 namespace s21 {
 
+/**
+ * @class SceneDrawer
+ * @brief A class for drawing 3D scenes and handling user interactions.
+ *
+ * SceneDrawer is responsible for rendering 3D scenes using OpenGL, responding
+ * to mouse events for interaction, and providing functionality to save rendered
+ * images and GIFs.
+ */
 class SceneDrawer : public SceneDrawerBase {
  public:
   SceneDrawer();

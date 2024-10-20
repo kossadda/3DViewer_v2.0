@@ -1,7 +1,7 @@
 /**
  * @file file_reader.cc
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief
+ * @brief Implementation file for the FileReader class
  * @version 1.0
  * @date 2024-09-24
  *
@@ -18,6 +18,15 @@
 
 namespace s21 {
 
+/**
+ * @brief Reads a 3D scene from the given file path.
+ *
+ * This function opens and reads the scene data from the specified file path.
+ * The data is parsed into a Scene object, which is returned to the caller.
+ *
+ * @param path The file path to the scene file.
+ * @return Scene* A pointer to the parsed Scene object.
+ */
 Scene* FileReader::ReadScene(const std::string& path) {
   std::ifstream file{path};
   std::string line;
@@ -47,6 +56,15 @@ Scene* FileReader::ReadScene(const std::string& path) {
   return new Scene{indices, vertices, normalize_param_};
 }
 
+/**
+ * @brief Parses a line of text to extract vertex data.
+ *
+ * This function takes a string representing a line from the scene file and
+ * parses it to extract vertex data (e.g., position coordinates).
+ *
+ * @param line The line of text containing vertex data.
+ * @return Vertex The parsed vertex object.
+ */
 Vertex FileReader::ParseVertex(const std::string& line) {
   std::istringstream iss{line};
   float x, y, z;
@@ -75,6 +93,16 @@ Vertex FileReader::ParseVertex(const std::string& line) {
   return Vertex{x, y, z};
 }
 
+/**
+ * @brief Parses a line of text to extract face data.
+ *
+ * This function takes a string representing a line from the scene file and
+ * parses it to extract face data, which is represented as a vector of vertex
+ * indices.
+ *
+ * @param line The line of text containing face data.
+ * @return std::vector<int> A vector of vertex indices that define the face.
+ */
 std::vector<int> FileReader::ParseFace(const std::string& line) {
   std::istringstream iss{line};
   std::vector<int> vertex_indices;

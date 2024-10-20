@@ -1,7 +1,8 @@
 /**
  * @file scene_view.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file that declares the SceneView class for managing 3D scene
+ * rendering and user interaction
  * @version 1.0
  * @date 2024-10-04
  *
@@ -21,6 +22,11 @@
 
 namespace s21 {
 
+/**
+ * @class SceneView
+ * @brief A class for rendering and managing interactions with a 3D scene.
+ *
+ */
 class SceneView : public BaseWidget {
   Q_OBJECT
 

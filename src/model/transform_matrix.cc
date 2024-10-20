@@ -12,6 +12,14 @@
 #include "include/model/transform_matrix.h"
 
 namespace s21 {
+
+/**
+ * @brief Default constructor.
+ *
+ * Initializes the matrix with default values (usually the identity matrix).
+ * The constructor is marked noexcept to guarantee that it doesn't throw any
+ * exceptions.
+ */
 TransformMatrix::TransformMatrix() noexcept {
   for (int i = 0; i < kSize; ++i) {
     for (int j = 0; j < kSize; ++j) {
@@ -20,6 +28,16 @@ TransformMatrix::TransformMatrix() noexcept {
   }
 }
 
+/**
+ * @brief Matrix multiplication operator.
+ *
+ * Performs matrix multiplication between the current matrix and another
+ * TransformMatrix. The resulting matrix is returned. The operation is marked
+ * noexcept to ensure no exceptions are thrown during matrix multiplication.
+ *
+ * @param other The other TransformMatrix to multiply with.
+ * @return A new TransformMatrix that is the result of the multiplication.
+ */
 TransformMatrix TransformMatrix::operator*(
     const TransformMatrix &other) const noexcept {
   TransformMatrix res;
@@ -37,6 +55,17 @@ TransformMatrix TransformMatrix::operator*(
   return res;
 }
 
+/**
+ * @brief Transforms a 3D point using the matrix.
+ *
+ * Applies the transformation matrix to a given 3D point (represented by a
+ * Point3D object). This can include operations like translation, rotation, or
+ * scaling depending on the matrix. The method is marked noexcept to indicate it
+ * will not throw exceptions.
+ *
+ * @param other A constant reference to the Point3D object to be transformed.
+ * @return A new Point3D object representing the transformed point.
+ */
 Point3D TransformMatrix::TransformPoint(const Point3D &other) const noexcept {
   Point3D res;
 
@@ -50,6 +79,17 @@ Point3D TransformMatrix::TransformPoint(const Point3D &other) const noexcept {
   return res;
 }
 
+/**
+ * @brief Sets an element in the matrix.
+ *
+ * Allows setting a specific element in the matrix by providing the row, column,
+ * and the value. The operation is marked noexcept to ensure no exceptions are
+ * thrown.
+ *
+ * @param row The row index of the element (0-based).
+ * @param col The column index of the element (0-based).
+ * @param value The value to set in the specified position.
+ */
 void TransformMatrix::set_element(const int row, const int col,
                                   float value) noexcept {
   m_[row][col] = value;

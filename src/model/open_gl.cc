@@ -1,7 +1,7 @@
 /**
  * @file open_gl.cc
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Implementation file for the OpenGL class
  * @version 1.0
  * @date 2024-10-07
  *
@@ -15,6 +15,11 @@
 
 namespace s21 {
 
+/**
+ * @brief Constructor.
+ *
+ * Initializes the OpenGL widget and sets up necessary configurations.
+ */
 OpenGL::OpenGL() : QOpenGLWidget{} {
   allocateMemory();
   setlocale(LC_NUMERIC, "C");
@@ -22,6 +27,11 @@ OpenGL::OpenGL() : QOpenGLWidget{} {
   connect(periodic_, &QTimer::timeout, this, &OpenGL::createSnapshot);
 }
 
+/**
+ * @brief Destructor.
+ *
+ * Cleans up resources such as OpenGL buffers and shader programs.
+ */
 OpenGL::~OpenGL() {
   destroyBuffers();
   delete program_;
@@ -38,6 +48,11 @@ void OpenGL::allocateMemory() {
   periodic_ = new QTimer;
 }
 
+/**
+ * @brief Checks if OpenGL buffers are allocated.
+ *
+ * @return True if buffers are allocated, otherwise false.
+ */
 bool OpenGL::isBufferAllocate() {
   return (!vbo_->isCreated() || !ebo_->isCreated() || !vao_->isCreated())
              ? false
@@ -147,6 +162,15 @@ void OpenGL::setupProjection(int w, int h) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+/**
+ * @brief Initializes OpenGL buffers with data from the provided scene.
+ *
+ * This function creates and binds the necessary vertex and element buffers
+ * for rendering the scene.
+ *
+ * @param scene A pointer to the `Scene` object containing the data to
+ * initialize buffers.
+ */
 void OpenGL::initBuffers(Scene *scene) {
   makeCurrent();
 
@@ -179,6 +203,14 @@ void OpenGL::initBuffers(Scene *scene) {
   vao_->release();
 }
 
+/**
+ * @brief Updates the OpenGL buffers with new data from the scene.
+ *
+ * This function updates the content of the vertex and element buffers based on
+ * the provided scene's data.
+ *
+ * @param scene A pointer to the `Scene` object with updated data.
+ */
 void OpenGL::updateBuffer(Scene *scene) {
   scene->Transform(afinneCPU());
   const float *vbo_ptr{scene->vertices().begin()->position().base()};
@@ -188,6 +220,12 @@ void OpenGL::updateBuffer(Scene *scene) {
   vbo_->release();
 }
 
+/**
+ * @brief Destroys the OpenGL buffers.
+ *
+ * This function releases any allocated memory and destroys the vertex and
+ * element buffers.
+ */
 void OpenGL::destroyBuffers() {
   makeCurrent();
 
@@ -202,6 +240,14 @@ void OpenGL::destroyBuffers() {
   }
 }
 
+/**
+ * @brief Computes a transformation matrix on the CPU.
+ *
+ * Performs affine transformations (e.g., rotation, scaling, translation) on the
+ * CPU and returns the resulting transformation matrix.
+ *
+ * @return A `TransformMatrix` object representing the transformation.
+ */
 TransformMatrix OpenGL::afinneCPU() {
   TransformMatrix rotate{TransformMatrixBuilder::CreateRotationMatrix(
       data_.rotate_x, data_.rotate_y, data_.rotate_z)};
@@ -214,6 +260,14 @@ TransformMatrix OpenGL::afinneCPU() {
   return rotate * scale * move;
 }
 
+/**
+ * @brief Computes a transformation matrix on the GPU.
+ *
+ * Performs affine transformations using the GPU and returns the resulting
+ * transformation matrix as a `QMatrix4x4`.
+ *
+ * @return A `QMatrix4x4` object representing the transformation.
+ */
 QMatrix4x4 OpenGL::afinneGPU() {
   QMatrix4x4 rotate;
   QMatrix4x4 scale;
@@ -249,6 +303,12 @@ void OpenGL::createGif(const std::string &path) {
   }
 }
 
+/**
+ * @brief Captures a snapshot of the current scene.
+ *
+ * This function takes a snapshot of the current frame for later use in GIF
+ * creation.
+ */
 void OpenGL::createSnapshot() {
   ++snapshot_count_;
 
@@ -262,6 +322,11 @@ void OpenGL::createSnapshot() {
   }
 }
 
+/**
+ * @brief Combines snapshots into a GIF.
+ *
+ * This function converts a series of snapshots into a GIF animation.
+ */
 void OpenGL::snapshotsToGif() {
   bool correct = true;
 
@@ -292,10 +357,31 @@ void OpenGL::snapshotsToGif() {
   GifEnd(&writer);
 }
 
+/**
+ * @brief Handles mouse press events.
+ *
+ * Called when the user presses a mouse button within the widget.
+ *
+ * @param event A pointer to the `QMouseEvent` containing event data.
+ */
 void OpenGL::mousePressEvent(QMouseEvent *event) { emit mousePress(event); }
 
+/**
+ * @brief Handles mouse move events.
+ *
+ * Called when the user moves the mouse within the widget.
+ *
+ * @param event A pointer to the `QMouseEvent` containing event data.
+ */
 void OpenGL::mouseMoveEvent(QMouseEvent *event) { emit mouseMove(event); }
 
+/**
+ * @brief Handles mouse wheel events.
+ *
+ * Called when the user scrolls the mouse wheel within the widget.
+ *
+ * @param event A pointer to the `QWheelEvent` containing event data.
+ */
 void OpenGL::wheelEvent(QWheelEvent *event) { emit mouseWheel(event); }
 
 const char *OpenGL::kVertexShader =

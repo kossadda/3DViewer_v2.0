@@ -1,7 +1,7 @@
 /**
  * @file data.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for managing application data and configurations
  * @version 1.0
  * @date 2024-10-07
  *
@@ -22,6 +22,14 @@ enum class ProjectionType { Centrall, Parallel };
 enum class VertexType { Square, Circle, None };
 enum class FacetType { Solid, Dotted, None };
 
+/**
+ * @struct Data
+ * @brief Singleton structure for storing application settings and state.
+ *
+ * The Data structure provides a centralized way to manage application data,
+ * including transformations, rendering options, and colors. It follows the
+ * Singleton pattern to ensure a single instance throughout the application.
+ */
 struct Data {
  public:
   static Data& data() {

@@ -1,7 +1,7 @@
 /**
  * @file point_3D.h
  * @author emmonbea (moskaleviluak@icloud.com)
- * @brief Definition of a class representing a point in 3D space
+ * @brief Header file a class representing a point in 3D space
  * @version 1.0
  * @date 2024-09-16
  *
@@ -14,6 +14,16 @@
 
 namespace s21 {
 
+/**
+ * @brief Parameterized constructor.
+ *
+ * Initializes a `Point3D` object with the specified `x`, `y`, and `z`
+ * coordinates.
+ *
+ * @param x A floating-point value representing the x-coordinate.
+ * @param y A floating-point value representing the y-coordinate.
+ * @param z A floating-point value representing the z-coordinate.
+ */
 struct Point3D {
  public:
   Point3D() noexcept = default;

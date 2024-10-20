@@ -1,7 +1,8 @@
 /**
  * @file object_data.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header file for the ObjectData class, providing functionality for
+ * object properties management
  * @version 1.0
  * @date 2024-10-04
  *
@@ -25,6 +26,16 @@
 
 namespace s21 {
 
+/**
+ * @class ObjectData
+ * @brief A widget for managing the properties of graphical objects.
+ *
+ * The ObjectData class inherits from BaseWidget and provides UI elements
+ * for configuring various properties of graphical objects, including vertex
+ * types, facet types, their sizes, and colors. The class emits a signal
+ * when the object's data changes, allowing other components to react
+ * accordingly.
+ */
 class ObjectData : public BaseWidget {
   Q_OBJECT
 

@@ -1,7 +1,7 @@
 /**
  * @file main_window.cc
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Implementation of the MainWindow class
  * @version 1.0
  * @date 2024-10-04
  *
@@ -13,6 +13,9 @@
 
 namespace s21 {
 
+/**
+ * @brief Construct a new MainWindow object.
+ */
 MainWindow::MainWindow() : QWidget{} {
   loadSettings();
   allocateMemory();
@@ -31,6 +34,12 @@ void MainWindow::allocateMemory() {
   function_ = new Function;
 }
 
+/**
+ * @brief Initializes the user interface components.
+ *
+ * This method sets up the layout and initializes the various UI elements
+ * within the MainWindow.
+ */
 void MainWindow::initView() {
   QGridLayout* grid{new QGridLayout};
   setLayout(grid);
@@ -74,6 +83,11 @@ void MainWindow::initView() {
   connect(function_, &Function::reset, this, &MainWindow::resetData);
 }
 
+/**
+ * @brief Records the current data settings.
+ *
+ * This method saves the current state of data for future retrieval.
+ */
 void MainWindow::recordData() {
   rotate_->recordData();
   scale_->recordData();
@@ -85,6 +99,11 @@ void MainWindow::recordData() {
   scene_->drawScene();
 }
 
+/**
+ * @brief Resets the data in the application.
+ *
+ * This method clears the current data and restores default values.
+ */
 void MainWindow::resetData() {
   rotate_->reset();
   scale_->reset();
@@ -92,6 +111,13 @@ void MainWindow::resetData() {
 
   scene_->drawScene();
 }
+
+/**
+ * @brief Resets all components of the application.
+ *
+ * This method resets the application state to its initial configuration,
+ * including UI elements and internal data.
+ */
 
 void MainWindow::resetAll() {
   rotate_->reset();
@@ -103,11 +129,24 @@ void MainWindow::resetAll() {
   scene_->drawScene();
 }
 
+/**
+ * @brief Override for the close event.
+ *
+ * This method is called when the main window is requested to close.
+ * It allows for cleanup operations before the window is closed.
+ *
+ * @param event The close event.
+ */
 void MainWindow::closeEvent(QCloseEvent* event) {
   saveSettings();
   QWidget::closeEvent(event);
 }
 
+/**
+ * @brief Saves user settings to persistent storage.
+ *
+ * This method stores the current application settings using QSettings.
+ */
 void MainWindow::saveSettings() {
   QSettings settings("3DViewer", "3DViewerApp");
 
@@ -124,6 +163,11 @@ void MainWindow::saveSettings() {
   settings.setValue("file_path", QString::fromStdString(data_.path));
 }
 
+/**
+ * @brief Loads user settings from persistent storage.
+ *
+ * This method retrieves and applies stored settings from QSettings.
+ */
 void MainWindow::loadSettings() {
   QSettings settings("3DViewer", "3DViewerApp");
 
