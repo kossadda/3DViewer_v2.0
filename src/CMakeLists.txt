@@ -8,10 +8,16 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS OpenGL)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS OpenGLWidgets)
+find_package(Qt6 QUIET COMPONENTS Widgets OpenGL OpenGLWidgets)
+
+if(Qt6_FOUND)
+    set(QT_VERSION_MAJOR 6)
+    set(QT_LIBRARIES Qt6::Widgets Qt6::OpenGL Qt6::OpenGLWidgets)
+else()
+    find_package(Qt5 REQUIRED COMPONENTS Widgets OpenGL OpenGLWidgets)
+    set(QT_VERSION_MAJOR 5)
+    set(QT_LIBRARIES Qt5::Widgets Qt5::OpenGL Qt5::OpenGLWidgets)
+endif()
 
 set(MODEL_DIR ${CMAKE_SOURCE_DIR}/model)
 set(VIEW_DIR ${CMAKE_SOURCE_DIR}/view)
@@ -68,7 +74,7 @@ set(VIEW_HEADERS
   ${INCLUDE_DIR}/view/scene_view.h
   ${INCLUDE_DIR}/view/function.h
   ${INCLUDE_DIR}/view/slider.h
-  ${INCLUDE_DIR}/view/style.h  
+  ${INCLUDE_DIR}/view/style.h
 )
 
 set(CONTROLLER
@@ -105,15 +111,10 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Werror -Wextra -g)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::OpenGL)
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::OpenGLWidgets)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${QT_LIBRARIES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_SOURCE_DIR}/modules/include
 )
 
-qt_finalize_executable(${PROJECT_NAME})
-
-# enable_testing()
-# add_subdirectory(tests)
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
